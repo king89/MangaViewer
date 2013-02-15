@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="7b0e8f21-1b30-4488-b607-240c19941db2" Publisher="CN=Liang" Version="1.0.0.0" />
+  <Properties>
+    <DisplayName>MangaViewer</DisplayName>
+    <PublisherDisplayName>Liang</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.2.1</OSMinVersion>
+    <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="MangaViewer.App">
+      <VisualElements DisplayName="MangaViewer" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="MangaViewer" ForegroundText="light" BackgroundColor="#DA1414">
+        <DefaultTile ShowName="allLogos" WideLogo="Assets\WideLogo.png" />
+        <SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#DA1414" />
+      </VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>
