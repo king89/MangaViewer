@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using MangaViewer.Foundation.Common;
+using MangaViewer.Service;
 
 namespace MangaViewer
 {
@@ -32,7 +33,7 @@ namespace MangaViewer
                 return resourceLoader ?? (resourceLoader = new ResourceLoader());
             }
         }
-
+        public static MangaService MyMangaService;
         public static NavigationService NavigationService;
 
         /// <summary>
@@ -43,6 +44,8 @@ namespace MangaViewer
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            MyMangaService = new MangaService(); 
         }
 
         /// <summary>

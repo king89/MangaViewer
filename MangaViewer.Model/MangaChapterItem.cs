@@ -8,10 +8,11 @@ namespace MangaViewer.Model
 {
     public class MangaChapterItem : CommonItem
     {
-        public MangaChapterItem(string uniqueId, string title, string imagePath, string description, string subtitle,string url)
-            : base(uniqueId, title, subtitle, imagePath, description)
+        public MangaChapterItem(string uniqueId, string title, string imagePath, string description, string menu,string url)
+            : base(uniqueId, title, string.Empty, imagePath, description)
         {
             _url = url;
+            _menu = menu;
         }
 
         private string _url = string.Empty;
@@ -24,6 +25,20 @@ namespace MangaViewer.Model
                 {
                     this._url = value;
                     RaisePropertyChanged(() => Url);
+                }
+            }
+        }
+
+        private string _menu = string.Empty;
+        public string Menu
+        {
+            get { return this._menu; }
+            set
+            {
+                if (_menu != value)
+                {
+                    this._menu = value;
+                    RaisePropertyChanged(() => Menu);
                 }
             }
         }

@@ -28,7 +28,8 @@ namespace MangaViewer.View
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            ViewModelLocator.AppViewModel.Main.MenuGroups[0].Items[0].SetImage("http://localhost:8800/image/Hub/hub-BizPromotion.png");
+            MangaMenuItem mi = (MangaMenuItem)(ViewModelLocator.AppViewModel.Main.MenuGroups[0].Items[0]);
+            mi.SetImage("http://localhost:8800/image/Hub/hub-BizPromotion.png");
         }
 
        

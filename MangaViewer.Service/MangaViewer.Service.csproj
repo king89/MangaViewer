@@ -100,10 +100,17 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <ProjectReference Include="..\MangaViewer.Model\MangaViewer.Model.csproj">
+      <Project>{ce732bbf-1091-4040-b984-773f14441b33}</Project>
+      <Name>MangaViewer.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PatternBase.cs" />
-    <Compile Include="WebSiteBase.cs" />
+    <Compile Include="FileService.cs" />
+    <Compile Include="Base.cs" />
+    <Compile Include="MangaService.cs" />
+    <Compile Include="WebIManhua.cs" />
+    <Compile Include="WebSiteAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

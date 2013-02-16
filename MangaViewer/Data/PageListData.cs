@@ -23,5 +23,10 @@ namespace MangaViewer.Data
                 _pageListData.Add(new MangaPageItem("page-" + i, i.ToString(), "http://localhost:8800/image/Hub/Hub-Product.jpg", string.Empty, "海贼王", "http://www.imanhua.com/comic/55/list_78283.html"));
             }
         }
+        public PageListData(ObservableCollection<MangaPageItem> data)
+        {
+            _pageListData = data;
+        }
+
     }
 }
