@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using MangaViewer.Model;
 
 namespace MangaViewer.Service
 {
-    public static class WebSiteAccess
+    public class WebSiteAccess
     {
         static Dictionary<WebSiteEnum, string> WebSiteList = null;
         static WebSiteEnum WebSiteType;
         WebSiteAccess()
         {
+            //可以写到配置
             WebSiteList.Add(WebSiteEnum.IManhua,"WebIManhua");
             WebSiteList.Add(WebSiteEnum.Comic131,"WebComic131");
         }
@@ -26,11 +28,6 @@ namespace MangaViewer.Service
         }
     }
 
-    public enum WebSiteEnum
-    {
 
-        IManhua=0,
 
-        Comic131=1
-    }
 }

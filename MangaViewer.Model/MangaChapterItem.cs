@@ -8,7 +8,7 @@ namespace MangaViewer.Model
 {
     public class MangaChapterItem : CommonItem
     {
-        public MangaChapterItem(string uniqueId, string title, string imagePath, string description, string menu,string url)
+        public MangaChapterItem(string uniqueId, string title, string imagePath, string description, MangaMenuItem menu,string url)
             : base(uniqueId, title, string.Empty, imagePath, description)
         {
             _url = url;
@@ -29,8 +29,8 @@ namespace MangaViewer.Model
             }
         }
 
-        private string _menu = string.Empty;
-        public string Menu
+        private MangaMenuItem _menu = null;
+        public MangaMenuItem Menu
         {
             get { return this._menu; }
             set

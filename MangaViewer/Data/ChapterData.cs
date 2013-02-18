@@ -20,7 +20,7 @@ namespace MangaViewer.Data
         {
             for (int i = 100; i > 0; i--)
             {
-                _chapterData.Add(new MangaChapterItem("chpt-" + i, i + "话", string.Empty, string.Empty, "海贼王", "http://www.imanhua.com/comic/55/list_78283.html"));
+                //_chapterData.Add(new MangaChapterItem("chpt-" + i, i + "话", string.Empty, string.Empty, "海贼王", "http://www.imanhua.com/comic/55/list_78283.html"));
             }
         }
     }

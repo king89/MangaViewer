@@ -100,6 +100,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <ProjectReference Include="..\MangaViewer.Foundation\MangaViewer.Foundation.csproj">
+      <Project>{44a290b4-7c31-4923-ab74-beb4dddac315}</Project>
+      <Name>MangaViewer.Foundation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MangaViewer.Model\MangaViewer.Model.csproj">
       <Project>{ce732bbf-1091-4040-b984-773f14441b33}</Project>
       <Name>MangaViewer.Model</Name>
@@ -109,12 +113,24 @@
     <Compile Include="FileService.cs" />
     <Compile Include="Base.cs" />
     <Compile Include="MangaService.cs" />
-    <Compile Include="WebIManhua.cs" />
+    <Compile Include="WebSitePatterns\WebComic131.cs" />
+    <Compile Include="WebSitePatterns\WebIManhua.cs" />
     <Compile Include="WebSiteAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight.Extras.Win8">
+      <HintPath>..\MangaViewer\_dll\GalaSoft.MvvmLight.Extras.Win8.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Win8">
+      <HintPath>..\MangaViewer\_dll\GalaSoft.MvvmLight.Win8.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

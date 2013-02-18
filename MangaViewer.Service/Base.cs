@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using MangaViewer.Model;
 
 namespace MangaViewer.Service
 {
@@ -14,14 +15,16 @@ namespace MangaViewer.Service
         protected int startNum = 1;
         protected int totalNum = 1;
         protected string firstPageHtml = null;
-        /// <summary>
-        ///   Page
-        /// </summary>
+/*
+//  
+//  Page
+// 
+*/
         public virtual List<string> GetPageList(string firstPageUrl) { return null; }
         public virtual string GetImageUrl(string pageUrl) { return null; }
+        public virtual Uri GetImageByImageUrl(MangaPageItem page,SaveType saveType=SaveType.Temp) { return null; }
         public virtual int InitSomeArgs(string firstPageUrl) { return 0; }
-        public virtual void DownloadOnePage(string pageUrl,string folder,int nowPageNum) { return; }
-
+      //public virtual void DownloadOnePage(string pageUrl,string folder,int nowPageNum) { return; }
         public virtual string GetFirstPageHtml(string firstPageUrl)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(firstPageUrl);
@@ -32,17 +35,28 @@ namespace MangaViewer.Service
                 return html;
             }
         }
-        /// <summary>
-        ///   Chapter
-        /// </summary>
+        public virtual int GetTotalNum(string html)
+        {
+            Regex r = new Regex("value=\"[0-9]+\"");
+            MatchCollection m = r.Matches(html);
+            return m.Count;
+        }
+
+/*
+// 
+//  Chapter
+//  
+*/
         public virtual List<string> GetChapterList() { return null; }
 
-        /// <summary>
-        ///   Menu
-        /// </summary>
+/*
+//  
+//  Menu
+// 
+*/
         public virtual List<string> GetTopMangaList() { return null; }
         public virtual List<string> GetNewMangaList() { return null; }
     }
 
-   
+
 }

@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,6 +23,19 @@ namespace MangaViewer.Service
             WebType = type;
         }
 
+        /// <summary>
+        ///   get web image and save into temp folder, return local path uri
+        /// </summary>
+        public Task<Uri> GetIamgeByImageUrl(MangaPageItem page)
+        {
+            return Task.Run<Uri>(() => 
+            { 
+                //Get Image
+                MangaPattern mPattern = WebSiteAccess.GetMangaPatternInstance(WebType);
+                return mPattern.GetImageByImageUrl(page); 
+            });
+        }
+
         public Task<ObservableCollection<MangaPageItem>> GetPageList(MangaChapterItem chapter)
         {
 
@@ -33,7 +48,7 @@ namespace MangaViewer.Service
                 for (int i = 1; i <= pageUrlList.Count; i++)
                 {
                     string imagePath = mPattern.GetImageUrl(pageUrlList[i]);
-                    mangaPageList.Add(new MangaPageItem("page-" + i, i.ToString(), imagePath, pageUrlList[i], chapter.Title, chapter.Menu));
+                    mangaPageList.Add(new MangaPageItem("page-" + i,  imagePath, pageUrlList[i], chapter, i,pageUrlList.Count));
 
                 }
                 return mangaPageList;

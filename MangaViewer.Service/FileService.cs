@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MangaViewer.Model;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +17,7 @@ namespace MangaViewer.Service
         static CreationCollisionOption CreateOptionReplace = Windows.Storage.CreationCollisionOption.ReplaceExisting;
         static CreationCollisionOption CreateOptionOpen = Windows.Storage.CreationCollisionOption.OpenIfExists;
 
-        public static async Task<string> SaveMangaInTemp(string folderPath, string fileName, byte[] buffer)
+        public static async Task<string> SaveFileInTemp(string folderPath, string fileName, byte[] buffer)
         {
 
             StorageFolder saveFolder = await tempFolder.CreateFolderAsync(folderPath, CreateOptionOpen);
@@ -24,9 +26,30 @@ namespace MangaViewer.Service
 
             await Windows.Storage.FileIO.WriteBytesAsync(file, buffer);
 
-           string resultPath = file.Path;
+            string resultPath = file.Path;
 
             return resultPath;
+        }
+
+        public static async Task<string> SaveFile(Stream stream,int count, string folder,string fileName,SaveType saveType)
+        {
+
+            byte[] buffer = new byte[count];
+            int c = stream.Read(buffer, 0, (int)count);
+            switch (saveType)
+            {
+                case SaveType.Temp:
+                    {
+                       return await SaveFileInTemp(folder, fileName, buffer);
+                    }
+                case SaveType.Local:
+                    {
+                        //
+                        return null;
+                    }
+                default: return null;
+            }
+
         }
     }
 }

@@ -11,13 +11,12 @@ namespace MangaViewer.Model
     public class MangaPageItem : CommonItem
     {
         private static Uri _baseUri = new Uri("ms-appx:///");
-        public MangaPageItem(string uniqueId, string pageNum, string imagePath, string pageUrl, string chapter, string menu)
+        public MangaPageItem(string uniqueId, string imagePath, string pageUrl, MangaChapterItem chapter,int pageNum,int totalPage)
             : base(uniqueId, string.Empty, string.Empty, imagePath, string.Empty)
         {
             _pageUrl = pageUrl;
             _imagePath = imagePath;
             _chapter = chapter;
-            _menu = menu;
         }
 
         public MangaPageItem()
@@ -26,6 +25,34 @@ namespace MangaViewer.Model
         }
 
         #region Property
+
+        private int _pageNum = 0;
+        public int PageNum
+        {
+            get { return this._pageNum; }
+            set
+            {
+                if (_pageNum != value)
+                {
+                    this._pageNum = value;
+                    RaisePropertyChanged(() => PageNum);
+                }
+            }
+        }
+
+        private int _totalNum = 0;
+        public int TotalNum
+        {
+            get { return this._totalNum; }
+            set
+            {
+                if (_totalNum != value)
+                {
+                    this._totalNum = value;
+                    RaisePropertyChanged(() => TotalNum);
+                }
+            }
+        }
 
         private string _pageUrl = string.Empty;
         public string PageUrl
@@ -40,8 +67,8 @@ namespace MangaViewer.Model
                 }
             }
         }
-        private string _chapter = string.Empty;
-        public string Chapter
+        private MangaChapterItem _chapter = null;
+        public MangaChapterItem Chapter
         {
             get { return this._chapter; }
             set
@@ -50,20 +77,6 @@ namespace MangaViewer.Model
                 {
                     this._chapter = value;
                     RaisePropertyChanged(() => Chapter);
-                }
-            }
-        }
-
-        private string _menu = string.Empty;
-        public string Menu
-        {
-            get { return this._menu; }
-            set
-            {
-                if (_menu != value)
-                {
-                    this._menu = value;
-                    RaisePropertyChanged(() => Menu);
                 }
             }
         }
