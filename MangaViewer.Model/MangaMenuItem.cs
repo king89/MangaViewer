@@ -14,6 +14,12 @@ namespace MangaViewer.Model
         private static Uri _baseUri = new Uri("ms-appx:///");
         private int col = 75;
         private int row = 150;
+        public static MangaMenuItem CreateADemo()
+        {
+            Size si = new Size();
+            return new MangaMenuItem("menu-1", "Titel", string.Empty, string.Empty, string.Empty, string.Empty, null, string.Empty, si, string.Empty);
+        }
+
         public MangaMenuItem(string uniqueId, string title, string subtitle, string imagePath, string description, string content, HubMenuGroup group, string link, Size size, string titleBackground)
             : base(uniqueId, title, subtitle, imagePath, description,content,group,link,size,titleBackground)
         {

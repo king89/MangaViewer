@@ -23,6 +23,7 @@ using MangaViewer.Common;
 using MangaViewer.Foundation.Helper;
 using MangaViewer.Foundation.Interactive;
 using MangaViewer.View;
+using MangaViewer.Service;
 
 
 namespace MangaViewer.ViewModel
@@ -30,6 +31,7 @@ namespace MangaViewer.ViewModel
 
     public class MainViewModel : ViewModelBase
     {
+
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -82,17 +84,39 @@ namespace MangaViewer.ViewModel
         }
         #endregion
         #region PageList
-        PageListData pageListData;
-        public ObservableCollection<MangaPageItem> PageList
+        ObservableCollection<MangaPageItem> _pageListData;
+        public  ObservableCollection<MangaPageItem> PageList
         {
             get
             {
-                if (pageListData == null)
-                    pageListData = new PageListData();
+                //Demo
+                if (_pageListData == null)
+                    _pageListData = new PageListData().PageList;
 
-                return pageListData.PageList;
+                return _pageListData;
+
+
+            }
+            set 
+            {
+                _pageListData = value;
+                RaisePropertyChanged(() => PageList);
             }
         }
+        MangaPageItem _selectedPage = null;
+        public MangaPageItem SelectedPage
+        {
+            get 
+            {
+                return _selectedPage;
+            }
+            set
+            { 
+                _selectedPage = value;
+                RaisePropertyChanged(() => SelectedPage);
+            }
+        }
+        
         #endregion
         #region CoverImage
         public ImageSource CoverImage
@@ -107,34 +131,64 @@ namespace MangaViewer.ViewModel
         }
         #endregion
 
-        private RelayCommand<ExCommandParameter> _hubCommand;
-        public RelayCommand<ExCommandParameter> HubCommand
+        private RelayCommand<ExCommandParameter> _menuSelectedCommand;
+        public RelayCommand<ExCommandParameter> MenuSelectedCommand
         {
             get
             {
-                return _hubCommand ?? (_hubCommand = new RelayCommand<ExCommandParameter>((ep) =>
+                return _menuSelectedCommand ?? (_menuSelectedCommand = new RelayCommand<ExCommandParameter>((ep) =>
                     {
                         ItemClickEventArgs e = ep.EventArgs as ItemClickEventArgs;
-                        HubMenuItem selectedMenu = e.ClickedItem as HubMenuItem;
-                        App.NavigationService.Navigate(typeof(ChapterPage), selectedMenu);
+                        _selectedMenu = e.ClickedItem as MangaMenuItem;
+                        App.NavigationService.Navigate(typeof(ChapterPage), _selectedMenu);
 
                       
                     }));
             }
         }
 
-        private RelayCommand<ExCommandParameter> _chapterCommand;
-        public RelayCommand<ExCommandParameter> ChapterCommand
+        private RelayCommand<ExCommandParameter> _chapterSelectedCommand;
+        public RelayCommand<ExCommandParameter> ChapterSelectedCommand
         {
             get
             {
-                return _chapterCommand ?? (_chapterCommand = new RelayCommand<ExCommandParameter>((ep) =>
+                return _chapterSelectedCommand ?? (_chapterSelectedCommand = new RelayCommand<ExCommandParameter>( (ep) =>
                 {
                     ItemClickEventArgs e = ep.EventArgs as ItemClickEventArgs;
-                    CommonItem selectedMenu = e.ClickedItem as CommonItem;
-                    App.NavigationService.Navigate(typeof(MangaImgPage), selectedMenu);
+                    _selectedChapter = e.ClickedItem as MangaChapterItem;
+                    App.NavigationService.Navigate(typeof(MangaImgPage), _selectedChapter);
                 }));
             }
         }
+
+        private RelayCommand<ExCommandParameter> _pageSelectedCommand;
+        public RelayCommand<ExCommandParameter> PageSelectedCommand
+        {
+            get
+            {
+                return _pageSelectedCommand ?? (_pageSelectedCommand = new RelayCommand<ExCommandParameter>(async (ep) =>
+                {
+                    ItemClickEventArgs e = ep.EventArgs as ItemClickEventArgs;
+                    _selectedPage = e.ClickedItem as MangaPageItem;
+                     string path = await App.MyMangaService.GetIamgeByImageUrl(_selectedPage);
+                    _selectedPage.SetImage(path);
+                }));
+            }
+        }
+
+        //some private var
+        MangaMenuItem _selectedMenu = null;
+        public MangaMenuItem SelectedMenu
+        {
+            get { return _selectedMenu; }
+            set { _selectedMenu = value; }
+        }
+        MangaChapterItem _selectedChapter = null;
+        public MangaChapterItem SelectedChapter
+        {
+            get { return _selectedChapter; }
+            set { _selectedChapter = value; }
+        }
+
     }
 }

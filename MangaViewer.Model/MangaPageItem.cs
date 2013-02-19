@@ -104,5 +104,12 @@ namespace MangaViewer.Model
             }
         } 
         #endregion
+
+        public new void SetImage(String path)
+        {
+            this._image = null;
+            this._imagePath = path;
+            this.RaisePropertyChanged(() => Image);
+        }
     }
 }

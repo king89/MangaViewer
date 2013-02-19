@@ -64,8 +64,8 @@
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
         </Grid>-->
         <Grid>
-            <FlipView ItemsSource="{Binding Main.PageList}" ItemTemplate="{StaticResource FilpImageDataTemplate}" ScrollViewer.ZoomMode="Enabled"  >
-            <i:EventToCommand Command="{Binding Main.ChapterCommand}" CommandParameter="Test"  Event="SelectionChanged"/>
+            <FlipView Name="ImageFlipView" ItemsSource="{Binding Main.PageList}"  ItemTemplate="{StaticResource FilpImageDataTemplate}" ScrollViewer.ZoomMode="Enabled" SelectionChanged="FlipView_SelectionChanged_1" >
+                <!--<i:EventToCommand Command="{Binding Main.PageSelectedCommand}" CommandParameter="Test"  Event="SelectionChanged"/>-->
             </FlipView>
         </Grid>
         <VisualStateManager.VisualStateGroups>

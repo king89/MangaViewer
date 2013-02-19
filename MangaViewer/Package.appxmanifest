@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="7b0e8f21-1b30-4488-b607-240c19941db2" Publisher="CN=Liang" Version="1.0.0.0" />
+  <Identity Name="7b0e8f21-1b30-4488-b607-240c19941db2" Publisher="CN=v-yimli" Version="1.0.0.0" />
   <Properties>
     <DisplayName>MangaViewer</DisplayName>
     <PublisherDisplayName>Liang</PublisherDisplayName>

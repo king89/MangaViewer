@@ -97,7 +97,7 @@
                 </control:HubGridView.GroupStyle>
 
                 <i:EventToCommandCollection.Items>
-                    <i:EventToCommand Command="{Binding Main.HubCommand}" CommandParameter="Test"  Event="ItemClick"/>
+                    <i:EventToCommand Command="{Binding Main.MenuSelectedCommand}" CommandParameter="Test"  Event="ItemClick"/>
                 </i:EventToCommandCollection.Items>
 
             </control:HubGridView>

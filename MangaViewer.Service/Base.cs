@@ -22,7 +22,7 @@ namespace MangaViewer.Service
 */
         public virtual List<string> GetPageList(string firstPageUrl) { return null; }
         public virtual string GetImageUrl(string pageUrl) { return null; }
-        public virtual Uri GetImageByImageUrl(MangaPageItem page,SaveType saveType=SaveType.Temp) { return null; }
+        public virtual string GetImageByImageUrl(MangaPageItem page,SaveType saveType=SaveType.Temp) { return null; }
         public virtual int InitSomeArgs(string firstPageUrl) { return 0; }
       //public virtual void DownloadOnePage(string pageUrl,string folder,int nowPageNum) { return; }
         public virtual string GetFirstPageHtml(string firstPageUrl)
@@ -39,7 +39,9 @@ namespace MangaViewer.Service
         {
             Regex r = new Regex("value=\"[0-9]+\"");
             MatchCollection m = r.Matches(html);
-            return m.Count;
+            r = new Regex("[0-9]+");
+            m = r.Matches(m[m.Count-1].Value);
+            return Int32.Parse(m[0].Value);
         }
 
 /*

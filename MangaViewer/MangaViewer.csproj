@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>MangaViewer_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>26757E6F698D61A694A437DA2ECE8C5CC8028971</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>289775CBC9F6EE450F148D5F9BC5E87342921FCB</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

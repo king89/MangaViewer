@@ -60,7 +60,7 @@
                       IsItemClickEnabled="True"
                       >
                 <i:EventToCommandCollection.Items>
-                    <i:EventToCommand Command="{Binding Main.ChapterCommand}" CommandParameter="Test"  Event="ItemClick"/>
+                    <i:EventToCommand Command="{Binding Main.ChapterSelectedCommand}" CommandParameter="Test"  Event="ItemClick"/>
                 </i:EventToCommandCollection.Items>
             </GridView>
 

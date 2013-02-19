@@ -33,7 +33,7 @@ namespace MangaViewer.Service
             return pageList;
         }
 
-        public override Uri GetImageByImageUrl(MangaPageItem page, SaveType saveType = SaveType.Temp)
+        public override string GetImageByImageUrl(MangaPageItem page, SaveType saveType = SaveType.Temp)
         {
             string imgUrl = GetImageUrl(page.PageUrl);
             //Get Image
@@ -50,7 +50,7 @@ namespace MangaViewer.Service
             var res = request.GetResponseAsync();
             HttpWebResponse myResponse = (HttpWebResponse)res.Result; 
 
-            return new Uri(""); 
+            return ""; 
         }
 
         public override string GetImageUrl(string pageUrl)

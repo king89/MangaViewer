@@ -10,13 +10,13 @@ namespace MangaViewer.Service
 {
     public class WebSiteAccess
     {
-        static Dictionary<WebSiteEnum, string> WebSiteList = null;
+        static Dictionary<WebSiteEnum, string> WebSiteList = new Dictionary<WebSiteEnum, string>(){{ WebSiteEnum.IManhua, "WebIManhua" },{WebSiteEnum.Comic131,"WebComic131"}};
         static WebSiteEnum WebSiteType;
         WebSiteAccess()
         {
             //可以写到配置
-            WebSiteList.Add(WebSiteEnum.IManhua,"WebIManhua");
-            WebSiteList.Add(WebSiteEnum.Comic131,"WebComic131");
+            //WebSiteList.Add(WebSiteEnum.IManhua,"WebIManhua");
+            //WebSiteList.Add(WebSiteEnum.Comic131,"WebComic131");
         }
         public static MangaPattern GetMangaPatternInstance(WebSiteEnum type)
         {
