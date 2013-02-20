@@ -18,9 +18,10 @@ namespace MangaViewer.Data
 
         public PageListData()
         {
+            MangaChapterItem chpter = new MangaChapterItem();
             for (int i = 1; i <= 20; i++)
             {
-                //_pageListData.Add(new MangaPageItem("page-" + i, "http://localhost:8800/image/Hub/Hub-Product.jpg", string.Empty, "海贼王", "http://www.imanhua.com/comic/55/list_78283.html"));
+                _pageListData.Add(new MangaPageItem("page-" + i, "http://localhost:8800/image/Hub/Hub-Product.jpg", string.Empty, chpter,i,20));
             }
         }
         public PageListData(ObservableCollection<MangaPageItem> data)

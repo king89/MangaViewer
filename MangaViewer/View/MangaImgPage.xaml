@@ -6,31 +6,45 @@
     xmlns:common="using:MangaViewer.Foundation.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:conv="using:MangaViewer.Foundation.Converter"
     mc:Ignorable="d"
     xmlns:i="using:MangaViewer.Foundation.Interactive"
     DataContext="{Binding Source={StaticResource Locator}, Path=AppViewModel}"
     >
     <Page.Resources>
+        <conv:BoolVisibilityConverter x:Key="VisibilityConverter"/>
         <x:String x:Key="AppName">MangaImgPage</x:String>
         <DataTemplate x:Key="FilpImageDataTemplate">
 
-            <UserControl Loaded="StartLayoutUpdates" Unloaded="StopLayoutUpdates">
+            <UserControl Loaded="StartLayoutUpdates" Unloaded="StopLayoutUpdates" >
                 <Grid>
-                <TextBlock Text="{Binding Title}" />
-                <ScrollViewer x:Name="scrollViewer" Style="{StaticResource VerticalScrollViewerStyle}" Grid.Row="1" ZoomMode="Enabled">
-                    
-
-                    <Image Source="{Binding Image}" ScrollViewer.ZoomMode="Enabled" ></Image>
-                </ScrollViewer>
+                    <TextBlock Text="{Binding Title}" />
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                        <ProgressRing  IsActive="True" Height="40" Width="40" Margin="0,0,20,0" Visibility="{Binding IsLoadedImage,Converter={StaticResource VisibilityConverter}}"/>
+                        <TextBlock Text="Loading Image"   FontSize="50" Visibility="{Binding IsLoadedImage,Converter={StaticResource VisibilityConverter}}"/>
+                    </StackPanel>
+                    <ScrollViewer x:Name="scrollViewer" Style="{StaticResource VerticalScrollViewerStyle}" Grid.Row="1" ZoomMode="Enabled" >
+                        <Image Source="{Binding Image}" ScrollViewer.ZoomMode="Enabled" ></Image>
+                    </ScrollViewer>
                 </Grid>
             </UserControl>
         </DataTemplate>
     </Page.Resources>
     <Page.TopAppBar>
         <AppBar  Background="Gray">
-            <Grid>
-                <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" FontSize="36" Margin="50,0,0,0"/>
+            <Grid Height="140">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
+                <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Grid.Column="1" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>
             </Grid>
+
+            <!--<StackPanel Orientation ="Horizontal" Height="140">
+                <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}" Margin="0,0,0,0"/>
+                <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" FontSize="36" Margin="50,0,0,0" VerticalAlignment="Center"/>
+            </StackPanel>-->
         </AppBar>
     </Page.TopAppBar>
     <Page.BottomAppBar>
@@ -40,10 +54,9 @@
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}" Margin="36,0,0,36"/>
                 <Button Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource AppBarButtonStyle}" />
             </Grid>
-            
+
         </AppBar>
     </Page.BottomAppBar>
 
@@ -64,7 +77,11 @@
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
         </Grid>-->
         <Grid>
-            <FlipView Name="ImageFlipView" ItemsSource="{Binding Main.PageList}"  ItemTemplate="{StaticResource FilpImageDataTemplate}" ScrollViewer.ZoomMode="Enabled" SelectionChanged="FlipView_SelectionChanged_1" >
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <ProgressRing Name="LoadingPageListRing"  IsActive="True" Height="40" Width="40" Margin="0,0,20,0" ></ProgressRing>
+                <TextBlock Name="LoadingTB" Text="Loading Page List" FontSize="50"></TextBlock>
+            </StackPanel>
+            <FlipView Name="ImageFlipView" ItemsSource="{Binding Main.PageList}"  ItemTemplate="{StaticResource FilpImageDataTemplate}" ScrollViewer.ZoomMode="Enabled" SelectionChanged="FlipView_SelectionChanged_1" Margin="10,0,-10,0" >
                 <!--<i:EventToCommand Command="{Binding Main.PageSelectedCommand}" CommandParameter="Test"  Event="SelectionChanged"/>-->
             </FlipView>
         </Grid>

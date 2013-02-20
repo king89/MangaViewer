@@ -22,7 +22,7 @@ namespace MangaViewer.Service
         {
             if (firstPageHtml == null)
             {
-                firstPageHtml = GetFirstPageHtml(firstPageUrl);
+                firstPageHtml = GetPageHtml(firstPageUrl);
             }
             totalNum = GetTotalNum(firstPageHtml);
             List<string> pageList = new List<string>();
@@ -57,7 +57,7 @@ namespace MangaViewer.Service
         {
             if (firstPageHtml == null)
             {
-                firstPageHtml = GetFirstPageHtml(pageUrl);
+                firstPageHtml = GetPageHtml(pageUrl);
             }
             int nowNum = -1;
             Int32.TryParse(pageUrl.Substring(pageUrl.LastIndexOf("=") + 1), out nowNum);

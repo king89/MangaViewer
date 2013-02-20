@@ -42,7 +42,7 @@ namespace MangaViewer.View
         {
             MangaChapterItem chapterItem = navigationParameter as MangaChapterItem;
             pageTitle.Text = chapterItem.Subtitle + " " + chapterItem.Title;
-           
+            ViewModelLocator.AppViewModel.Main.PageList = null;
            
         }
 
@@ -59,24 +59,23 @@ namespace MangaViewer.View
         async void GetPageList()
         {
             //有网络
-            //ObservableCollection<MangaPageItem> pageItem = await App.MyMangaService.GetPageList(ViewModelLocator.AppViewModel.Main.SelectedChapter);
-            //ViewModelLocator.AppViewModel.Main.PageList = pageItem;
+            ObservableCollection<MangaPageItem> pageItem = await App.MyMangaService.GetPageList(ViewModelLocator.AppViewModel.Main.SelectedChapter);
+            LoadingTB.Visibility = Visibility.Collapsed;
+            LoadingPageListRing.Visibility = Visibility.Collapsed;
+            ViewModelLocator.AppViewModel.Main.PageList = pageItem;
 
-            //没网络
-            ViewModelLocator.AppViewModel.Main.PageList = new MangaViewer.Data.PageListData().PageList;
+            ////没网络
+            //ViewModelLocator.AppViewModel.Main.PageList = new MangaViewer.Data.PageListData().PageList;
         }
-        object sync = new object();
-        private  void FlipView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        private async void FlipView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            lock (sync)
-            {
                 MangaPageItem selectPage = (MangaPageItem)ImageFlipView.SelectedItem;
-                if (selectPage != null)
+                if (selectPage != null && !selectPage.IsLoadedImage)
                 {
-                    string path = App.MyMangaService.GetIamgeByImageUrl(selectPage).Result;
+                    var path = await App.MyMangaService.GetIamgeByImageUrl(selectPage);
                     ((MangaPageItem)selectPage).SetImage(path);
                 }
-            }
+
         }
     }
 }

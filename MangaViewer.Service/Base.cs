@@ -25,9 +25,11 @@ namespace MangaViewer.Service
         public virtual string GetImageByImageUrl(MangaPageItem page,SaveType saveType=SaveType.Temp) { return null; }
         public virtual int InitSomeArgs(string firstPageUrl) { return 0; }
       //public virtual void DownloadOnePage(string pageUrl,string folder,int nowPageNum) { return; }
-        public virtual string GetFirstPageHtml(string firstPageUrl)
+        public virtual string GetPageHtml(string firstPageUrl)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(firstPageUrl);
+            string UserAgent = "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.56 Safari/536.5";
+            request.Headers["UserAgent"] = UserAgent;
             var myResponse = request.GetResponseAsync();
             using (StreamReader reader = new StreamReader(myResponse.Result.GetResponseStream()))
             {

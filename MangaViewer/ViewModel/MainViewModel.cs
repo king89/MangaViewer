@@ -90,8 +90,8 @@ namespace MangaViewer.ViewModel
             get
             {
                 //Demo
-                if (_pageListData == null)
-                    _pageListData = new PageListData().PageList;
+                //if (_pageListData == null)
+                //    _pageListData = new PageListData().PageList;
 
                 return _pageListData;
 
