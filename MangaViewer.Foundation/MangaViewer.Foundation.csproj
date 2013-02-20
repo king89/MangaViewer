@@ -121,6 +121,7 @@
     <Compile Include="Controls\RichTextColumns.cs" />
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converter\DateTimeValueConverter.cs" />
+    <Compile Include="Converter\PageNumConverter.cs" />
     <Compile Include="Converter\StringFormatConverter.cs" />
     <Compile Include="Converter\VisibilityConverter.cs" />
     <Compile Include="Extention\SecurityExtention.cs" />

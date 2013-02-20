@@ -29,9 +29,24 @@
                 </Grid>
             </UserControl>
         </DataTemplate>
+
+        <Storyboard x:Name="ShowPageNumStoryboard">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ShowPageGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <!--<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="page">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>-->
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="ShowPageGrid">
+                <EasingColorKeyFrame KeyTime="0" Value="Gray"/>
+                <EasingColorKeyFrame KeyTime="0:0:2" Value="#00000000"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
     </Page.Resources>
     <Page.TopAppBar>
-        <AppBar  Background="Gray">
+        <AppBar  Background="Gray" IsOpen="True">
             <Grid Height="140">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -48,7 +63,7 @@
         </AppBar>
     </Page.TopAppBar>
     <Page.BottomAppBar>
-        <AppBar  Background="Gray">
+        <AppBar  Background="Gray" IsOpen="True">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
@@ -77,13 +92,25 @@
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
         </Grid>-->
         <Grid>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+            <StackPanel Name="LoadingStack"  HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                 <ProgressRing Name="LoadingPageListRing"  IsActive="True" Height="40" Width="40" Margin="0,0,20,0" ></ProgressRing>
                 <TextBlock Name="LoadingTB" Text="Loading Page List" FontSize="50"></TextBlock>
             </StackPanel>
-            <FlipView Name="ImageFlipView" ItemsSource="{Binding Main.PageList}"  ItemTemplate="{StaticResource FilpImageDataTemplate}" ScrollViewer.ZoomMode="Enabled" SelectionChanged="FlipView_SelectionChanged_1" Margin="10,0,-10,0" >
+
+            <FlipView Name="ImageFlipView" ItemsSource="{Binding Main.PageList}"
+                      ItemTemplate="{StaticResource FilpImageDataTemplate}" 
+                      ScrollViewer.ZoomMode="Enabled" 
+                      SelectionChanged="FlipView_SelectionChanged_1"
+                      >
                 <!--<i:EventToCommand Command="{Binding Main.PageSelectedCommand}" CommandParameter="Test"  Event="SelectionChanged"/>-->
             </FlipView>
+            <StackPanel x:Name="ShowPageGrid" Visibility="Collapsed"  HorizontalAlignment="Left" Height="100" Width="180" Margin="0,-200,0,0" Background="Gray" Grid.Row="1" Orientation="Horizontal">
+                <TextBlock   TextWrapping="Wrap" Text="{Binding Main.SelectedPage.PageNum}" VerticalAlignment="Center" LineHeight="32" FontFamily="Global User Interface" FontSize="32" Margin="50,0,0,0"/>
+                <TextBlock   TextWrapping="Wrap"  Text="/" VerticalAlignment="Center" LineHeight="32" FontFamily="Global User Interface" FontSize="32"/>
+                <TextBlock   TextWrapping="Wrap"  Text="{Binding Main.SelectedPage.TotalNum }" VerticalAlignment="Center" LineHeight="32" FontFamily="Global User Interface" FontSize="32"/>
+
+            </StackPanel>
+
         </Grid>
         <VisualStateManager.VisualStateGroups>
             <!-- Visual states reflect the application's view state -->

@@ -15,7 +15,8 @@ namespace MangaViewer.Service
         WebSiteEnum WebType;
         public MangaService()
         {
-            WebType = WebSiteEnum.Comic131;
+            //WebType = WebSiteEnum.Comic131;
+            WebType = WebSiteEnum.Local;
         }
 
         public void SetWebSiteType(WebSiteEnum type)
@@ -49,7 +50,7 @@ namespace MangaViewer.Service
                 for (int i = 1; i <= pageUrlList.Count; i++)
                 {
                     //string imagePath = mPattern.GetImageUrl(pageUrlList[i-1]);
-                    mangaPageList.Add(new MangaPageItem("page-" + i,  string.Empty, pageUrlList[i-1], chapter, i,pageUrlList.Count));
+                    mangaPageList.Add(new MangaPageItem("page-" + i, string.Empty, pageUrlList[i - 1], chapter, i, pageUrlList.Count));
 
                 }
                 return mangaPageList;

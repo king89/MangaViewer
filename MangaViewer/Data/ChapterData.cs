@@ -19,6 +19,7 @@ namespace MangaViewer.Data
         public ChapterData()
         {
             MangaMenuItem menu = MangaMenuItem.CreateADemo();
+            menu.Title = "海贼王";
             for (int i = 100; i > 0; i--)
             {
                 _chapterData.Add(new MangaChapterItem("chpt-" + i, i + "话", string.Empty, string.Empty, menu, "http://comic.131.com/content/2104/188362/1.html"));

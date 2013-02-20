@@ -16,6 +16,7 @@ namespace MangaViewer.Model
     {
 
         IManhua = 0,
-        Comic131 = 1
+        Comic131 = 1,
+        Local,
     }
 }

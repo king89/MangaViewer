@@ -41,7 +41,7 @@ namespace MangaViewer.View
         protected  override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             MangaChapterItem chapterItem = navigationParameter as MangaChapterItem;
-            pageTitle.Text = chapterItem.Subtitle + " " + chapterItem.Title;
+            pageTitle.Text = chapterItem.Menu.Title + " " + chapterItem.Title ;
             ViewModelLocator.AppViewModel.Main.PageList = null;
            
         }
@@ -60,8 +60,9 @@ namespace MangaViewer.View
         {
             //有网络
             ObservableCollection<MangaPageItem> pageItem = await App.MyMangaService.GetPageList(ViewModelLocator.AppViewModel.Main.SelectedChapter);
-            LoadingTB.Visibility = Visibility.Collapsed;
-            LoadingPageListRing.Visibility = Visibility.Collapsed;
+            LoadingStack.Visibility = Visibility.Collapsed;
+            this.TopAppBar.IsOpen = false;
+            this.BottomAppBar.IsOpen = false;
             ViewModelLocator.AppViewModel.Main.PageList = pageItem;
 
             ////没网络
@@ -69,13 +70,18 @@ namespace MangaViewer.View
         }
         private async void FlipView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-                MangaPageItem selectPage = (MangaPageItem)ImageFlipView.SelectedItem;
-                if (selectPage != null && !selectPage.IsLoadedImage)
+            MangaPageItem selectPage = (MangaPageItem)ImageFlipView.SelectedItem;
+            ViewModelLocator.AppViewModel.Main.SelectedPage = selectPage;
+            if (selectPage != null)
+            {
+                if (!selectPage.IsLoadedImage)
                 {
                     var path = await App.MyMangaService.GetIamgeByImageUrl(selectPage);
                     ((MangaPageItem)selectPage).SetImage(path);
+                    ShowPageGrid.Visibility = Visibility.Visible;
                 }
-
+                ShowPageNumStoryboard.Begin();
+            }
         }
     }
 }

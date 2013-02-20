@@ -11,12 +11,14 @@ namespace MangaViewer.Model
     public class MangaPageItem : CommonItem
     {
         private static Uri _baseUri = new Uri("ms-appx:///");
-        public MangaPageItem(string uniqueId, string imagePath, string pageUrl, MangaChapterItem chapter,int pageNum,int totalPage)
+        public MangaPageItem(string uniqueId, string imagePath, string pageUrl, MangaChapterItem chapter,int pageNum,int totalNum)
             : base(uniqueId, string.Empty, string.Empty, imagePath, string.Empty)
         {
             _pageUrl = pageUrl;
             _imagePath = imagePath;
             _chapter = chapter;
+            _pageNum = pageNum;
+            _totalNum = totalNum;
         }
 
         public MangaPageItem()

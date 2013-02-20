@@ -1,33 +1,40 @@
 ﻿using MangaViewer.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace MangaViewer.Service
 {
-    public class WebComic131 : MangaPattern
+    public class WebLocal : MangaPattern
     {
-      
         public override List<string> GetPageList(string firstPageUrl)
         {
-            if (firstPageHtml == null)
-            {
-                firstPageHtml = GetPageHtml(firstPageUrl);
-            }
-            totalNum = GetTotalNum(firstPageHtml);
             List<string> pageList = new List<string>();
-            string baseUrl = firstPageUrl.Substring(0,firstPageUrl.LastIndexOf("/")+1);
-            for (int i = startNum; i <= totalNum; i++)
+            for (int i = 0; i < 20; i++)
             {
-                pageList.Add(baseUrl + i.ToString() + ".html");
+                pageList.Add("http://localhost:8800/");
             }
+
+            Sleep();
             return pageList;
         }
 
+        void Sleep()
+        {
+            DateTime start = DateTime.Now;
+            DateTime end = DateTime.Now;
+            int dur = 2;
+            while ((end - start).Seconds < dur)
+            {
+                end = DateTime.Now;
+            }
+
+        }
         public override string GetImageByImageUrl(MangaPageItem page, SaveType saveType = SaveType.Temp)
         {
             string imgUrl = GetImageUrl(page.PageUrl);
@@ -48,13 +55,8 @@ namespace MangaViewer.Service
         public override string GetImageUrl(string pageUrl)
         {
 
-            string html = GetPageHtml(pageUrl);
-            Regex reImg = new Regex("<img id=\"comicBigPic\" src=.+\" alt");
-            Match result = reImg.Match(html);
-            reImg = new Regex("src=.*\"");
-            result = reImg.Match(result.Value);
-            string strResult = result.Value.Replace("src=\"","").Replace("\"","");
-
+            string strResult = "http://localhost:8800/image/hub/Hub-Product.jpg";
+            Sleep();
             return strResult;
 
         }
