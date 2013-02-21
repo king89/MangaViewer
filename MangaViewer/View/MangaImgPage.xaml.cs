@@ -83,5 +83,28 @@ namespace MangaViewer.View
                 ShowPageNumStoryboard.Begin();
             }
         }
+
+        private void scrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            ScrollViewer sv = (ScrollViewer)sender;
+            Image img = (Image)sv.FindName("image");
+            double screenWidth = sv.ViewportWidth;
+            double ration = img.ActualHeight / img.ActualWidth;
+            float factor = sv.ZoomFactor;
+            img.Width = screenWidth * factor;
+            img.Height = screenWidth * ration * factor;
+        }
+
+        private void Grid_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+
+            Grid g = (Grid)sender;
+            ScrollViewer sv = (ScrollViewer)g.FindName("scrollViewer");
+            Image img = (Image)sv.FindName("image");
+            double screenWidth = sv.ViewportWidth;
+            img.Width = screenWidth;
+            img.Height = screenWidth * (img.ActualHeight / img.ActualWidth);
+            sv.ZoomToFactor(1);
+        }
     }
 }

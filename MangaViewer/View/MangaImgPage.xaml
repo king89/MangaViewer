@@ -17,14 +17,16 @@
         <DataTemplate x:Key="FilpImageDataTemplate">
 
             <UserControl Loaded="StartLayoutUpdates" Unloaded="StopLayoutUpdates" >
-                <Grid>
+                <Grid DoubleTapped="Grid_DoubleTapped">
                     <TextBlock Text="{Binding Title}" />
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <ProgressRing  IsActive="True" Height="40" Width="40" Margin="0,0,20,0" Visibility="{Binding IsLoadedImage,Converter={StaticResource VisibilityConverter}}"/>
                         <TextBlock Text="Loading Image"   FontSize="50" Visibility="{Binding IsLoadedImage,Converter={StaticResource VisibilityConverter}}"/>
                     </StackPanel>
-                    <ScrollViewer x:Name="scrollViewer" Style="{StaticResource VerticalScrollViewerStyle}" Grid.Row="1" ZoomMode="Enabled" >
-                        <Image Source="{Binding Image}" ScrollViewer.ZoomMode="Enabled" ></Image>
+                    <ScrollViewer x:Name="scrollViewer" Grid.Row="1" ZoomMode="Enabled"  HorizontalScrollBarVisibility="Auto" ViewChanged="scrollViewer_ViewChanged"  >
+                        <Grid>
+                            <Image Name="image"  Source="{Binding Image}" Stretch="UniformToFill" Height="900" ></Image>
+                        </Grid>
                     </ScrollViewer>
                 </Grid>
             </UserControl>
