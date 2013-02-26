@@ -83,9 +83,23 @@ namespace MangaViewer.Service
             return chapterList;
         }
 
-        public override List<TitleAndUrl> GetTopMangaList()
+        public override List<TitleAndUrl> GetTopMangaList(string html)
         {
-            return base.GetTopMangaList();
+            List<TitleAndUrl> topMangaList = new List<TitleAndUrl>();
+            Regex rUl = new Regex("<ul class=\"xqkd\">[\\s\\S]*</ul>");
+            string result = rUl.Match(html).Value;
+            Regex rLi = new Regex("<li>.*?</li>");
+            MatchCollection mCollection = rLi.Matches(result);
+
+            Regex rUrl = new Regex("(?<=href=\").*?(?=\")");
+            Regex rTitle = new Regex("(?<=\"_blank\">).*?(?=</a>)");
+            foreach (Match m in mCollection)
+            {
+                string url = rUrl.Match(m.Value).Value;
+                string title = rTitle.Match(m.Value).Value;
+                topMangaList.Add(new TitleAndUrl(title,url));
+            }
+            return topMangaList;
         }
     }
 }

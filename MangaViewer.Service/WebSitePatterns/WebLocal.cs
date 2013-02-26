@@ -72,7 +72,7 @@ namespace MangaViewer.Service
             return chapterList;
         }
 
-        public override List<TitleAndUrl> GetTopMangaList()
+        public override List<TitleAndUrl> GetTopMangaList(string html)
         {
             List<TitleAndUrl> newMenuList = new List<TitleAndUrl>();
             for (int i = 100; i > 0; i--)

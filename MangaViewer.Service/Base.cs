@@ -58,8 +58,8 @@ namespace MangaViewer.Service
 //  Menu
 // 
 */
-        public virtual List<TitleAndUrl> GetTopMangaList() { return null; }
-        public virtual List<TitleAndUrl> GetNewMangaList() { return null; }
+        public virtual List<TitleAndUrl> GetTopMangaList(string html) { return null; }
+        public virtual List<TitleAndUrl> GetNewMangaList(string html) { return null; }
     }
 
 
