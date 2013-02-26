@@ -15,6 +15,12 @@ namespace MangaViewer.ViewModel
         {
             get { return mainViewModel ?? (mainViewModel = new MainViewModel()); }
         }
+
+        private SettingViewModel settingViewModel;
+        public SettingViewModel Setting
+        {
+            get { return settingViewModel ?? (settingViewModel = new SettingViewModel()); }
+        }
         #endregion
 
     }

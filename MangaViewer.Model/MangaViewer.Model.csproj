@@ -108,7 +108,6 @@
     <Compile Include="MangaMenuItem.cs" />
     <Compile Include="MangaPageItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Setting.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight.Extras.Win8">
