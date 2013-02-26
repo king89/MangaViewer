@@ -61,5 +61,28 @@ namespace MangaViewer.Service
 
         }
 
+        public override List<TitleAndUrl> GetChapterList(string chapterUrl)
+        {
+            List<TitleAndUrl> chapterList = new List<TitleAndUrl>();
+            for (int i = 100; i > 0; i--)
+            {
+                chapterList.Add(new TitleAndUrl("第" + i.ToString() + "话", "http://comic.131.com/content/2104/191221/1.html"));
+            }
+            Sleep();
+            return chapterList;
+        }
+
+        public override List<TitleAndUrl> GetTopMangaList()
+        {
+            List<TitleAndUrl> newMenuList = new List<TitleAndUrl>();
+            for (int i = 100; i > 0; i--)
+            {
+                newMenuList.Add(new TitleAndUrl("第" + i.ToString() + "话", "http://comic.131.com/content/2104/191221/1.html"));
+            }
+            Sleep();
+            return newMenuList;
+            //return base.GetNewMangaList();
+        }
+
     }
 }

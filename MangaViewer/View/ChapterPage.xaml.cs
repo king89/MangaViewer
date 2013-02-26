@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using MangaViewer.Foundation.Common;
 using MangaViewer.Model;
+using MangaViewer.ViewModel;
+using System.Collections.ObjectModel;
 
 namespace MangaViewer.View
 {
@@ -24,6 +26,7 @@ namespace MangaViewer.View
         public ChapterPage()
         {
             this.InitializeComponent();
+            GetChatperList();
         }
 
         /// <summary>
@@ -39,7 +42,7 @@ namespace MangaViewer.View
         {
             HubMenuItem menuItem = navigationParameter as HubMenuItem;
             pageTitle.Text = menuItem.Title;
-           
+            ViewModelLocator.AppViewModel.Main.ChapterList = null;
         }
 
         /// <summary>
@@ -50,6 +53,17 @@ namespace MangaViewer.View
         /// <param name="pageState">An empty dictionary to be populated with serializable state.</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
+        }
+
+        async void GetChatperList()
+        {
+            //有网络
+            ObservableCollection<MangaChapterItem> chapterItem = await App.MyMangaService.GetChapterList(ViewModelLocator.AppViewModel.Main.SelectedMenu);
+            LoadingStack.Visibility = Visibility.Collapsed;
+            ViewModelLocator.AppViewModel.Main.ChapterList = chapterItem;
+
+            ////没网络
+            //ViewModelLocator.AppViewModel.Main.PageList = new MangaViewer.Data.PageListData().PageList;
         }
     }
 }

@@ -106,18 +106,17 @@ namespace MangaViewer.Model
             }
         }
 
+        private bool _isLoadedImage = false;
         public bool IsLoadedImage
         {
             get 
             {
-                if (_imagePath != string.Empty)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return  _isLoadedImage;
+            }
+            set
+            {
+                _isLoadedImage = value;
+                this.RaisePropertyChanged(() => IsLoadedImage);
             }
         }
         #endregion
@@ -127,7 +126,7 @@ namespace MangaViewer.Model
             this._image = null;
             this._imagePath = path;
             this.RaisePropertyChanged(() => Image);
-            this.RaisePropertyChanged(() => IsLoadedImage);
+
         }
     }
 }

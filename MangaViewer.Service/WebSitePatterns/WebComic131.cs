@@ -16,7 +16,7 @@ namespace MangaViewer.Service
         {
             if (firstPageHtml == null)
             {
-                firstPageHtml = GetPageHtml(firstPageUrl);
+                firstPageHtml = GetHtml(firstPageUrl);
             }
             totalNum = GetTotalNum(firstPageHtml);
             List<string> pageList = new List<string>();
@@ -48,7 +48,7 @@ namespace MangaViewer.Service
         public override string GetImageUrl(string pageUrl)
         {
 
-            string html = GetPageHtml(pageUrl);
+            string html = GetHtml(pageUrl);
             Regex reImg = new Regex("<img id=\"comicBigPic\" src=.+\" alt");
             Match result = reImg.Match(html);
             reImg = new Regex("src=.*\"");
@@ -59,5 +59,33 @@ namespace MangaViewer.Service
 
         }
 
+        public override List<TitleAndUrl> GetChapterList(string chapterUrl)
+        {
+            //http://comic.131.com/content/shaonian/2104.html
+            string html = GetHtml(chapterUrl);
+            //Rex1  = <ul class="mh_fj" .+<li>.+</li></ul>
+            Regex rGetUl = new Regex("<ul class=\"mh_fj\" .+<li>.+</li></ul>");
+            //Rex2 = <li>.*?</li>
+            html = rGetUl.Match(html).Value;
+            Regex rGetLi = new Regex("<li>.*?</li>");
+            MatchCollection liList = rGetLi.Matches(html);
+            List<TitleAndUrl> chapterList = new List<TitleAndUrl>();
+            Regex rUrl = new Regex("(?<=href=\").+?(?=\")");
+            Regex rTitle = new Regex("(?<=\">).+?(?=<)");
+            foreach (Match m in liList)
+            {
+                string liStr = m.Value;
+                chapterList.Add(new TitleAndUrl(rTitle.Match(liStr).Value, rUrl.Match(liStr).Value));
+
+            }
+
+
+            return chapterList;
+        }
+
+        public override List<TitleAndUrl> GetTopMangaList()
+        {
+            return base.GetTopMangaList();
+        }
     }
 }

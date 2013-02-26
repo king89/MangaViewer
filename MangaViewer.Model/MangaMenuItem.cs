@@ -17,15 +17,30 @@ namespace MangaViewer.Model
         public static MangaMenuItem CreateADemo()
         {
             Size si = new Size();
-            return new MangaMenuItem("menu-1", "Titel", string.Empty, string.Empty, string.Empty, string.Empty, null, string.Empty, si, string.Empty);
+            return new MangaMenuItem("menu-1", "Titel",  string.Empty, null, "http://comic.131.com/content/shaonian/2104.html", si, string.Empty);
         }
 
-        public MangaMenuItem(string uniqueId, string title, string subtitle, string imagePath, string description, string content, HubMenuGroup group, string link, Size size, string titleBackground)
-            : base(uniqueId, title, subtitle, imagePath, description,content,group,link,size,titleBackground)
+        public MangaMenuItem(string uniqueId, string title,  string imagePath,  HubMenuGroup group, string url, Size size, string titleBackground)
+            : base(uniqueId, title, String.Empty, imagePath, string.Empty,string.Empty,group,url,size,titleBackground)
         {
             _height = size.Height;
             _width = size.Width;
             _imagePath = imagePath;
+            _url = url;
+        }
+
+        private string _url = "";
+        public string Url
+        {
+            get { return this._url; }
+            set
+            {
+                if (_url != value)
+                {
+                    this._url = value;
+                    RaisePropertyChanged(() => Url);
+                }
+            }
         }
 
         private double _height = 0;

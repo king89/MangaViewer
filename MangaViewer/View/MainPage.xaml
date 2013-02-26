@@ -33,11 +33,11 @@
             </Grid>
         </DataTemplate>
     </Page.Resources>
-    <Page.TopAppBar>
-        <AppBar>
+    <Page.BottomAppBar>
+        <AppBar Background="Gray">
             <Button Click="Button_Click_1" Style="{StaticResource AppBarButtonStyle}" ></Button>
         </AppBar>
-    </Page.TopAppBar>
+    </Page.BottomAppBar>
     <Grid  Style="{StaticResource PageBackground}" >
         <Grid.RowDefinitions>
             <RowDefinition Height="140" />
@@ -60,6 +60,10 @@
         </Grid>
 
         <Grid Grid.Row="1">
+            <StackPanel Name="LoadingStack"   VerticalAlignment="Center" Orientation="Horizontal" Margin="350,-100,0,0">
+                <ProgressRing Name="LoadingPageListRing"  IsActive="True" Height="40" Width="40" Margin="0,0,20,0" ></ProgressRing>
+                <TextBlock Name="LoadingTB" Text="Loading Menu List" FontSize="50"></TextBlock>
+            </StackPanel>
             <control:HubGridView
                         x:Name="itemGridView"
                         AutomationProperties.AutomationId="ItemGridView"

@@ -16,7 +16,7 @@
         <x:String x:Key="AppName">ChapterPage</x:String>
         <CollectionViewSource
             x:Name="chaptersViewSource"
-            Source="{Binding Main.Chapters}"
+            Source="{Binding Main.ChpaterList}"
             IsSourceGrouped="true"
             ItemsPath="Items"
             d:Source="{Binding Chapters, Source={d:DesignInstance Type=data:ChapterData, IsDesignTimeCreatable=True}}"/>
@@ -54,7 +54,12 @@
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
         <Grid Grid.Row="1">
-            <GridView ItemsSource="{Binding Main.Chapters}" ItemTemplate="{StaticResource ChapterDataTemplate}" 
+            <StackPanel Name="LoadingStack"  HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,-100,0,0">
+                <ProgressRing Name="LoadingPageListRing"  IsActive="True" Height="40" Width="40" Margin="0,0,20,0" ></ProgressRing>
+                <TextBlock Name="LoadingTB" Text="Loading Chapter List" FontSize="50"></TextBlock>
+            </StackPanel>
+
+            <GridView ItemsSource="{Binding Main.ChapterList}" ItemTemplate="{StaticResource ChapterDataTemplate}" 
                       Padding="120,40,0,0" ItemsPanel="{StaticResource ChapterPanelTemplate}" 
                       SelectionMode="None"
                       IsItemClickEnabled="True"
@@ -63,7 +68,7 @@
                     <i:EventToCommand Command="{Binding Main.ChapterSelectedCommand}" CommandParameter="Test"  Event="ItemClick"/>
                 </i:EventToCommandCollection.Items>
             </GridView>
-
+            
         </Grid>
         <VisualStateManager.VisualStateGroups>
             <!-- Visual states reflect the application's view state -->

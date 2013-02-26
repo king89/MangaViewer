@@ -59,27 +59,32 @@ namespace MangaViewer.ViewModel
         #endregion
 
         #region MainMenuDataSource
-        HubMenuDataSource menuData;
+        ObservableCollection<HubMenuGroup> _menuGroups;
         public ObservableCollection<HubMenuGroup> MenuGroups
         {
             get
             {
-                if (menuData == null)
-                    menuData = new HubMenuDataSource();
-                return menuData.MenuGroups;
+                return _menuGroups;
+            }
+            set 
+            {
+                _menuGroups = value;
+                RaisePropertyChanged(() => MenuGroups);
             }
         }
         #endregion
         #region ChapterData
-        ChapterData chapterData;
-        public ObservableCollection<MangaChapterItem> Chapters
+        ObservableCollection<MangaChapterItem> _chapterList;
+        public ObservableCollection<MangaChapterItem> ChapterList
         {
             get
             {
-                if (chapterData == null)
-                    chapterData = new ChapterData();
-
-                return chapterData.Chapters;
+                return _chapterList;
+            }
+            set
+            {
+                _chapterList = value;
+                RaisePropertyChanged(() => ChapterList);
             }
         }
         #endregion

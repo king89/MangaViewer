@@ -78,21 +78,24 @@ namespace MangaViewer.View
                 {
                     var path = await App.MyMangaService.GetIamgeByImageUrl(selectPage);
                     ((MangaPageItem)selectPage).SetImage(path);
-                    ShowPageGrid.Visibility = Visibility.Visible;
+
                 }
-                ShowPageNumStoryboard.Begin();
+                else
+                {
+                    ShowPageNumStoryboard.Begin();
+                }
+
             }
         }
-
         private void scrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             ScrollViewer sv = (ScrollViewer)sender;
             Image img = (Image)sv.FindName("image");
             double screenWidth = sv.ViewportWidth;
+            double screenHeight = sv.ViewportHeight;
             double ration = img.ActualHeight / img.ActualWidth;
             float factor = sv.ZoomFactor;
-            img.Width = screenWidth * factor;
-            img.Height = screenWidth * ration * factor;
+
         }
 
         private void Grid_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
@@ -102,9 +105,17 @@ namespace MangaViewer.View
             ScrollViewer sv = (ScrollViewer)g.FindName("scrollViewer");
             Image img = (Image)sv.FindName("image");
             double screenWidth = sv.ViewportWidth;
+            double screenHeight = sv.ViewportHeight;
             img.Width = screenWidth;
-            img.Height = screenWidth * (img.ActualHeight / img.ActualWidth);
+            //img.Height = screenWidth * (img.ActualHeight / img.ActualWidth);
             sv.ZoomToFactor(1);
+        }
+
+        private void image_ImageOpened_1(object sender, RoutedEventArgs e)
+        {
+            ViewModelLocator.AppViewModel.Main.SelectedPage.IsLoadedImage = true;
+            ShowPageGrid.Visibility = Visibility.Visible;
+            ShowPageNumStoryboard.Begin();
         }
     }
 }
