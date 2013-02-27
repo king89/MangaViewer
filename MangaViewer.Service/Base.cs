@@ -15,6 +15,7 @@ namespace MangaViewer.Service
         protected int startNum = 1;
         protected int totalNum = 1;
         protected string firstPageHtml = null;
+        public string WEBSITEURL = "";
 /*
 //  
 //  Page
@@ -28,6 +29,8 @@ namespace MangaViewer.Service
         public virtual string GetHtml(string Url)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
+            CookieContainer cc = new CookieContainer();
+            request.CookieContainer = cc;
             string UserAgent = "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.56 Safari/536.5";
             request.Headers["UserAgent"] = UserAgent;
             var myResponse = request.GetResponseAsync();

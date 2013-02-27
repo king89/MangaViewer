@@ -25,9 +25,20 @@ namespace MangaViewer.View
         public MainPage()
         {
             this.InitializeComponent();
-            GetMenu();
+            
         }
-
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                LoadingStack.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                GetMenu();
+            }
+            base.OnNavigatedTo(e);
+        }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             //MangaMenuItem mi = (MangaMenuItem)(ViewModelLocator.AppViewModel.Main.MenuGroups[0].Items[0]);

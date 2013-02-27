@@ -24,18 +24,19 @@
         <DataTemplate x:Key="CustomTileItem">
             <Grid >
                 <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Height="{Binding Height}" Width="{Binding Width}">
-                    <Image Source="{Binding Image}" Stretch="UniformToFill"/>
+                    <Image Source="{Binding Image}" Stretch="None"/>
                 </Border>
                 <!--<StackPanel VerticalAlignment="Bottom" Style="{StaticResource MyTitleBackgroundStyle}" >-->
                 <StackPanel VerticalAlignment="Bottom" Style="{StaticResource MyTitleBackgroundStyle}" Background="{Binding TitleBackground}" >
-                    <TextBlock Text="{Binding Title}" Style="{StaticResource MyTitleTextStyle}"/>
+                    <TextBlock Text="{Binding Title}" Style="{StaticResource MyTitleTextStyle}"  />
                 </StackPanel>
             </Grid>
         </DataTemplate>
     </Page.Resources>
     <Page.BottomAppBar>
         <AppBar Background="Gray">
-            <Button Click="Button_Click_1" Style="{StaticResource AppBarButtonStyle}" ></Button>
+            <Button Click="Button_Click_1" Style="{StaticResource SettingsAppBarButtonStyle}" >
+            </Button>
         </AppBar>
     </Page.BottomAppBar>
     <Grid  Style="{StaticResource PageBackground}" >
@@ -60,7 +61,7 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <StackPanel Name="LoadingStack"   VerticalAlignment="Center" Orientation="Horizontal" Margin="350,-100,0,0">
+            <StackPanel Name="LoadingStack"   VerticalAlignment="Center" Orientation="Horizontal" Margin="400,-100,0,0">
                 <ProgressRing Name="LoadingPageListRing"  IsActive="True" Height="40" Width="40" Margin="0,0,20,0" ></ProgressRing>
                 <TextBlock Name="LoadingTB" Text="Loading Menu List" FontSize="50"></TextBlock>
             </StackPanel>

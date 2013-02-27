@@ -23,10 +23,12 @@ namespace MangaViewer.View
     /// </summary>
     public sealed partial class ChapterPage : LayoutAwarePage
     {
+        Dictionary<string, object> currentPageState;
         public ChapterPage()
         {
             this.InitializeComponent();
-            GetChatperList();
+            this.Loaded += MainPage_Loaded;
+            
         }
 
         /// <summary>
@@ -40,11 +42,52 @@ namespace MangaViewer.View
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+            currentPageState = pageState;
             HubMenuItem menuItem = navigationParameter as HubMenuItem;
+            int index = menuItem.Title.IndexOf(' ');
+            if (index > 0)
+            {
+                menuItem.Title = menuItem.Title.Substring(0, index);
+            }
+            
             pageTitle.Text = menuItem.Title;
-            ViewModelLocator.AppViewModel.Main.ChapterList = null;
+            
         }
+        void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            #region 恢复GridView的ScrollBar到上次位置
+            if (currentPageState != null && currentPageState.ContainsKey("HorizontalScrollPosition"))
+            {
+                ScrollViewer gridScrollViewer = VisualTreeExtensions.FindVisualChild<ScrollViewer>(this.ChapterListGridView);
 
+                double HorizontalScrollPosition = double.Parse(currentPageState["HorizontalScrollPosition"].ToString());
+
+                //分组的GridView的ScrollableWidth会随着 ScrollBar 的变化而变化，所以 ScrollToHorizontalOffset 一次并
+                //不一定能定位到之前保存的位置，需要多次定位才能恢复到原有位置
+                while (gridScrollViewer.HorizontalOffset < HorizontalScrollPosition * 0.95)
+                {
+                    gridScrollViewer.ScrollToHorizontalOffset(HorizontalScrollPosition);
+                    gridScrollViewer.UpdateLayout();
+                }
+
+                //double HorizontalScrollPosition = double.Parse(currentPageState["HorizontalScrollPosition"].ToString());
+                //PageScrollViewer.ScrollToHorizontalOffset(HorizontalScrollPosition);
+            }
+            #endregion
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                LoadingStack.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                ViewModelLocator.AppViewModel.Main.ChapterList = null;
+                GetChatperList();
+            }
+            base.OnNavigatedTo(e);
+        }
         /// <summary>
         /// Preserves state associated with this page in case the application is suspended or the
         /// page is discarded from the navigation cache.  Values must conform to the serialization
@@ -53,6 +96,8 @@ namespace MangaViewer.View
         /// <param name="pageState">An empty dictionary to be populated with serializable state.</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
+            ScrollViewer gridScrollViewer = VisualTreeExtensions.FindVisualChild<ScrollViewer>(this.ChapterListGridView);
+            pageState["HorizontalScrollPosition"] = gridScrollViewer.HorizontalOffset;
         }
 
         async void GetChatperList()
