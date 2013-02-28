@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,5 +20,11 @@ namespace MangaViewer.Model
             Url = url;
             ImagePath = imagePath;
         }
+    }
+
+    public static class Constant
+    {
+        public static string settingFolder = "Setting\\";
+        public static string settingFile = "AppSetting.set";
     }
 }

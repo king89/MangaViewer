@@ -113,6 +113,7 @@
     <Compile Include="FileService.cs" />
     <Compile Include="Base.cs" />
     <Compile Include="MangaService.cs" />
+    <Compile Include="SettingService.cs" />
     <Compile Include="WebSitePatterns\WebLocal.cs" />
     <Compile Include="WebSitePatterns\WebComic131.cs" />
     <Compile Include="WebSitePatterns\WebIManhua.cs" />

@@ -15,6 +15,7 @@ using MangaViewer.Foundation.Common;
 using MangaViewer.Model;
 using MangaViewer.ViewModel;
 using System.Collections.ObjectModel;
+using MangaViewer.Service;
 
 namespace MangaViewer.View
 {
@@ -58,7 +59,7 @@ namespace MangaViewer.View
         async void GetChatperList()
         {
             //有网络
-            ObservableCollection<MangaChapterItem> chapterItem = await App.MyMangaService.GetChapterList(ViewModelLocator.AppViewModel.Main.SelectedMenu);
+            ObservableCollection<MangaChapterItem> chapterItem = await MangaService.GetChapterList(ViewModelLocator.AppViewModel.Main.SelectedMenu);
             LoadingStack.Visibility = Visibility.Collapsed;
             ViewModelLocator.AppViewModel.Main.ChapterList = chapterItem;
 

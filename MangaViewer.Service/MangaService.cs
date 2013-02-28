@@ -11,24 +11,20 @@ using System.Threading.Tasks;
 
 namespace MangaViewer.Service
 {
-    public class MangaService
+    public static class MangaService
     {
-        WebSiteEnum _webType;
-        public MangaService()
-        {
-            WebType = WebSiteEnum.Comic131;
-            //_webType = WebSiteEnum.Local;
-        }
 
-        public WebSiteEnum WebType
+        static WebSiteEnum WebType 
         {
-            get { return _webType; }
-            set { _webType = value; }
+            get
+            {
+                return SettingService.GetWebSite();
+            }
         }
         /// <summary>
         ///   get web image and save into temp folder, return local path uri
         /// </summary>
-        public Task<string> GetIamgeByImageUrl(MangaPageItem page)
+        public static Task<string> GetIamgeByImageUrl(MangaPageItem page)
         {
             return Task.Run<string>(() =>
             {
@@ -38,7 +34,7 @@ namespace MangaViewer.Service
             });
         }
 
-        public Task<ObservableCollection<MangaPageItem>> GetPageList(MangaChapterItem chapter)
+        public static Task<ObservableCollection<MangaPageItem>> GetPageList(MangaChapterItem chapter)
         {
 
             return Task.Run<ObservableCollection<MangaPageItem>>(() =>
@@ -58,7 +54,7 @@ namespace MangaViewer.Service
             });
         }
 
-        public Task<ObservableCollection<MangaChapterItem>> GetChapterList(MangaMenuItem menu)
+        public static Task<ObservableCollection<MangaChapterItem>> GetChapterList(MangaMenuItem menu)
         {
             return Task.Run<ObservableCollection<MangaChapterItem>>(() =>
             {
@@ -77,7 +73,7 @@ namespace MangaViewer.Service
         }
 
         //Menu
-        public Task<HubMenuGroup> GetTopMangaGroup()
+        public static Task<HubMenuGroup> GetTopMangaGroup()
         {
             return Task.Run<HubMenuGroup>(() =>
             {
@@ -95,7 +91,7 @@ namespace MangaViewer.Service
             });
         }
 
-        public Task<ObservableCollection<HubMenuGroup>> GetMainMenu()
+        public static Task<ObservableCollection<HubMenuGroup>> GetMainMenu()
         {
             return Task.Run<ObservableCollection<HubMenuGroup>>(() =>
             {

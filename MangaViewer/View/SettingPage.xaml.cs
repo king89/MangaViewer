@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using MangaViewer.Foundation.Common;
 using MangaViewer.Model;
+using MangaViewer.Service;
 
 namespace MangaViewer.View
 {
@@ -28,7 +29,7 @@ namespace MangaViewer.View
         }
         void Init()
         {
-            String s = App.MyMangaService.WebType.ToString();
+            String s = SettingService.GetWebSite().ToString();
             List<string> list =  Enum.GetNames(typeof(WebSiteEnum)).ToList<string>();
             WebSiteTypeCB.ItemsSource = list;
             WebSiteTypeCB.SelectedValue = s;
@@ -60,7 +61,7 @@ namespace MangaViewer.View
         private void CommitBT_Click(object sender, RoutedEventArgs e)
         {
             WebSiteEnum wse = (WebSiteEnum)Enum.Parse(typeof(WebSiteEnum), WebSiteTypeCB.SelectedValue.ToString());
-            App.MyMangaService.WebType = wse;
+            SettingService.SetWebSite(wse);
             App.NavigationService.Navigate(typeof(MainPage));
         }
     }

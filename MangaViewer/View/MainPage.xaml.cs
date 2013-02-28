@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Navigation;
 using MangaViewer.Model;
 using MangaViewer.ViewModel;
 using System.Collections.ObjectModel;
+using MangaViewer.Service;
 
 namespace MangaViewer.View
 {
@@ -38,7 +39,7 @@ namespace MangaViewer.View
         async void GetMenu()
         {
             //有网络
-            ObservableCollection<HubMenuGroup> menu = await App.MyMangaService.GetMainMenu();
+            ObservableCollection<HubMenuGroup> menu = await MangaService.GetMainMenu();
             LoadingStack.Visibility = Visibility.Collapsed;
             ViewModelLocator.AppViewModel.Main.MenuGroups = menu;
 

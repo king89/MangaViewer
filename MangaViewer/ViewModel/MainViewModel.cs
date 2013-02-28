@@ -175,7 +175,7 @@ namespace MangaViewer.ViewModel
                 {
                     ItemClickEventArgs e = ep.EventArgs as ItemClickEventArgs;
                     _selectedPage = e.ClickedItem as MangaPageItem;
-                     string path = await App.MyMangaService.GetIamgeByImageUrl(_selectedPage);
+                     string path = await MangaService.GetIamgeByImageUrl(_selectedPage);
                     _selectedPage.SetImage(path);
                 }));
             }

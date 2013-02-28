@@ -102,12 +102,14 @@
     <Compile Include="CommonClass.cs" />
     <Compile Include="CommonItem.cs" />
     <Compile Include="EnumClass.cs" />
+    <Compile Include="FavouriteMangaItem.cs" />
     <Compile Include="HubMenuGroup.cs" />
     <Compile Include="HubMenuItem.cs" />
     <Compile Include="MangaChapterItem.cs" />
     <Compile Include="MangaMenuItem.cs" />
     <Compile Include="MangaPageItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setting.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight.Extras.Win8">

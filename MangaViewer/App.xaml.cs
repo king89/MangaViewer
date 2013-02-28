@@ -33,7 +33,6 @@ namespace MangaViewer
                 return resourceLoader ?? (resourceLoader = new ResourceLoader());
             }
         }
-        public static MangaService MyMangaService;
         public static NavigationService NavigationService;
 
         /// <summary>
@@ -45,7 +44,7 @@ namespace MangaViewer
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
-            MyMangaService = new MangaService(); 
+            SettingService.LoadSetting();
         }
 
         /// <summary>

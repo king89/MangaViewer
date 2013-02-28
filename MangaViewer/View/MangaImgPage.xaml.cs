@@ -15,6 +15,7 @@ using MangaViewer.Foundation.Common;
 using MangaViewer.Model;
 using System.Collections.ObjectModel;
 using MangaViewer.ViewModel;
+using MangaViewer.Service;
 
 namespace MangaViewer.View
 {
@@ -59,7 +60,7 @@ namespace MangaViewer.View
         async void GetPageList()
         {
             //有网络
-            ObservableCollection<MangaPageItem> pageItem = await App.MyMangaService.GetPageList(ViewModelLocator.AppViewModel.Main.SelectedChapter);
+            ObservableCollection<MangaPageItem> pageItem = await MangaService.GetPageList(ViewModelLocator.AppViewModel.Main.SelectedChapter);
             LoadingStack.Visibility = Visibility.Collapsed;
             this.TopAppBar.IsOpen = false;
             this.BottomAppBar.IsOpen = false;
@@ -76,7 +77,7 @@ namespace MangaViewer.View
             {
                 if (!selectPage.IsLoadedImage)
                 {
-                    var path = await App.MyMangaService.GetIamgeByImageUrl(selectPage);
+                    var path = await MangaService.GetIamgeByImageUrl(selectPage);
                     ((MangaPageItem)selectPage).SetImage(path);
 
                 }
