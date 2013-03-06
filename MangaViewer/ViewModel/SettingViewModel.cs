@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using MangaViewer.Foundation.Interactive;
+using MangaViewer.Model;
 
 namespace MangaViewer.ViewModel
 {
@@ -29,14 +31,16 @@ namespace MangaViewer.ViewModel
         #endregion
 
         #region Sample Command
-        private RelayCommand _DoCommand;
-        public RelayCommand DoCommand
+        private RelayCommand<ExCommandParameter> _favouriteCommand;
+        public RelayCommand<ExCommandParameter> FavouriteCommand
         {
             get
             {
-                return _DoCommand ?? (_DoCommand = new RelayCommand(() =>
+                return _favouriteCommand ?? (_favouriteCommand = new RelayCommand<ExCommandParameter>((ep) =>
                     {
                         //Command logic here
+                        MangaChapterItem chpter = (MangaChapterItem)ep.Parameter;
+                        chpter.Menu.ToString();
                     }));
             }
         }

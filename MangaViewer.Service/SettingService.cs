@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MangaViewer.Model;
+using System.Runtime.Serialization;
+using System.IO;
+using System.Xml;
 
 
 namespace MangaViewer.Service
@@ -25,6 +28,7 @@ namespace MangaViewer.Service
         }
         public static void SaveSetting()
         {
+
             string serialResult = MySerialize.JsonSerialize((object)_appSetting);
             FileService.SaveFileInLocalByText(Constant.settingFolder, Constant.settingFile, serialResult);
         }
@@ -55,6 +59,40 @@ namespace MangaViewer.Service
         {
             APPSetting.WebSite = webSite;
             SaveSetting();
+        }
+
+
+        public static bool AddFavouriteMenu(MangaMenuItem menu)
+        {
+            try
+            {
+                FavouriteMangaItem fMenu = new FavouriteMangaItem(menu, APPSetting.WebSite);
+                APPSetting.FavouriteMenu.Add(fMenu);
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                return false;
+            }
+
+
+        }
+        public static void RemoveFavouriteMenu(MangaMenuItem menu)
+        {
+            FavouriteMangaItem fMenu = APPSetting.GetFavouriteItem(menu);
+            APPSetting.FavouriteMenu.Remove(fMenu);
+        }
+
+        public static List<MangaMenuItem> GetMyMangaMenuList()
+        {
+            List<MangaMenuItem> menuList = null;
+            if (APPSetting.FavouriteMenu != null)
+            {
+
+                menuList = (from s in APPSetting.FavouriteMenu
+                            select s.menuItem).ToList();
+            }
+            return menuList;
         }
     }
 }

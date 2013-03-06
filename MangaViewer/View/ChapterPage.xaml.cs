@@ -66,5 +66,17 @@ namespace MangaViewer.View
             ////没网络
             //ViewModelLocator.AppViewModel.Main.PageList = new MangaViewer.Data.PageListData().PageList;
         }
+
+        private async void FavouriteButton_Click(object sender, RoutedEventArgs e)
+        {
+            MangaMenuItem menu = ViewModelLocator.AppViewModel.Main.SelectedMenu;
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,new Windows.UI.Core.DispatchedHandler(() =>
+            {
+                //MangaMenuItem newMangaItem = CommonService.Clone<MangaMenuItem>(menu);
+                SettingService.AddFavouriteMenu(menu);
+            }));
+            
+
+        }
     }
 }

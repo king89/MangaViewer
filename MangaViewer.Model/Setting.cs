@@ -12,7 +12,14 @@ namespace MangaViewer.Model
         private List<FavouriteMangaItem> _favouriteMenu = null;
         public List<FavouriteMangaItem> FavouriteMenu
         {
-            get { return _favouriteMenu; }
+            get 
+            {
+                if (_favouriteMenu == null)
+                {
+                    _favouriteMenu = new List<FavouriteMangaItem>(); 
+                }
+                return _favouriteMenu; 
+            }
             set
             {
                 _favouriteMenu = value;
@@ -28,6 +35,18 @@ namespace MangaViewer.Model
                 _webSite = value;
                 RaisePropertyChanged(() => WebSite);
             }
+        }
+
+        public FavouriteMangaItem GetFavouriteItem(MangaMenuItem menu)
+        {
+            foreach (FavouriteMangaItem fm in FavouriteMenu)
+            {
+                if (fm.menuItem.Url == menu.Url)
+                {
+                    return fm;
+                }
+            }
+            return null;
         }
     }
 }

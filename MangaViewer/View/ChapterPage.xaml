@@ -12,6 +12,13 @@
     DataContext="{Binding Source={StaticResource Locator}, Path=AppViewModel}"
     >
 
+    <Page.TopAppBar>
+        <AppBar >
+            <Button HorizontalAlignment="Right" Style="{StaticResource FavoriteAppBarButtonStyle}"  Click="FavouriteButton_Click">
+                <i:EventToCommand Command="{Binding Setting.FavouriteCommand}" CommandParameter="{Binding Main.SelectedChapter}"  Event="Click" />
+            </Button>
+        </AppBar>
+    </Page.TopAppBar>
     <Page.Resources>
         <x:String x:Key="AppName">ChapterPage</x:String>
         <CollectionViewSource

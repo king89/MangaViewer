@@ -90,6 +90,21 @@ namespace MangaViewer.Service
                 return group;
             });
         }
+        public static Task<HubMenuGroup> GetMyMangaGroup()
+        {
+            return Task.Run<HubMenuGroup>(() =>
+            {
+                var group = new HubMenuGroup("MyGroup", "我的收藏", string.Empty, string.Empty, string.Empty);
+                List<MangaMenuItem> menuList = SettingService.GetMyMangaMenuList();
+                ObservableCollection<MangaMenuItem> myMangaMenu = new ObservableCollection<MangaMenuItem>();
+                foreach (MangaMenuItem mi in menuList)
+                {
+                   group.Items.Add(mi);
+
+                }
+                return group;
+            });
+        }
 
         public static Task<ObservableCollection<HubMenuGroup>> GetMainMenu()
         {
@@ -119,11 +134,12 @@ namespace MangaViewer.Service
                     MenuGroups.Add(group1);
                     MenuGroups.Add(group2);
                     MenuGroups.Add(group3);
+                    MenuGroups.Add(GetMyMangaGroup().Result);
                     return MenuGroups;
                 }
 
                 MenuGroups.Add(GetTopMangaGroup().Result);
-
+                
                 //MenuGroups.Add();
                 return MenuGroups;
             });

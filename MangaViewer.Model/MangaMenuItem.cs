@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -9,6 +10,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace MangaViewer.Model
 {
+    [DataContract(Name = "MangaMenuItem", Namespace = "MangaViewer.Model")]
     public class MangaMenuItem : HubMenuItem
     {
         private static Uri _baseUri = new Uri("ms-appx:///");
@@ -28,8 +30,9 @@ namespace MangaViewer.Model
             _imagePath = imagePath;
             _url = url;
         }
-
+        
         private string _url = "";
+        [DataMember()]
         public string Url
         {
             get { return this._url; }
@@ -44,6 +47,7 @@ namespace MangaViewer.Model
         }
 
         private double _height = 0;
+        [DataMember()]
         public double Height
         {
             get { return this._height*row; }
@@ -58,6 +62,7 @@ namespace MangaViewer.Model
         }
 
         private double _width = 0;
+        [DataMember()]
         public double Width
         {
             get { return this._width*col; }
@@ -72,6 +77,7 @@ namespace MangaViewer.Model
         }
         private ImageSource _image = null;
         private string _imagePath = null;
+        [DataMember()]
         public new ImageSource Image
         {
             get

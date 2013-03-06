@@ -27,4 +27,6 @@ namespace MangaViewer.Model
         public static string settingFolder = "Setting\\";
         public static string settingFile = "AppSetting.set";
     }
+
+
 }
