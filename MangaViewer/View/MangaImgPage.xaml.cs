@@ -78,8 +78,24 @@ namespace MangaViewer.View
                 if (!selectPage.IsLoadedImage)
                 {
                     var path = await MangaService.GetIamgeByImageUrl(selectPage);
-                    ((MangaPageItem)selectPage).SetImage(path);
-
+                    selectPage.SetImage(path);
+                    //下两页预读
+                    int nowPage = selectPage.PageNum;
+                    int totalPage = selectPage.TotalNum;
+                    if (nowPage+1 < totalPage)
+                    {
+                        MangaPageItem nextOnePage = ViewModelLocator.AppViewModel.Main.PageList[nowPage + 1];
+                        var pathNext = await App.MyMangaService.GetIamgeByImageUrl(nextOnePage);
+                        nextOnePage.SetImage(pathNext);
+                    }
+                    if (nowPage+2 < totalPage)
+                    {
+                        MangaPageItem nextTwoPage = ViewModelLocator.AppViewModel.Main.PageList[nowPage + 2];
+                        var pathNext = await App.MyMangaService.GetIamgeByImageUrl(nextTwoPage);
+                        nextTwoPage.SetImage(pathNext);
+                    }
+                   
+                    
                 }
                 else
                 {

@@ -39,7 +39,12 @@
         </ItemsPanelTemplate>
 
     </Page.Resources>
-
+    <Page.TopAppBar>
+        <AppBar Background="Gray" >
+            <Button  Style="{StaticResource FavoriteAppBarButtonStyle}" HorizontalAlignment="Right">
+            </Button>
+        </AppBar>
+    </Page.TopAppBar>
     <!--
         This grid acts as a root panel for the page that defines two rows:
         * Row 0 contains the back button and page title
@@ -66,7 +71,7 @@
                 <TextBlock Name="LoadingTB" Text="Loading Chapter List" FontSize="50"></TextBlock>
             </StackPanel>
 
-            <GridView ItemsSource="{Binding Main.ChapterList}" ItemTemplate="{StaticResource ChapterDataTemplate}" 
+            <GridView Name="ChapterListGridView"  ItemsSource="{Binding Main.ChapterList}" ItemTemplate="{StaticResource ChapterDataTemplate}" 
                       Padding="120,40,0,0" ItemsPanel="{StaticResource ChapterPanelTemplate}" 
                       SelectionMode="None"
                       IsItemClickEnabled="True"
