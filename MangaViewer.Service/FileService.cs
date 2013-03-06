@@ -101,6 +101,7 @@ namespace MangaViewer.Service
 
     public static class MySerialize
     {
+
         public static string JsonSerialize(object o)
         {
             using (var ms = new MemoryStream())
