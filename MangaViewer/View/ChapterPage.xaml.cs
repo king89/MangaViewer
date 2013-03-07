@@ -118,6 +118,7 @@ namespace MangaViewer.View
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,new Windows.UI.Core.DispatchedHandler(() =>
             {
                 //MangaMenuItem newMangaItem = CommonService.Clone<MangaMenuItem>(menu);
+                ViewModelLocator.AppViewModel.Main.MenuGroups.Last().Items.Add(menu);
                 SettingService.AddFavouriteMenu(menu);
             }));
             

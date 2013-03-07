@@ -14,16 +14,37 @@ namespace MangaViewer.Service
 {
     public static class MangaService
     {
+        #region  Property
 
-        private int groupItemMaxNum = 15;
+        private static int groupItemMaxNum = 15;
 
-        static WebSiteEnum WebType 
+        static WebSiteEnum WebType
         {
             get
             {
                 return SettingService.GetWebSite();
             }
         }
+
+        private static string _menuHtml = "";
+        public static string MenuHtml
+        {
+            get
+            {
+                if (_menuHtml == string.Empty)
+                {
+                    MangaPattern mPattern = WebSiteAccess.GetMangaPatternInstance(WebType);
+                    _menuHtml = mPattern.GetHtml(mPattern.WEBSITEURL);
+
+                }
+                return _menuHtml;
+            }
+        } 
+        #endregion
+
+        #region Function
+
+        #region Page
         /// <summary>
         ///   get web image and save into temp folder, return local path uri
         /// </summary>
@@ -55,8 +76,10 @@ namespace MangaViewer.Service
                 }
                 return mangaPageList;
             });
-        }
+        } 
+        #endregion
 
+        #region Chapter
         public static Task<ObservableCollection<MangaChapterItem>> GetChapterList(MangaMenuItem menu)
         {
             return Task.Run<ObservableCollection<MangaChapterItem>>(() =>
@@ -73,25 +96,12 @@ namespace MangaViewer.Service
                 }
                 return mangaChapterList;
             });
-        }
+        } 
+        #endregion
 
+        #region Menu
         //Menu
-        public static Task<HubMenuGroup> GetTopMangaGroup()
-        private string _menuHtml = "";
-        protected string MenuHtml
-        {
-            get
-            {
-                if (_menuHtml == string.Empty)
-                {
-                    MangaPattern mPattern = WebSiteAccess.GetMangaPatternInstance(WebType);
-                    _menuHtml = mPattern.GetHtml(mPattern.WEBSITEURL);
-                    
-                }
-                return _menuHtml;
-            }
-        }
-        public Task<HubMenuGroup> GetNewMangeGroup()
+        public static Task<HubMenuGroup> GetNewMangeGroup()
         {
             return Task.Run<HubMenuGroup>(() =>
             {
@@ -122,7 +132,7 @@ namespace MangaViewer.Service
                 return group;
             });
         }
-        public Task<HubMenuGroup> GetTopMangaGroup()
+        public static Task<HubMenuGroup> GetTopMangaGroup()
         {
             return Task.Run<HubMenuGroup>(() =>
             {
@@ -133,9 +143,9 @@ namespace MangaViewer.Service
                 List<TitleAndUrl> topMenuList = mPattern.GetTopMangaList(MenuHtml);
                 List<Size> sizeArray = new List<Size>() { HubItemSizes.FocusItem, HubItemSizes.SecondarySmallItem, HubItemSizes.SecondarySmallItem, HubItemSizes.SecondarySmallItem };
                 List<string> colorArray = new List<string>() { "#FF00B1EC", "#FFA80032", "#FFA80032", "#FFA80032" };
-                for (int i = 0; i < topMenuList.Count; i++ )
+                for (int i = 0; i < topMenuList.Count; i++)
                 {
-                    MangaMenuItem newItem = null; 
+                    MangaMenuItem newItem = null;
                     if (i >= sizeArray.Count)
                     {
                         //大于则用HubItemSizes.OtherSmallItem
@@ -160,7 +170,7 @@ namespace MangaViewer.Service
                 ObservableCollection<MangaMenuItem> myMangaMenu = new ObservableCollection<MangaMenuItem>();
                 foreach (MangaMenuItem mi in menuList)
                 {
-                   group.Items.Add(mi);
+                    group.Items.Add(mi);
 
                 }
                 return group;
@@ -202,11 +212,15 @@ namespace MangaViewer.Service
                 MenuGroups.Add(GetNewMangeGroup().Result);
                 //热门
                 MenuGroups.Add(GetTopMangaGroup().Result);
-                
+                //My Favourtie
+                MenuGroups.Add(GetMyMangaGroup().Result);
                 //MenuGroups.Add();
                 return MenuGroups;
             });
-        }
+        }  
+        #endregion
+
+        #endregion
 
 
     }

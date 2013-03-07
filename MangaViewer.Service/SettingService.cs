@@ -64,23 +64,13 @@ namespace MangaViewer.Service
 
         public static bool AddFavouriteMenu(MangaMenuItem menu)
         {
-            try
-            {
-                FavouriteMangaItem fMenu = new FavouriteMangaItem(menu, APPSetting.WebSite);
-                APPSetting.FavouriteMenu.Add(fMenu);
-                return true;
-            }
-            catch (System.Exception ex)
-            {
-                return false;
-            }
+            return APPSetting.AddFavouriteMenu(menu);
 
 
         }
         public static void RemoveFavouriteMenu(MangaMenuItem menu)
         {
-            FavouriteMangaItem fMenu = APPSetting.GetFavouriteItem(menu);
-            APPSetting.FavouriteMenu.Remove(fMenu);
+            APPSetting.RemoveFavouriteMenu(menu);
         }
 
         public static List<MangaMenuItem> GetMyMangaMenuList()
@@ -90,7 +80,7 @@ namespace MangaViewer.Service
             {
 
                 menuList = (from s in APPSetting.FavouriteMenu
-                            select s.menuItem).ToList();
+                            select s.MenuItem).ToList();
             }
             return menuList;
         }

@@ -41,12 +41,35 @@ namespace MangaViewer.Model
         {
             foreach (FavouriteMangaItem fm in FavouriteMenu)
             {
-                if (fm.menuItem.Url == menu.Url)
+                if (fm.MenuItem.Url == menu.Url)
                 {
                     return fm;
                 }
             }
             return null;
+        }
+
+        public bool AddFavouriteMenu(MangaMenuItem menu)
+        {
+            try
+            {
+                FavouriteMangaItem fMenu = new FavouriteMangaItem(menu, WebSite);
+                FavouriteMenu.Add(fMenu);
+                RaisePropertyChanged(()=>FavouriteMenu);
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                return false;
+            }
+
+
+        }
+        public  void RemoveFavouriteMenu(MangaMenuItem menu)
+        {
+            FavouriteMangaItem fMenu = GetFavouriteItem(menu);
+            FavouriteMenu.Remove(fMenu);
+            RaisePropertyChanged(() => FavouriteMenu);
         }
     }
 }
