@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ namespace MangaViewer.Model
 {
     public class Setting : ObservableObject
     {
+        [IgnoreDataMember]
         private List<FavouriteMangaItem> _favouriteMenu = null;
         public List<FavouriteMangaItem> FavouriteMenu
         {
@@ -48,5 +50,10 @@ namespace MangaViewer.Model
             }
             return null;
         }
+
+        [CollectionDataContract]
+        private List<TitleAndUrl> _favouriteMenuCopy;
+
+
     }
 }

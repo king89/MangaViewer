@@ -110,5 +110,18 @@ namespace MangaViewer.Model
             this._imagePath = path;
             this.RaisePropertyChanged(() => Image);
         }
+
+        public MangaMenuItem Clone()
+        {
+            Size size = new Size(ItemSize.Width, ItemSize.Height);
+            return new MangaMenuItem(this.UniqueId, this.Title, this._imagePath, this.Group, this.Url, size, "");
+        }
+
+        public void SetSize(Size size)
+        {
+            this.Height = size.Height;
+            this.Width = size.Width;
+            this.ItemSize = size;
+        }
     }
 }

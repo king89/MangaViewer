@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
@@ -74,10 +75,10 @@ namespace MangaViewer.Service
 
             StorageFolder saveFolder = await localFolder.CreateFolderAsync(folderPath, CreateOptionOpen);
             StorageFile file = await saveFolder.CreateFileAsync(fileName, CreateOptionOpen);
-            string result  = await FileIO.ReadTextAsync(file);
+            string result = await FileIO.ReadTextAsync(file);
             return result;
         }
-        public static string SaveFile(Stream stream, string folder,string fileName,SaveType saveType)
+        public static string SaveFile(Stream stream, string folder, string fileName, SaveType saveType)
         {
 
             switch (saveType)
@@ -101,7 +102,6 @@ namespace MangaViewer.Service
 
     public static class MySerialize
     {
-
         public static string JsonSerialize(object o)
         {
             using (var ms = new MemoryStream())

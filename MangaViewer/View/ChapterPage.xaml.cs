@@ -70,10 +70,11 @@ namespace MangaViewer.View
         private async void FavouriteButton_Click(object sender, RoutedEventArgs e)
         {
             MangaMenuItem menu = ViewModelLocator.AppViewModel.Main.SelectedMenu;
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,new Windows.UI.Core.DispatchedHandler(() =>
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,new Windows.UI.Core.DispatchedHandler(async () =>
             {
-                //MangaMenuItem newMangaItem = CommonService.Clone<MangaMenuItem>(menu);
-                SettingService.AddFavouriteMenu(menu);
+                MangaMenuItem newMangaItem = menu.Clone();
+
+                SettingService.AddFavouriteMenu(newMangaItem);
             }));
             
 

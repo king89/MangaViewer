@@ -66,6 +66,8 @@ namespace MangaViewer.Service
         {
             try
             {
+                //init size
+                menu.SetSize(MangaViewer.Foundation.Controls.HubItemSizes.SecondarySmallItem);
                 FavouriteMangaItem fMenu = new FavouriteMangaItem(menu, APPSetting.WebSite);
                 APPSetting.FavouriteMenu.Add(fMenu);
                 return true;
