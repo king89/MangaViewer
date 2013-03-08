@@ -11,12 +11,24 @@ namespace MangaViewer.Model
     {
         public FavouriteMangaItem(MangaMenuItem menu,WebSiteEnum webSite)
         {
-            menuItem = menu;
+            MenuItem = menu;
             favouriteDate = DateTime.Now;
             this.webSite = webSite;
             clickTimes = 0;
         }
-        public MangaMenuItem menuItem;
+        private MangaMenuItem _menuItem;
+        public MangaMenuItem MenuItem
+        {
+            get 
+            {
+                return _menuItem;
+            }
+            set
+            {
+                _menuItem = value;
+                RaisePropertyChanged(() => MenuItem);
+            }
+        }
         public DateTime favouriteDate;
         public WebSiteEnum webSite;
         public int clickTimes;

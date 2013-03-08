@@ -11,7 +11,10 @@ namespace MangaViewer.Service
 {
     public class WebComic131 : MangaPattern
     {
-      
+        public WebComic131()
+        {
+            WEBSITEURL = "http://comic.131.com/";
+        }
         public override List<string> GetPageList(string firstPageUrl)
         {
             if (firstPageHtml == null)
@@ -49,13 +52,9 @@ namespace MangaViewer.Service
         {
 
             string html = GetHtml(pageUrl);
-            Regex reImg = new Regex("<img id=\"comicBigPic\" src=.+\" alt");
-            Match result = reImg.Match(html);
-            reImg = new Regex("src=.*\"");
-            result = reImg.Match(result.Value);
-            string strResult = result.Value.Replace("src=\"","").Replace("\"","");
-
-            return strResult;
+            Regex reImg = new Regex("(?<=<script id=\"imgjs\".*?img=)[\\s\\S]*?(?=\")");
+            string result = reImg.Match(html).Value;
+            return result;
 
         }
 
@@ -83,9 +82,48 @@ namespace MangaViewer.Service
             return chapterList;
         }
 
-        public override List<TitleAndUrl> GetTopMangaList()
+        public override List<TitleAndUrl> GetTopMangaList(string html)
         {
-            return base.GetTopMangaList();
+            List<TitleAndUrl> topMangaList = new List<TitleAndUrl>();
+            Regex rUl = new Regex("<ul class=\"xqkd\">[\\s\\S]*?</ul>");
+            string result = rUl.Match(html).Value;
+            Regex rLi = new Regex("<li>.*?</li>");
+            MatchCollection mCollection = rLi.Matches(result);
+
+            Regex rUrl = new Regex("(?<=href=\").*?(?=\")");
+            Regex rTitle = new Regex("(?<=\"_blank\">).*?(?=</a>)");
+            foreach (Match m in mCollection)
+            {
+                string url = rUrl.Match(m.Value).Value;
+                string title = rTitle.Match(m.Value).Value;
+                topMangaList.Add(new TitleAndUrl(title,url));
+            }
+            return topMangaList;
+        }
+
+        public override List<TitleAndUrl> GetNewMangaList(string html)
+        {
+            Regex rUl = new Regex("(?<=<em class=\"tc\">)[\\s\\S]*?(?=</div>)");
+            string result = rUl.Match(html).Value;
+            rUl = new Regex("<ul>[\\s\\S]*?</ul>");
+            result = rUl.Match(result).Value;
+            Regex rLi = new Regex("<li>[\\s\\S]*?</li>");
+            MatchCollection mCollection = rLi.Matches(result);
+            List<TitleAndUrl> newMangeList = new List<TitleAndUrl>();
+
+            Regex rUrl = new Regex("(?<=href=\")[\\s\\S]*?(?=\" target=[\\s\\S]*?<img)");
+            Regex rUrlPage = new Regex("(?<=:<a href=\")[\\s\\S]*?(?=\" target)");
+            Regex rTitle = new Regex("(?<=<strong>)[\\s\\S]*?(?=</strong>)");
+            Regex rTitlePage = new Regex("(?<=<img[\\s\\S]*?title=\")[\\s\\S]*?(?=\"><strong>)");
+            Regex rImg = new Regex("(?<=<img src=\")[\\s\\S]*?(?=\")");
+            foreach (Match m in mCollection)
+            {
+                string title = rTitlePage.Match(m.Value).Value;
+                string url = WEBSITEURL.TrimEnd('/') + rUrl.Match(m.Value).Value;
+                string img = rImg.Match(m.Value).Value;
+                newMangeList.Add(new TitleAndUrl(title,url,img));
+            }
+            return newMangeList;
         }
     }
 }
