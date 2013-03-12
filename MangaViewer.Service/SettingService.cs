@@ -26,11 +26,22 @@ namespace MangaViewer.Service
                 return _appSetting;
             }
         }
-        public static void SaveSetting()
+        public async static Task<bool> SaveSetting()
         {
+            return await Task.Run<bool>(() =>
+            {
+                try
+                {
+                    string serialResult = MySerialize.JsonSerialize((object)_appSetting);
+                    FileService.SaveFileInLocalByText(Constant.settingFolder, Constant.settingFile, serialResult);
+                    return true;
+                }
+                catch (System.Exception ex)
+                {
+                    return false;
+                }
 
-            string serialResult = MySerialize.JsonSerialize((object)_appSetting);
-            FileService.SaveFileInLocalByText(Constant.settingFolder, Constant.settingFile, serialResult);
+            });
         }
 
         public async static void LoadSetting()
@@ -83,6 +94,19 @@ namespace MangaViewer.Service
                             select s.MenuItem).ToList();
             }
             return menuList;
+        }
+
+        public static bool CheckFavourtie(MangaMenuItem selectedMenu)
+        {
+            if (APPSetting.GetFavouriteItem(selectedMenu) != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
     }
 }

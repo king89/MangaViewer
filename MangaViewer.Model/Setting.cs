@@ -12,6 +12,7 @@ namespace MangaViewer.Model
     {
         [IgnoreDataMember]
         private List<FavouriteMangaItem> _favouriteMenu = null;
+        [IgnoreDataMember]
         public List<FavouriteMangaItem> FavouriteMenu
         {
             get 
@@ -74,9 +75,49 @@ namespace MangaViewer.Model
             RaisePropertyChanged(() => FavouriteMenu);
         }
 
-        [CollectionDataContract]
+        [DataMember]
         private List<TitleAndUrl> _favouriteMenuCopy;
+        [DataMember]
+        public List<TitleAndUrl> FavouriteMenuCopy
+        {
+            get
+            {
+                return _favouriteMenuCopy;
+            }
+            set
+            {
+                _favouriteMenuCopy = value;
+            }
+        }
 
+        //private List<TitleAndUrl> GetMenuCopy()
+        //{
 
+        //}
+        [OnSerializing]
+        public void OnSerializing(StreamingContext context)
+        {
+            _favouriteMenuCopy = new List<TitleAndUrl>();
+            foreach(FavouriteMangaItem fmi in _favouriteMenu)
+            {
+             _favouriteMenuCopy.Add(new TitleAndUrl(fmi.MenuItem.Title,fmi.MenuItem.Url,fmi.MenuItem.GetImagePath()));
+            }
+        }
+
+        [OnDeserialized]
+        public void OnDeserialized(StreamingContext context)
+        {
+            if (_favouriteMenuCopy != null)
+            {
+
+                _favouriteMenu = new List<FavouriteMangaItem>();
+                foreach (TitleAndUrl fmi in _favouriteMenuCopy)
+                {
+                    MangaMenuItem menu = new MangaMenuItem(fmi);
+
+                    _favouriteMenu.Add(new FavouriteMangaItem(menu, this.WebSite));
+                }
+            }
+        }
     }
 }

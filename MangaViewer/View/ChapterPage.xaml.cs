@@ -115,14 +115,32 @@ namespace MangaViewer.View
         private async void FavouriteButton_Click(object sender, RoutedEventArgs e)
         {
             MangaMenuItem menu = ViewModelLocator.AppViewModel.Main.SelectedMenu;
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,new Windows.UI.Core.DispatchedHandler(async () =>
+
+            if (ViewModelLocator.AppViewModel.Main.IsFavourited)
             {
-                MangaMenuItem newMangaItem = menu.Clone();
-                ViewModelLocator.AppViewModel.Main.MenuGroups.Last().Items.Add(menu);
-                SettingService.AddFavouriteMenu(newMangaItem);
-            }));
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, new Windows.UI.Core.DispatchedHandler(async () =>
+                {
+
+                    ViewModelLocator.AppViewModel.Main.MenuGroups.Last().Items.Remove(menu);
+                    SettingService.RemoveFavouriteMenu(menu);
+                    ViewModelLocator.AppViewModel.Main.IsFavourited = false;
+                }));
+                
+            }
+            else
+            {
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, new Windows.UI.Core.DispatchedHandler(async () =>
+                {
+                    MangaMenuItem newMangaItem = menu.Clone();
+                    newMangaItem.SetDefaultSize();
+                    ViewModelLocator.AppViewModel.Main.MenuGroups.Last().Items.Add(newMangaItem);
+                    SettingService.AddFavouriteMenu(newMangaItem);
+                    ViewModelLocator.AppViewModel.Main.IsFavourited = true;
+                }));
+            }
             
 
         }
+
     }
 }

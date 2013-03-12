@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace MangaViewer.Model
 {
-    [DataContract(Name = "MangaMenuItem", Namespace = "MangaViewer.Model")]
+    [DataContract]
     public class MangaMenuItem : HubMenuItem
     {
         private static Uri _baseUri = new Uri("ms-appx:///");
@@ -29,6 +29,13 @@ namespace MangaViewer.Model
             _width = size.Width;
             _imagePath = imagePath;
             _url = url;
+        }
+
+        public MangaMenuItem(TitleAndUrl tau)
+        {
+            Title = tau.Title;
+            Url = tau.Url;
+            _imagePath = tau.ImagePath;
         }
         
         private string _url = "";
@@ -110,6 +117,10 @@ namespace MangaViewer.Model
             this._imagePath = path;
             this.RaisePropertyChanged(() => Image);
         }
+        public string GetImagePath()
+        {
+            return _imagePath;
+        }
 
         public MangaMenuItem Clone()
         {
@@ -119,6 +130,13 @@ namespace MangaViewer.Model
 
         public void SetSize(Size size)
         {
+            this.Height = size.Height;
+            this.Width = size.Width;
+            this.ItemSize = size;
+        }
+        public void SetDefaultSize()
+        {
+            Size size = new Size(3, 1);
             this.Height = size.Height;
             this.Width = size.Width;
             this.ItemSize = size;

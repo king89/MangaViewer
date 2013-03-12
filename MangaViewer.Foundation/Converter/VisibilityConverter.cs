@@ -34,13 +34,29 @@ namespace MangaViewer.Foundation.Converter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if ((bool)value ^ (bool)parameter)
+            if ((bool)value )
             {
-                return Visibility.Visible;
+                if (parameter.ToString() == "true")
+                {
+                    return Visibility.Visible;
+                }
+                else
+                {
+                    return Visibility.Collapsed;
+                }
+                
             }
             else
             {
-                return Visibility.Collapsed;
+
+                if (parameter.ToString() == "true")
+                {
+                    return Visibility.Collapsed;
+                }
+                else
+                {
+                    return Visibility.Visible;
+                }
             }
         }
 

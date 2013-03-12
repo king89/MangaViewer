@@ -123,6 +123,18 @@ namespace MangaViewer.ViewModel
         }
         
         #endregion
+
+        public bool IsFavourited
+        {
+            get
+            {
+                return SettingService.CheckFavourtie(SelectedMenu);
+            }
+            set 
+            {
+                RaisePropertyChanged(() => IsFavourited);
+            }
+        }
         #region CoverImage
         public ImageSource CoverImage
         {

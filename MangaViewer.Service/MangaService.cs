@@ -170,6 +170,7 @@ namespace MangaViewer.Service
                 ObservableCollection<MangaMenuItem> myMangaMenu = new ObservableCollection<MangaMenuItem>();
                 foreach (MangaMenuItem mi in menuList)
                 {
+                    mi.SetDefaultSize();
                     group.Items.Add(mi);
 
                 }

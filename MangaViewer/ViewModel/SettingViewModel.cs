@@ -14,7 +14,7 @@ namespace MangaViewer.ViewModel
         }
 
 
-        #region Sample Property
+        #region  Property
         private string _SampleProperty = string.Empty;
         public string SampleProperty
         {
