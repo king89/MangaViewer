@@ -50,6 +50,7 @@ namespace MangaViewer.View
         async void GetMenu()
         {
             //有网络
+            ViewModelLocator.AppViewModel.Main.MenuGroups = null;
             ObservableCollection<HubMenuGroup> menu = await MangaService.GetMainMenu();
             LoadingStack.Visibility = Visibility.Collapsed;
             ViewModelLocator.AppViewModel.Main.MenuGroups = menu;

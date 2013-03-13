@@ -44,7 +44,7 @@ namespace MangaViewer
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
-            SettingService.LoadSetting();
+
         }
 
         /// <summary>
@@ -53,8 +53,9 @@ namespace MangaViewer
         /// search results, and so forth.
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        protected async override void OnLaunched(LaunchActivatedEventArgs args)
         {
+            await SettingService.LoadSetting();
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -104,6 +105,7 @@ namespace MangaViewer
             deferral.Complete();
 
         }
+
 
     }
 }

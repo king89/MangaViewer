@@ -42,6 +42,24 @@
                 </Button>
                 <Button Style="{StaticResource UnfavoriteAppBarButtonStyle}"  Click="FavouriteButton_Click"  Visibility="{Binding Main.IsFavourited, Converter={StaticResource VisiableConverter},ConverterParameter=true}" >
                 </Button>
+                <Popup Name="MyPopup"   IsLightDismissEnabled="True" FlowDirection="RightToLeft" Margin="0,80,0,0">
+                <Popup.ChildTransitions>
+                    <TransitionCollection>
+                        <!--<PaneThemeTransition Edge="Bottom" />-->
+                        <AddDeleteThemeTransition/>
+                        <!--<ContentThemeTransition/>-->
+                        <!--<EntranceThemeTransition/>-->
+                        <EdgeUIThemeTransition Edge="Left"/>
+                        <!--<PopupThemeTransition/>-->
+                        <!--<ReorderThemeTransition/>-->
+                    </TransitionCollection>
+                </Popup.ChildTransitions>
+                <Grid>
+                    <Border Width="500" Height="200" Background="Coral">
+                        <TextBlock Name="favouriteMsg"  HorizontalAlignment="Center" VerticalAlignment="Center"  Text="a;ksdhfalkhsbdlfa" FontSize="48"></TextBlock>
+                    </Border>
+                </Grid>
+            </Popup>
             </StackPanel>
         </AppBar>
     </Page.TopAppBar>
@@ -80,6 +98,7 @@
                     <i:EventToCommand Command="{Binding Main.ChapterSelectedCommand}" CommandParameter="Test"  Event="ItemClick"/>
                 </i:EventToCommandCollection.Items>
             </GridView>
+
             
         </Grid>
         <VisualStateManager.VisualStateGroups>

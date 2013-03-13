@@ -125,7 +125,8 @@ namespace MangaViewer.View
                     SettingService.RemoveFavouriteMenu(menu);
                     ViewModelLocator.AppViewModel.Main.IsFavourited = false;
                 }));
-                
+                MyPopup.IsOpen = true;
+                favouriteMsg.Text = "Unfavourited";
             }
             else
             {
@@ -137,6 +138,8 @@ namespace MangaViewer.View
                     SettingService.AddFavouriteMenu(newMangaItem);
                     ViewModelLocator.AppViewModel.Main.IsFavourited = true;
                 }));
+                MyPopup.IsOpen = true;
+                favouriteMsg.Text = "Favourited";
             }
             
 

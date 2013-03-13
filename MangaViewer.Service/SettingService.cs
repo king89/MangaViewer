@@ -44,20 +44,32 @@ namespace MangaViewer.Service
             });
         }
 
-        public async static void LoadSetting()
+        public async static Task<bool> LoadSetting()
         {
-            string result = await FileService.LoadFileInLocalByText(Constant.settingFolder, Constant.settingFile);
+            return await Task.Run<bool>(async () =>
+            {
+                try
+                {
+                    string result = await FileService.LoadFileInLocalByText(Constant.settingFolder, Constant.settingFile);
 
-            //throw new NotImplementedException();
-            if (result != string.Empty)
-            {
-                _appSetting = MySerialize.JsonDeserialize<Setting>(result);
-            }
-            else
-            {
-                _appSetting = new Setting();
-                _appSetting.WebSite = WebSiteEnum.Comic131;
-            }
+                    //throw new NotImplementedException();
+                    if (result != string.Empty)
+                    {
+                        _appSetting = MySerialize.JsonDeserialize<Setting>(result);
+                    }
+                    else
+                    {
+                        _appSetting = new Setting();
+                        _appSetting.WebSite = WebSiteEnum.Comic131;
+                    }
+                    return true;
+                }
+                catch (System.Exception ex)
+                {
+                    return false;
+                }
+
+            });
 
         }
 
