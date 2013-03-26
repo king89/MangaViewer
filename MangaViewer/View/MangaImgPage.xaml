@@ -113,7 +113,15 @@
                 <TextBlock   TextWrapping="Wrap"  Text="/" VerticalAlignment="Center" LineHeight="32" FontFamily="Global User Interface" FontSize="32"/>
                 <TextBlock   TextWrapping="Wrap"  Text="{Binding Main.SelectedPage.TotalNum }" VerticalAlignment="Center" LineHeight="32" FontFamily="Global User Interface" FontSize="32"/>
             </StackPanel>
-
+            <StackPanel VerticalAlignment="Center">
+                <Popup Name="CanNotLoad"  >
+                    <Grid Background = " Azure" Width="1000" Height="200" Margin="200,-70,0,0">
+                        <StackPanel  VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Text="无法读取图片"   FontSize="40"></TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </Popup>
+            </StackPanel>
         </Grid>
         <VisualStateManager.VisualStateGroups>
             <!-- Visual states reflect the application's view state -->

@@ -16,6 +16,7 @@ namespace MangaViewer.Service
         protected int totalNum = 1;
         protected string firstPageHtml = null;
         public string WEBSITEURL = "";
+        public string WEBSEARCHURL = "";
 /*
 //  
 //  Page
@@ -63,6 +64,7 @@ namespace MangaViewer.Service
 */
         public virtual List<TitleAndUrl> GetTopMangaList(string html) { return null; }
         public virtual List<TitleAndUrl> GetNewMangaList(string html) { return null; }
+        public virtual List<TitleAndUrl> GetSearchingList(string queryText,int pageNum) { return null; }
     }
 
 

@@ -14,37 +14,34 @@ namespace MangaViewer.Service
 {
     public static class MangaService
     {
-        #region  Property
+<<<<<<< HEAD
+=======
 
-        private static int groupItemMaxNum = 15;
-
-        static WebSiteEnum WebType
+        WebSiteEnum _webType;
+        private int groupItemMaxNum = 15;
+        public MangaService()
         {
+            WebType = WebSiteEnum.Comic131;
+            //_webType = WebSiteEnum.Local;
+        }
+>>>>>>> master
+
+        static WebSiteEnum WebType 
+        {
+<<<<<<< HEAD
             get
             {
                 return SettingService.GetWebSite();
+=======
+            get { return _webType; }
+            set 
+            {
+                _webType = value;
+                //init menu html
+                _menuHtml = "";
+>>>>>>> master
             }
         }
-
-        private static string _menuHtml = "";
-        public static string MenuHtml
-        {
-            get
-            {
-                if (_menuHtml == string.Empty)
-                {
-                    MangaPattern mPattern = WebSiteAccess.GetMangaPatternInstance(WebType);
-                    _menuHtml = mPattern.GetHtml(mPattern.WEBSITEURL);
-
-                }
-                return _menuHtml;
-            }
-        } 
-        #endregion
-
-        #region Function
-
-        #region Page
         /// <summary>
         ///   get web image and save into temp folder, return local path uri
         /// </summary>
@@ -76,10 +73,8 @@ namespace MangaViewer.Service
                 }
                 return mangaPageList;
             });
-        } 
-        #endregion
+        }
 
-        #region Chapter
         public static Task<ObservableCollection<MangaChapterItem>> GetChapterList(MangaMenuItem menu)
         {
             return Task.Run<ObservableCollection<MangaChapterItem>>(() =>
@@ -96,12 +91,27 @@ namespace MangaViewer.Service
                 }
                 return mangaChapterList;
             });
-        } 
-        #endregion
+        }
 
-        #region Menu
         //Menu
-        public static Task<HubMenuGroup> GetNewMangeGroup()
+<<<<<<< HEAD
+        public static Task<HubMenuGroup> GetTopMangaGroup()
+=======
+        private string _menuHtml = "";
+        protected string MenuHtml
+        {
+            get
+            {
+                if (_menuHtml == string.Empty)
+                {
+                    MangaPattern mPattern = WebSiteAccess.GetMangaPatternInstance(WebType);
+                    _menuHtml = mPattern.GetHtml(mPattern.WEBSITEURL);
+                    
+                }
+                return _menuHtml;
+            }
+        }
+        public Task<HubMenuGroup> GetNewMangeGroup()
         {
             return Task.Run<HubMenuGroup>(() =>
             {
@@ -132,7 +142,8 @@ namespace MangaViewer.Service
                 return group;
             });
         }
-        public static Task<HubMenuGroup> GetTopMangaGroup()
+        public Task<HubMenuGroup> GetTopMangaGroup()
+>>>>>>> master
         {
             return Task.Run<HubMenuGroup>(() =>
             {
@@ -143,9 +154,9 @@ namespace MangaViewer.Service
                 List<TitleAndUrl> topMenuList = mPattern.GetTopMangaList(MenuHtml);
                 List<Size> sizeArray = new List<Size>() { HubItemSizes.FocusItem, HubItemSizes.SecondarySmallItem, HubItemSizes.SecondarySmallItem, HubItemSizes.SecondarySmallItem };
                 List<string> colorArray = new List<string>() { "#FF00B1EC", "#FFA80032", "#FFA80032", "#FFA80032" };
-                for (int i = 0; i < topMenuList.Count; i++)
+                for (int i = 0; i < topMenuList.Count; i++ )
                 {
-                    MangaMenuItem newItem = null;
+                    MangaMenuItem newItem = null; 
                     if (i >= sizeArray.Count)
                     {
                         //大于则用HubItemSizes.OtherSmallItem
@@ -170,8 +181,7 @@ namespace MangaViewer.Service
                 ObservableCollection<MangaMenuItem> myMangaMenu = new ObservableCollection<MangaMenuItem>();
                 foreach (MangaMenuItem mi in menuList)
                 {
-                    mi.SetDefaultSize();
-                    group.Items.Add(mi);
+                   group.Items.Add(mi);
 
                 }
                 return group;
@@ -213,38 +223,13 @@ namespace MangaViewer.Service
                 MenuGroups.Add(GetNewMangeGroup().Result);
                 //热门
                 MenuGroups.Add(GetTopMangaGroup().Result);
-                //My Favourtie
-                MenuGroups.Add(GetMyMangaGroup().Result);
+                
                 //MenuGroups.Add();
                 return MenuGroups;
             });
-        }  
-        #endregion
-
-        #endregion
-
-
-
-        public static Task<ObservableCollection<MangaMenuItem>> GetSearchingList(string queryText,int pageNum=1)
-        {
-            return Task.Run<ObservableCollection<MangaMenuItem>>(() =>
-            {
-                ObservableCollection<MangaMenuItem> searchMangaMenu = new ObservableCollection<MangaMenuItem>();
-
-                MangaPattern mPattern = WebSiteAccess.GetMangaPatternInstance(WebType);
-                List<TitleAndUrl> MenuList = mPattern.GetSearchingList(queryText,pageNum);
-
-                for (int i = 0; i < MenuList.Count; i++)
-                {
-                    MangaMenuItem newItem = null;
-                    
-                    newItem = new MangaMenuItem("search-" + i, MenuList[i].Title, MenuList[i].ImagePath, null, MenuList[i].Url, HubItemSizes.OtherSmallItem, string.Empty);
-                    searchMangaMenu.Add(newItem);
-                }
-
-                return searchMangaMenu;
-            });
         }
+
+
     }
 
 

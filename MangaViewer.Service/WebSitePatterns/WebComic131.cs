@@ -14,6 +14,7 @@ namespace MangaViewer.Service
         public WebComic131()
         {
             WEBSITEURL = "http://comic.131.com/";
+            WEBSEARCHURL = "http://dynamic.comic.131.com/Search.aspx?all=";
         }
         public override List<string> GetPageList(string firstPageUrl)
         {
@@ -54,6 +55,14 @@ namespace MangaViewer.Service
             string html = GetHtml(pageUrl);
             Regex reImg = new Regex("(?<=<script id=\"imgjs\".*?img=)[\\s\\S]*?(?=\")");
             string result = reImg.Match(html).Value;
+            if (result == string.Empty)
+            {
+                reImg = new Regex("(?<=<img id=\"comicBigPic\" src=\")[\\s\\S]+?(?=\")");
+                result = reImg.Match(html).Value;
+            }
+            if (result == string.Empty)
+            {
+            }
             return result;
 
         }
@@ -124,6 +133,30 @@ namespace MangaViewer.Service
                 newMangeList.Add(new TitleAndUrl(title,url,img));
             }
             return newMangeList;
+        }
+
+        public override List<TitleAndUrl> GetSearchingList(string queryText,int pageNum = 1)
+        {
+            string pageUrl = this.WEBSEARCHURL + queryText+"&page="+pageNum.ToString();
+            string html = GetHtml(pageUrl);
+            Regex rUl = new Regex("(?<=</h4>\\s*?<ul>)[\\s\\S]*?(?=</ul>)");
+            string result = rUl.Match(html).Value;
+            Regex rLi = new Regex("<li>[\\s\\S]*?</li>");
+            MatchCollection mCollection = rLi.Matches(result);
+
+            List<TitleAndUrl> newMangeList = new List<TitleAndUrl>();
+
+            Regex rUrl = new Regex("(?<=<a href=\")[\\s\\S]*?(?=\"[\\s\\S]*?<img)");
+            Regex rTitle = new Regex("(?<=<p><a[\\s\\S]*?>)[\\s\\S]*?(?=</a>)");
+            Regex rImg = new Regex("(?<=src=\")[\\s\\S]*?(?=\")");
+            foreach (Match m in mCollection)
+            {
+                string title = rTitle.Match(m.Value).Value;
+                string url = rUrl.Match(m.Value).Value;
+                string img = rImg.Match(m.Value).Value;
+                newMangeList.Add(new TitleAndUrl(title, url, img));
+            }
+            return newMangeList;   
         }
     }
 }

@@ -71,19 +71,18 @@ namespace MangaViewer.View
         }
         private async void FlipView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            CanNotLoad.IsOpen = false;
             MangaPageItem selectPage = (MangaPageItem)ImageFlipView.SelectedItem;
             ViewModelLocator.AppViewModel.Main.SelectedPage = selectPage;
             if (selectPage != null)
             {
                 if (!selectPage.IsLoadedImage)
                 {
+<<<<<<< HEAD
                     var path = await MangaService.GetIamgeByImageUrl(selectPage);
-                    if (path == string.Empty)
-                    {
-                        CanNotLoad.IsOpen = true;
-                        return;
-                    }
+                    ((MangaPageItem)selectPage).SetImage(path);
+
+=======
+                    var path = await App.MyMangaService.GetIamgeByImageUrl(selectPage);
                     selectPage.SetImage(path);
                     //下两页预读
                     int nowPage = selectPage.PageNum;
@@ -91,17 +90,18 @@ namespace MangaViewer.View
                     if (nowPage+1 < totalPage)
                     {
                         MangaPageItem nextOnePage = ViewModelLocator.AppViewModel.Main.PageList[nowPage + 1];
-                        var pathNext = await MangaService.GetIamgeByImageUrl(nextOnePage);
+                        var pathNext = await App.MyMangaService.GetIamgeByImageUrl(nextOnePage);
                         nextOnePage.SetImage(pathNext);
                     }
                     if (nowPage+2 < totalPage)
                     {
                         MangaPageItem nextTwoPage = ViewModelLocator.AppViewModel.Main.PageList[nowPage + 2];
-                        var pathNext = await MangaService.GetIamgeByImageUrl(nextTwoPage);
+                        var pathNext = await App.MyMangaService.GetIamgeByImageUrl(nextTwoPage);
                         nextTwoPage.SetImage(pathNext);
                     }
                    
                     
+>>>>>>> master
                 }
                 else
                 {

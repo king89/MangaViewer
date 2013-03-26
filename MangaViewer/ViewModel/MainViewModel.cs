@@ -123,7 +123,27 @@ namespace MangaViewer.ViewModel
         }
         
         #endregion
+        #region SeachingDataMenu
+        ObservableCollection<MangaMenuItem> _searchListData;
+        public ObservableCollection<MangaMenuItem> SearchingList
+        {
+            get
+            {
+                //Demo
+                //if (_pageListData == null)
+                //    _pageListData = new PageListData().PageList;
 
+                return _searchListData;
+
+
+            }
+            set
+            {
+                _searchListData = value;
+                RaisePropertyChanged(() => SearchingList);
+            }
+        }
+        #endregion
         public bool IsFavourited
         {
             get
@@ -193,6 +213,20 @@ namespace MangaViewer.ViewModel
             }
         }
 
+        private RelayCommand<ExCommandParameter> _searchMenuSelectedCommand;
+        public RelayCommand<ExCommandParameter> SearchMenuSelectedCommand
+        {
+            get
+            {
+                return _searchMenuSelectedCommand ?? (_searchMenuSelectedCommand = new RelayCommand<ExCommandParameter>((ep) =>
+                {
+                    ItemClickEventArgs e = ep.EventArgs as ItemClickEventArgs;
+                    _selectedMenu = e.ClickedItem as MangaMenuItem;
+                    App.NavigationService.Navigate(typeof(ChapterPage), _selectedMenu);
+                }));
+            }
+        }
+
         //some private var
         MangaMenuItem _selectedMenu = null;
         public MangaMenuItem SelectedMenu
@@ -207,5 +241,11 @@ namespace MangaViewer.ViewModel
             set { _selectedChapter = value; }
         }
 
+
+        public void SearchManga(string queryText)
+        {
+            App.NavigationService.Navigate(typeof(SearchingPage), queryText);
+            //throw new NotImplementedException();
+        }
     }
 }

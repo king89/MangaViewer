@@ -106,6 +106,10 @@ namespace MangaViewer
 
         }
 
-
+        protected override void OnSearchActivated(SearchActivatedEventArgs args)
+        {
+            ViewModel.ViewModelLocator.AppViewModel.Main.SearchManga(args.QueryText);
+            base.OnSearchActivated(args);
+        }
     }
 }
