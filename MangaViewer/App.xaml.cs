@@ -16,6 +16,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using MangaViewer.Foundation.Common;
 using MangaViewer.Service;
+using System.Threading.Tasks;
+using MangaViewer.View;
 
 namespace MangaViewer
 {
@@ -72,6 +74,7 @@ namespace MangaViewer
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
+                
             }
 
             if (rootFrame.Content == null)
@@ -106,10 +109,56 @@ namespace MangaViewer
 
         }
 
-        protected override void OnSearchActivated(SearchActivatedEventArgs args)
+        protected async override void OnSearchActivated(SearchActivatedEventArgs args)
         {
-            ViewModel.ViewModelLocator.AppViewModel.Main.SearchManga(args.QueryText);
             base.OnSearchActivated(args);
+            string data = args.QueryText;
+            if (args.PreviousExecutionState == ApplicationExecutionState.NotRunning)
+            {
+                await PageStart(args, data);　　　　//App.xml.cs中定义的私有方法，下面有介绍
+                return;
+            }
+            {
+                await EnsureSearchPageActive(args);
+            }
+           
+           // ViewModel.ViewModelLocator.AppViewModel.Main.SearchManga(args.QueryText);
+
+        }
+
+        /// <summary>
+        /// 程序启动时初始化页面
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        private async Task PageStart(IActivatedEventArgs args, string data)
+        {
+            await SettingService.LoadSetting();
+            Frame rootFrame = Window.Current.Content as Frame;
+            if (rootFrame == null)
+            {
+                rootFrame = new Frame();
+                if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                {
+                    //TODO: 从之前挂起的应用程序加载状态
+                }
+            }
+
+            if (Window.Current.Content == null)
+            {
+                rootFrame = new Frame();
+                rootFrame.Navigate(typeof(SearchingPage),data);
+                Window.Current.Content = rootFrame;
+            }
+            Window.Current.Activate();
+            App.NavigationService = new NavigationService(rootFrame);
+        }
+        private async Task EnsureSearchPageActive(IActivatedEventArgs args)
+        {
+            if (args.PreviousExecutionState != ApplicationExecutionState.Terminated)
+            {
+                App.NavigationService.Navigate(typeof(SearchingPage), ((SearchActivatedEventArgs)args).QueryText);
+            }
         }
     }
 }

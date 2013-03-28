@@ -28,7 +28,14 @@
             <WrapGrid Orientation="Vertical" ScrollViewer.HorizontalScrollMode="Enabled" MaximumRowsOrColumns="6"/>
         </ItemsPanelTemplate>
     </Page.Resources>
-
+    <Page.TopAppBar>
+        <AppBar Background="Gray">
+            <StackPanel Orientation="Horizontal" >
+                <Button  Style="{StaticResource HomeAppBarButtonStyle}" Click="Button_Click_1" >
+                </Button>
+            </StackPanel>
+        </AppBar>
+    </Page.TopAppBar>
     <!--
         This grid acts as a root panel for the page that defines two rows:
         * Row 0 contains the back button and page title

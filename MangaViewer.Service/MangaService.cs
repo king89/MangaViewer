@@ -238,7 +238,7 @@ namespace MangaViewer.Service
                 {
                     MangaMenuItem newItem = null;
                     
-                    newItem = new MangaMenuItem("search-" + i, MenuList[i].Title, MenuList[i].ImagePath, null, MenuList[i].Url, HubItemSizes.OtherSmallItem, string.Empty);
+                    newItem = new MangaMenuItem("search-" + i, MenuList[i].Title, MenuList[i].ImagePath, null, MenuList[i].Url, HubItemSizes.SecondarySmallItem, string.Empty);
                     searchMangaMenu.Add(newItem);
                 }
 

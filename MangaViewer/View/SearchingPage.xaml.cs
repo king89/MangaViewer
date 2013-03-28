@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using MangaViewer.Foundation.Common;
 using System.Threading.Tasks;
 using MangaViewer.Service;
+using Windows.ApplicationModel.Search;
 
 namespace MangaViewer.View
 {
@@ -25,6 +19,7 @@ namespace MangaViewer.View
         public SearchingPage()
         {
             this.InitializeComponent();
+            this.LoadingStack.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -38,6 +33,9 @@ namespace MangaViewer.View
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+            SearchPane searchPane = SearchPane.GetForCurrentView();
+            searchPane.QuerySubmitted += new TypedEventHandler<SearchPane, SearchPaneQuerySubmittedEventArgs>(searchPane_QuerySubmitted);
+
         }
 
         /// <summary>
@@ -48,22 +46,41 @@ namespace MangaViewer.View
         /// <param name="pageState">An empty dictionary to be populated with serializable state.</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
+            SearchPane searchPane = SearchPane.GetForCurrentView();
+            searchPane.QuerySubmitted -= new TypedEventHandler<SearchPane, SearchPaneQuerySubmittedEventArgs>(searchPane_QuerySubmitted);
 
         }
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected  override void OnNavigatedTo(NavigationEventArgs e)
         {
-            
-            string queryText = (string)e.Parameter;
-            this.pageTitle.Text = "搜索" + queryText + "的结果";
-            await GetSearchingList(queryText);
-            LoadingStack.Visibility = Visibility.Collapsed;
-
             base.OnNavigatedTo(e);
+            if (e.Parameter != null)
+            {
+                SearchMethod((string)e.Parameter);
+            }
         }
         async Task GetSearchingList(string queryText)
         {
             var menu = await MangaService.GetSearchingList(queryText);
             MangaViewer.ViewModel.ViewModelLocator.AppViewModel.Main.SearchingList = menu;
+        }
+        void searchPane_QuerySubmitted(SearchPane sender, SearchPaneQuerySubmittedEventArgs agrs)
+        {
+            SearchMethod(agrs.QueryText);
+
+        }
+
+        private async void SearchMethod(string queryText)
+        {
+            MangaViewer.ViewModel.ViewModelLocator.AppViewModel.Main.SearchingList = null;
+            LoadingStack.Visibility = Visibility.Visible;
+            this.pageTitle.Text = "搜索'" + queryText + "'的结果";
+            await GetSearchingList(queryText);
+            LoadingStack.Visibility = Visibility.Collapsed;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            App.NavigationService.Navigate(typeof(MainPage));
         }
     }
 }
