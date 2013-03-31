@@ -51,12 +51,25 @@ namespace MangaViewer.View
         {
             //有网络
             ViewModelLocator.AppViewModel.Main.MenuGroups = null;
-            ObservableCollection<HubMenuGroup> menu = await MangaService.GetMainMenu();
-            LoadingStack.Visibility = Visibility.Collapsed;
-            ViewModelLocator.AppViewModel.Main.MenuGroups = menu;
+            try
+            {
+                ObservableCollection<HubMenuGroup> menu = await MangaService.GetMainMenu();
+                LoadingStack.Visibility = Visibility.Collapsed;
+                ViewModelLocator.AppViewModel.Main.MenuGroups = menu;
+            }
+            catch (System.Exception ex)
+            {
+            	
+            }
 
             ////没网络
             //ViewModelLocator.AppViewModel.Main.PageList = new MangaViewer.Data.PageListData().PageList;
+        }
+
+        private  void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.itemGridView.ToString();
+            GetMenu();
         }
        
 

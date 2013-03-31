@@ -39,7 +39,7 @@ namespace MangaViewer.Service
                 }
                 return _menuHtml;
             }
-        } 
+        }
         #endregion
 
         #region Function
@@ -76,7 +76,7 @@ namespace MangaViewer.Service
                 }
                 return mangaPageList;
             });
-        } 
+        }
         #endregion
 
         #region Chapter
@@ -96,7 +96,7 @@ namespace MangaViewer.Service
                 }
                 return mangaChapterList;
             });
-        } 
+        }
         #endregion
 
         #region Menu
@@ -218,30 +218,32 @@ namespace MangaViewer.Service
                 //MenuGroups.Add();
                 return MenuGroups;
             });
-        }  
+        }
         #endregion
 
         #endregion
 
 
 
-        public static Task<ObservableCollection<MangaMenuItem>> GetSearchingList(string queryText,int pageNum=1)
+        public static Task<ObservableCollection<MangaMenuItem>> GetSearchingList(string queryText, int pageNum = 1)
         {
             return Task.Run<ObservableCollection<MangaMenuItem>>(() =>
             {
                 ObservableCollection<MangaMenuItem> searchMangaMenu = new ObservableCollection<MangaMenuItem>();
 
                 MangaPattern mPattern = WebSiteAccess.GetMangaPatternInstance(WebType);
-                List<TitleAndUrl> MenuList = mPattern.GetSearchingList(queryText,pageNum);
-
-                for (int i = 0; i < MenuList.Count; i++)
+                List<TitleAndUrl> MenuList = mPattern.GetSearchingList(queryText, pageNum);
+                if (MenuList != null)
                 {
-                    MangaMenuItem newItem = null;
-                    
-                    newItem = new MangaMenuItem("search-" + i, MenuList[i].Title, MenuList[i].ImagePath, null, MenuList[i].Url, HubItemSizes.SecondarySmallItem, string.Empty);
-                    searchMangaMenu.Add(newItem);
-                }
 
+                    for (int i = 0; i < MenuList.Count; i++)
+                    {
+                        MangaMenuItem newItem = null;
+
+                        newItem = new MangaMenuItem("search-" + i, MenuList[i].Title, MenuList[i].ImagePath, null, MenuList[i].Url, HubItemSizes.SecondarySmallItem, string.Empty);
+                        searchMangaMenu.Add(newItem);
+                    }
+                }
                 return searchMangaMenu;
             });
         }

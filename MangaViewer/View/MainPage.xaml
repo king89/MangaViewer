@@ -10,11 +10,11 @@
                         xmlns:ignore="http://www.ignore.com"
                         mc:Ignorable="d ignore"
                         d:DesignHeight="768"
-                        d:DesignWidth="3366"
+                        d:DesignWidth="1366"
                         DataContext="{Binding Source={StaticResource Locator}, Path=AppViewModel}">
     <Page.Resources>
 
-            <CollectionViewSource
+        <CollectionViewSource
             x:Name="menuItemsViewSource"
             Source="{Binding Main.MenuGroups}"
             IsSourceGrouped="true"
@@ -35,8 +35,11 @@
     </Page.Resources>
     <Page.BottomAppBar>
         <AppBar Background="Gray">
-            <Button Click="Button_Click_1" Style="{StaticResource SettingsAppBarButtonStyle}" >
-            </Button>
+            <StackPanel Orientation="Horizontal">
+                <Button Click="Button_Click_1" Style="{StaticResource SettingsAppBarButtonStyle}" >
+                </Button>
+                <Button Style="{StaticResource RefreshAppBarButtonStyle}" Click="RefreshButton_Click" ></Button>
+            </StackPanel>
         </AppBar>
     </Page.BottomAppBar>
     <Grid  Style="{StaticResource PageBackground}" >
@@ -60,19 +63,16 @@
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="Manga Viewer" Style="{StaticResource PageHeaderTextStyle}" FontFamily="Lucida Calligraphy" FontWeight="Bold" />
         </Grid>
 
-        <Grid Grid.Row="1">
-            <StackPanel Name="LoadingStack"   VerticalAlignment="Center" Orientation="Horizontal" Margin="400,-100,0,0">
-                <ProgressRing Name="LoadingPageListRing"  IsActive="True" Height="40" Width="40" Margin="0,0,20,0" ></ProgressRing>
-                <TextBlock Name="LoadingTB" Text="Loading Menu List" FontSize="50"></TextBlock>
-            </StackPanel>
+        <Grid Grid.Row="1" >
+            <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden">
             <control:HubGridView
                         x:Name="itemGridView"
                         AutomationProperties.AutomationId="ItemGridView"
                         AutomationProperties.Name="Grouped Items"
                         ItemsSource="{Binding Source={StaticResource menuItemsViewSource}}"
                         ItemTemplate="{StaticResource CustomTileItem}"
-                        SelectionMode="None"
-                        IsItemClickEnabled="True" Padding="100,0,0,0">
+                        SelectionMode="None" 
+                        IsItemClickEnabled="True" Padding="100,0,0,0"  >
 
                 <!--<control:HubGridView.Template>
                         <ControlTemplate>
@@ -81,7 +81,7 @@
                     </control:HubGridView.Template>-->
                 <control:HubGridView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Orientation="Horizontal"/>
+                        <VirtualizingStackPanel Orientation="Horizontal" />
                     </ItemsPanelTemplate>
                 </control:HubGridView.ItemsPanel>
                 <control:HubGridView.GroupStyle>
@@ -106,8 +106,14 @@
                 </i:EventToCommandCollection.Items>
 
             </control:HubGridView>
+            </ScrollViewer>
         </Grid>
-
+        <Grid Grid.RowSpan="2">
+            <StackPanel Name="LoadingStack"   VerticalAlignment="Center" Orientation="Horizontal"  HorizontalAlignment="Center">
+                <ProgressRing Name="LoadingPageListRing"  IsActive="True" Height="40" Width="40" Margin="0,0,20,0" ></ProgressRing>
+                <TextBlock Name="LoadingTB" Text="Loading Menu List" FontSize="50"></TextBlock>
+            </StackPanel>
+        </Grid>
     </Grid>
 
 </common:LayoutAwarePage>
