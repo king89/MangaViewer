@@ -16,6 +16,7 @@ using MangaViewer.Model;
 using System.Collections.ObjectModel;
 using MangaViewer.ViewModel;
 using MangaViewer.Service;
+using Windows.System;
 
 namespace MangaViewer.View
 {
@@ -139,6 +140,66 @@ namespace MangaViewer.View
             ViewModelLocator.AppViewModel.Main.SelectedPage.IsLoadedImage = true;
             ShowPageGrid.Visibility = Visibility.Visible;
             ShowPageNumStoryboard.Begin();
+        }
+
+        private void ImageFlipView_KeyDown_1(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.W || e.Key == VirtualKey.S)
+            {
+                FlipView fv = (FlipView)sender;
+                var container = fv.ItemContainerGenerator.ContainerFromItem(fv.SelectedItem);
+                var children = CommonService.GetAllChildren(container);
+                var name = "scrollViewer";
+                var control = (ScrollViewer)children.First(c => c.Name == name);
+                //最大值 control.ScrollableHeight
+                double offset = 200;
+                double nowVOffset = control.VerticalOffset;
+                if (e.Key == VirtualKey.S)
+                {
+
+                    if (nowVOffset + offset >= control.ScrollableHeight)
+                    {
+                        nowVOffset = control.ScrollableHeight;
+                    }
+                    else
+                    {
+                        nowVOffset += offset;
+                    }
+                }
+                if (e.Key == VirtualKey.W)
+                {
+
+                    if (nowVOffset - offset <= 0)
+                    {
+                        nowVOffset = 0;
+                    }
+                    else
+                    {
+                        nowVOffset -= offset;
+                    }
+                }
+                //control.ZoomToFactor(3.0f);
+                control.ScrollToVerticalOffset(nowVOffset);
+            }
+            if (e.Key == VirtualKey.A || e.Key == VirtualKey.D)
+            {
+                if (e.Key == VirtualKey.A)
+                {
+                    if (this.ImageFlipView.SelectedIndex - 1 >= 0)
+                    {
+                        this.ImageFlipView.SelectedIndex -= 1;
+                    }
+
+                } 
+                else
+                {
+                    if (this.ImageFlipView.SelectedIndex + 1 < this.ImageFlipView.Items.Count)
+                    {
+                        this.ImageFlipView.SelectedIndex += 1;
+                    }
+
+                }
+            }
         }
     }
 }

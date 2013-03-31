@@ -104,7 +104,9 @@
             <FlipView Name="ImageFlipView" ItemsSource="{Binding Main.PageList}"
                       ItemTemplate="{StaticResource FilpImageDataTemplate}" 
                       ScrollViewer.ZoomMode="Enabled" 
+                      KeyDown="ImageFlipView_KeyDown_1"
                       SelectionChanged="FlipView_SelectionChanged_1"
+                      
                       >
                 <!--<i:EventToCommand Command="{Binding Main.PageSelectedCommand}" CommandParameter="Test"  Event="SelectionChanged"/>-->
             </FlipView>
