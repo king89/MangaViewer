@@ -64,7 +64,6 @@
         </Grid>
 
         <Grid Grid.Row="1" >
-            <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden">
             <control:HubGridView
                         x:Name="itemGridView"
                         AutomationProperties.AutomationId="ItemGridView"
@@ -72,8 +71,8 @@
                         ItemsSource="{Binding Source={StaticResource menuItemsViewSource}}"
                         ItemTemplate="{StaticResource CustomTileItem}"
                         SelectionMode="None" 
-                        IsItemClickEnabled="True" Padding="100,0,0,0"  >
-
+                        IsItemClickEnabled="True" Padding="100,0,0,0"  
+                >
                 <!--<control:HubGridView.Template>
                         <ControlTemplate>
                             <ItemsPresenter />
@@ -88,7 +87,7 @@
                     <GroupStyle>
                         <GroupStyle.HeaderTemplate>
                             <DataTemplate>
-                                <Grid Margin="1,0,0,6">
+                                <Grid Margin="20,0,20,6">
                                     <TextBlock  Text="{Binding Title}"  Style="{StaticResource MySubheaderTextStyle}"/>
                                 </Grid>
                             </DataTemplate>
@@ -100,13 +99,11 @@
                         </GroupStyle.Panel>
                     </GroupStyle>
                 </control:HubGridView.GroupStyle>
-
                 <i:EventToCommandCollection.Items>
                     <i:EventToCommand Command="{Binding Main.MenuSelectedCommand}" CommandParameter="Test"  Event="ItemClick"/>
                 </i:EventToCommandCollection.Items>
-
             </control:HubGridView>
-            </ScrollViewer>
+            
         </Grid>
         <Grid Grid.RowSpan="2">
             <StackPanel Name="LoadingStack"   VerticalAlignment="Center" Orientation="Horizontal"  HorizontalAlignment="Center">

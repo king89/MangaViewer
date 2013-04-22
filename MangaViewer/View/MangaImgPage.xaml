@@ -69,13 +69,17 @@
     <Page.BottomAppBar>
         <AppBar  Background="Gray" IsOpen="True">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource AppBarButtonStyle}" />
+            <StackPanel Orientation="Horizontal">
+                <Button  HorizontalAlignment="Left" Style="{StaticResource HomeAppBarButtonStyle}" />
+                    <Button  HorizontalAlignment="Left" Style="{StaticResource RefreshAppBarButtonStyle}" Click="RefreshButton_Click"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button   Style="{StaticResource SkipBackAppBarButtonStyle}" AutomationProperties.Name="Top" />
+                <Button   Style="{StaticResource PreviousAppBarButtonStyle}" AutomationProperties.Name="Back"/>
+                <Button   Style="{StaticResource NextAppBarButtonStyle}" AutomationProperties.Name="Next"/>
+                <Button   Style="{StaticResource SkipAheadAppBarButtonStyle}" AutomationProperties.Name="Last" />
+            </StackPanel>
             </Grid>
-
         </AppBar>
     </Page.BottomAppBar>
 

@@ -68,7 +68,7 @@ namespace MangaViewer.View
 
         private  void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            this.itemGridView.ToString();
+           
             GetMenu();
         }
        

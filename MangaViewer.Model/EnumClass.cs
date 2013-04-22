@@ -19,4 +19,14 @@ namespace MangaViewer.Model
         Comic131 = 1,
         Local,
     }
+
+    public static class MenuType
+    {
+        public static readonly string TopManga = "TopManga";
+        public static readonly string NewManga = "NewManga";
+        public static readonly string MyFavourite = "MyFavourite";
+
+    }
+
+
 }

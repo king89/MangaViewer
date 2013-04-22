@@ -201,5 +201,10 @@ namespace MangaViewer.View
                 }
             }
         }
+
+        private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModelLocator.AppViewModel.Main.SelectedPage.RefreshImage();
+        }
     }
 }

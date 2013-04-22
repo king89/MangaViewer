@@ -20,6 +20,7 @@ namespace MangaViewer.View
         {
             this.InitializeComponent();
             this.LoadingStack.Visibility = Visibility.Collapsed;
+
         }
 
         /// <summary>
@@ -81,6 +82,15 @@ namespace MangaViewer.View
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             App.NavigationService.Navigate(typeof(MainPage));
+        }
+
+        private void ScrollViewer_ViewChanged_1(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            ScrollViewer sv = (ScrollViewer)sender;
+            if (sv.HorizontalOffset >= sv.ScrollableWidth)
+            {
+            }
+            
         }
     }
 }

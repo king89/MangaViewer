@@ -134,7 +134,8 @@ namespace MangaViewer.View
                 {
                     MangaMenuItem newMangaItem = menu.Clone();
                     newMangaItem.SetDefaultSize();
-                    ViewModelLocator.AppViewModel.Main.MenuGroups.Last().Items.Add(newMangaItem);
+                    ViewModelLocator.AppViewModel.Main.AddMyFavouriteMangaMenu(newMangaItem);
+                    
                     SettingService.AddFavouriteMenu(newMangaItem);
                     ViewModelLocator.AppViewModel.Main.IsFavourited = true;
                 }));

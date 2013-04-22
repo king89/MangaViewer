@@ -29,6 +29,9 @@ namespace MangaViewer.Service
       //public virtual void DownloadOnePage(string pageUrl,string folder,int nowPageNum) { return; }
         public virtual string GetHtml(string Url)
         {
+            try
+            {
+
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
             CookieContainer cc = new CookieContainer();
             request.CookieContainer = cc;
@@ -39,6 +42,11 @@ namespace MangaViewer.Service
             {
                 string html = reader.ReadToEnd();
                 return html;
+            }
+            }
+            catch (System.Exception ex)
+            {
+                return "";
             }
         }
         public virtual int GetTotalNum(string html)

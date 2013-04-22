@@ -19,13 +19,13 @@
                     <Image Source="{Binding Image}" Stretch="None"/>
                 </Border>
                 <!--<StackPanel VerticalAlignment="Bottom" Style="{StaticResource MyTitleBackgroundStyle}" >-->
-                <StackPanel VerticalAlignment="Bottom" Style="{StaticResource MyTitleBackgroundStyle}" Background="{Binding TitleBackground}" >
-                    <TextBlock Text="{Binding Title}" Style="{StaticResource MyTitleTextStyle}"  />
+                <StackPanel VerticalAlignment="Bottom" Style="{StaticResource MyTitleBackgroundStyle}" Background="{Binding TitleBackground}"  Width="{Binding Width}">
+                    <TextBlock   Text="{Binding Title}" Style="{StaticResource MyTitleTextStyle}"   />
                 </StackPanel>
             </Grid>
         </DataTemplate>
         <ItemsPanelTemplate x:Key="PanelTemplate">
-            <WrapGrid Orientation="Vertical" ScrollViewer.HorizontalScrollMode="Enabled" MaximumRowsOrColumns="6"/>
+            <WrapGrid Orientation="Vertical" ScrollViewer.HorizontalScrollMode="Enabled"  Height="500" MaximumRowsOrColumns="6" />
         </ItemsPanelTemplate>
     </Page.Resources>
     <Page.TopAppBar>
@@ -58,16 +58,18 @@
 
             
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" >
+            <ScrollViewer ViewChanged="ScrollViewer_ViewChanged_1"  VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled">
             <GridView Name="gvList"  ItemsSource="{Binding Main.SearchingList}" ItemTemplate="{StaticResource SearchingData}" 
-                      Padding="120,40,0,0" ItemsPanel="{StaticResource PanelTemplate}" 
+                      Padding="120,0,0,0" ItemsPanel="{StaticResource PanelTemplate}" 
                       SelectionMode="None"
-                      IsItemClickEnabled="True"
-                      >
-                <i:EventToCommandCollection.Items>
+                      IsItemClickEnabled="True">
+                        <i:EventToCommandCollection.Items>
                     <i:EventToCommand Command="{Binding Main.SearchMenuSelectedCommand}" CommandParameter="Test"  Event="ItemClick"/>
                 </i:EventToCommandCollection.Items>
             </GridView>
+            
+            </ScrollViewer>
         </Grid>
         <Grid Grid.RowSpan="2" >
             <StackPanel Name="LoadingStack"  HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">

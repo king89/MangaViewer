@@ -106,7 +106,7 @@ namespace MangaViewer.Service
             return Task.Run<HubMenuGroup>(() =>
             {
 
-                var group = new HubMenuGroup("NewGroup", "最新漫画", string.Empty, string.Empty, string.Empty);
+                var group = new HubMenuGroup(MenuType.NewManga.ToString(), "最新漫画", string.Empty, string.Empty, string.Empty);
                 ObservableCollection<MangaMenuItem> topMangaMenu = new ObservableCollection<MangaMenuItem>();
 
                 MangaPattern mPattern = WebSiteAccess.GetMangaPatternInstance(WebType);
@@ -136,7 +136,7 @@ namespace MangaViewer.Service
         {
             return Task.Run<HubMenuGroup>(() =>
             {
-                var group = new HubMenuGroup("TopGroup", "热门连载", string.Empty, string.Empty, string.Empty);
+                var group = new HubMenuGroup(MenuType.TopManga.ToString(), "热门连载", string.Empty, string.Empty, string.Empty);
                 ObservableCollection<MangaMenuItem> topMangaMenu = new ObservableCollection<MangaMenuItem>();
 
                 MangaPattern mPattern = WebSiteAccess.GetMangaPatternInstance(WebType);
@@ -165,7 +165,7 @@ namespace MangaViewer.Service
         {
             return Task.Run<HubMenuGroup>(() =>
             {
-                var group = new HubMenuGroup("MyGroup", "我的收藏", string.Empty, string.Empty, string.Empty);
+                var group = new HubMenuGroup(MenuType.MyFavourite.ToString(), "我的收藏", string.Empty, string.Empty, string.Empty);
                 List<MangaMenuItem> menuList = SettingService.GetMyMangaMenuList();
                 ObservableCollection<MangaMenuItem> myMangaMenu = new ObservableCollection<MangaMenuItem>();
                 foreach (MangaMenuItem mi in menuList)
@@ -209,12 +209,13 @@ namespace MangaViewer.Service
                     MenuGroups.Add(GetMyMangaGroup().Result);
                     return MenuGroups;
                 }
+                //My Favourtie
+                MenuGroups.Add(GetMyMangaGroup().Result);
                 //最新
                 MenuGroups.Add(GetNewMangeGroup().Result);
                 //热门
                 MenuGroups.Add(GetTopMangaGroup().Result);
-                //My Favourtie
-                MenuGroups.Add(GetMyMangaGroup().Result);
+                
                 //MenuGroups.Add();
                 return MenuGroups;
             });
@@ -247,6 +248,8 @@ namespace MangaViewer.Service
                 return searchMangaMenu;
             });
         }
+
+
     }
 
 

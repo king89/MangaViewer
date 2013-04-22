@@ -84,5 +84,10 @@ namespace MangaViewer.Service
             //return base.GetNewMangaList();
         }
 
+
+        public override List<TitleAndUrl> GetSearchingList(string queryText, int pageNum)
+        {
+            return this.GetTopMangaList(queryText);
+        }
     }
 }

@@ -105,6 +105,7 @@
     <Compile Include="FavouriteMangaItem.cs" />
     <Compile Include="HubMenuGroup.cs" />
     <Compile Include="HubMenuItem.cs" />
+    <Compile Include="IncrementalItemCollection.cs" />
     <Compile Include="MangaChapterItem.cs" />
     <Compile Include="MangaMenuItem.cs" />
     <Compile Include="MangaPageItem.cs" />

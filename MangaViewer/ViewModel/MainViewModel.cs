@@ -72,6 +72,7 @@ namespace MangaViewer.ViewModel
                 RaisePropertyChanged(() => MenuGroups);
             }
         }
+
         #endregion
         #region ChapterData
         ObservableCollection<MangaChapterItem> _chapterList;
@@ -246,6 +247,17 @@ namespace MangaViewer.ViewModel
         {
             App.NavigationService.Navigate(typeof(SearchingPage), queryText);
             //throw new NotImplementedException();
+        }
+        public void AddMyFavouriteMangaMenu(MangaMenuItem menu)
+        {
+            foreach (HubMenuGroup group in MenuGroups)
+            {
+                if (group.UniqueId == MenuType.MyFavourite.ToString())
+                {
+                    group.Items.Add(menu);
+                    return;
+                }
+            }
         }
     }
 }

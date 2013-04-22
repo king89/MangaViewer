@@ -128,5 +128,11 @@ namespace MangaViewer.Model
             this.RaisePropertyChanged(() => Image);
 
         }
+
+        public void RefreshImage()
+        {
+            this._image = null;
+            this.IsLoadedImage = false;
+        }
     }
 }
