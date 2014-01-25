@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using MangaViewer.Foundation.Common;
+using MangaViewer.Common;
 using MangaViewer.Model;
 using MangaViewer.ViewModel;
 using System.Collections.ObjectModel;

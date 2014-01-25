@@ -62,22 +62,53 @@ namespace MangaViewer.Service
 
             return resultPath;
         }
+
+        
+
         public static async void SaveFileInLocalByText(string folderPath, string fileName, string content)
         {
             StorageFolder saveFolder = await localFolder.CreateFolderAsync(folderPath, CreateOptionOpen);
-
             var file = await saveFolder.CreateFileAsync(fileName, CreateOptionReplace);
-
+#if Win8
             await FileIO.WriteTextAsync(file, content);
+#elif WP
+            using (IRandomAccessStream output = await file.OpenAsync(FileAccessMode.ReadWrite))
+            {
+                Stream outputstream = WindowsRuntimeStreamExtensions.AsStreamForWrite(output.GetOutputStreamAt(0));
+                using (var writer = new StreamWriter(outputstream))
+                {
+                    writer.Write(content);
+                }
+                outputstream.Dispose();
+            }
+#endif
+
         }
         public static async Task<string> LoadFileInLocalByText(string folderPath, string fileName)
         {
 
             StorageFolder saveFolder = await localFolder.CreateFolderAsync(folderPath, CreateOptionOpen);
             StorageFile file = await saveFolder.CreateFileAsync(fileName, CreateOptionOpen);
+#if Win8
+
             string result = await FileIO.ReadTextAsync(file);
+
+#elif WP
+
+            string result = "";
+            using (IRandomAccessStream input = await file.OpenAsync(FileAccessMode.ReadWrite))
+            {
+                Stream readstream = WindowsRuntimeStreamExtensions.AsStreamForRead(input.GetInputStreamAt(0));
+                using (var reader = new StreamReader(readstream))
+                {
+                    result = reader.ReadToEnd();
+                } 
+            }
+#endif
+
             return result;
         }
+        
         public static string SaveFile(Stream stream, string folder, string fileName, SaveType saveType)
         {
 

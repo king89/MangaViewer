@@ -5,8 +5,18 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
+
+#if Win8
+
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+
+#elif WP
+
+using System.Windows.Media;
+using System.Windows.Media.Imaging; 
+
+#endif
 
 namespace MangaViewer.Model
 {

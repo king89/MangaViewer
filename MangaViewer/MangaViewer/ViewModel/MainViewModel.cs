@@ -3,27 +3,35 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Storage;
-using Windows.Data.Xml.Dom;
-using Windows.UI.Xaml;
-using Windows.UI.Core;
 using System.Net.Http;
 using System.Text;
 using Windows.UI.Popups;
 using System.Windows.Input;
 using System.Linq;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Controls;
-using HtmlAgilityPack;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight;
+using MangaViewer.Service;
 using MangaViewer.Data;
 using MangaViewer.Model;
 using MangaViewer.Common;
+using MangaViewer.View;
+
+
+#if Win8
 using MangaViewer.Foundation.Helper;
 using MangaViewer.Foundation.Interactive;
-using MangaViewer.View;
-using MangaViewer.Service;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Controls;
+using Windows.Data.Xml.Dom;
+using Windows.UI.Xaml;
+using Windows.UI.Core;
+#elif WP
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+#endif
+
+
 
 
 namespace MangaViewer.ViewModel
@@ -156,18 +164,6 @@ namespace MangaViewer.ViewModel
                 RaisePropertyChanged(() => IsFavourited);
             }
         }
-        #region CoverImage
-        public ImageSource CoverImage
-        {
-            get
-            {
-                Random r = new Random(DateTime.Now.Millisecond);
-                int imgIndex = r.Next(0, 6);
-
-                return new BitmapImage(new Uri(new Uri(Constants.BASEURI), string.Format("/Assets/Cover/{0}.jpg", imgIndex)));
-            }
-        }
-        #endregion
 
         private RelayCommand<ExCommandParameter> _menuSelectedCommand;
         public RelayCommand<ExCommandParameter> MenuSelectedCommand
@@ -245,7 +241,10 @@ namespace MangaViewer.ViewModel
 
         public void SearchManga(string queryText)
         {
+#if Win8
             App.NavigationService.Navigate(typeof(SearchingPage), queryText);
+#elif WP
+#endif
             //throw new NotImplementedException();
         }
         public void AddMyFavouriteMangaMenu(MangaMenuItem menu)

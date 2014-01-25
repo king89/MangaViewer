@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using MangaViewer.Model;
+using System.Net.Http;
 
 namespace MangaViewer.Service
 {
@@ -32,17 +33,18 @@ namespace MangaViewer.Service
             try
             {
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
-            CookieContainer cc = new CookieContainer();
-            request.CookieContainer = cc;
-            string UserAgent = "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.56 Safari/536.5";
-            request.Headers["UserAgent"] = UserAgent;
-            var myResponse = request.GetResponseAsync();
-            using (StreamReader reader = new StreamReader(myResponse.Result.GetResponseStream()))
-            {
-                string html = reader.ReadToEnd();
-                return html;
-            }
+                HttpClient client = new HttpClient();
+                string UserAgent = "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.56 Safari/536.5";
+                client.DefaultRequestHeaders.UserAgent.TryParseAdd(UserAgent);
+                HttpResponseMessage response = client.GetAsync(Url).Result;
+                response.EnsureSuccessStatusCode();
+                
+                var responseBody = response.Content.ReadAsStreamAsync().Result;
+                using (StreamReader reader = new StreamReader(responseBody))
+                {
+                    string html = reader.ReadToEnd();
+                    return html;
+                }
             }
             catch (System.Exception ex)
             {

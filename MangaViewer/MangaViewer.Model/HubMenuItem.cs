@@ -1,16 +1,37 @@
-﻿using System;
+﻿using MangaViewer.Common.Helper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
+
+#if Win8
 using Windows.UI.Xaml.Media;
-using MangaViewer.Foundation.Controls;
-using MangaViewer.Foundation.Helper;
+#elif WP
+using System.Windows.Media;
+#endif
 
 namespace MangaViewer.Model
 {
-    public class HubMenuItem : CommonItem, HubItem
+    public static class HubItemSizes
+    {
+        public static Size FocusItem = new Size(6, 3);
+        public static Size PrimaryItem = new Size(6, 2);
+        public static Size SecondarySmallItem = new Size(3, 1);
+        public static Size SecondaryTallItem = new Size(3, 2);
+        public static Size OtherSmallItem = new Size(2, 1);
+
+    }
+
+    public interface HubItem
+    {
+        Size ItemSize
+        { get; set; }
+    }
+
+    public class HubMenuItem : CommonItem, 
+                                HubItem
     {
         public HubMenuItem(string uniqueId, string title, string subtitle, string imagePath, string description, string content, HubMenuGroup group, string link, Size size, string titleBackground)
             : base(uniqueId, title, subtitle, imagePath, description)

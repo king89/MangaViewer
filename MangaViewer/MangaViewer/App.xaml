@@ -17,7 +17,7 @@
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
 
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Skins/MainSkin.xaml" />
+                <ResourceDictionary Source="Skin/MainSkin.xaml" />
                 <!-- 
                     Styles that define common aspects of the platform look and feel
                     Required by Visual Studio project and item templates

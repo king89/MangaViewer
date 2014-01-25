@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+#if Win8
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+#elif WP
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+#endif
 
 namespace MangaViewer.Model
 {
     public class MangaPageItem : CommonItem
     {
-        private static Uri _baseUri = new Uri("ms-appx:///");
         public MangaPageItem(string uniqueId, string imagePath, string pageUrl, MangaChapterItem chapter,int pageNum,int totalNum)
             : base(uniqueId, string.Empty, string.Empty, imagePath, string.Empty)
         {
@@ -121,7 +126,7 @@ namespace MangaViewer.Model
         }
         #endregion
 
-        public new void SetImage(String path)
+        public override void SetImage(String path)
         {
             this._image = null;
             this._imagePath = path;

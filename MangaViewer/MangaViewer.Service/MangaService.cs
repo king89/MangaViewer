@@ -1,4 +1,4 @@
-﻿using MangaViewer.Foundation.Controls;
+﻿
 using MangaViewer.Model;
 using System;
 using System.Collections.Generic;
@@ -113,20 +113,24 @@ namespace MangaViewer.Service
                 List<TitleAndUrl> newMenuList = mPattern.GetNewMangaList(MenuHtml);
                 List<Size> sizeArray = new List<Size>() { HubItemSizes.FocusItem, HubItemSizes.SecondarySmallItem, HubItemSizes.SecondarySmallItem, HubItemSizes.SecondarySmallItem };
                 List<string> colorArray = new List<string>() { "#FF00B1EC", "#FFA80032", "#FFA80032", "#FFA80032" };
-                for (int i = 0; i < newMenuList.Count; i++)
+                
+                if (newMenuList != null)
                 {
-                    if (i > groupItemMaxNum) break;
-                    MangaMenuItem newItem = null;
-                    if (i >= sizeArray.Count)
+                    for (int i = 0; i < newMenuList.Count; i++)
                     {
-                        //大于则用HubItemSizes.OtherSmallItem
-                        newItem = new MangaMenuItem("new-" + i, newMenuList[i].Title, newMenuList[i].ImagePath, group, newMenuList[i].Url, HubItemSizes.OtherSmallItem, string.Empty);
+                        if (i > groupItemMaxNum) break;
+                        MangaMenuItem newItem = null;
+                        if (i >= sizeArray.Count)
+                        {
+                            //大于则用HubItemSizes.OtherSmallItem
+                            newItem = new MangaMenuItem("new-" + i, newMenuList[i].Title, newMenuList[i].ImagePath, group, newMenuList[i].Url, HubItemSizes.OtherSmallItem, string.Empty);
+                        }
+                        else
+                        {
+                            newItem = new MangaMenuItem("new-" + i, newMenuList[i].Title, newMenuList[i].ImagePath, group, newMenuList[i].Url, sizeArray[i], colorArray[i]);
+                        }
+                        group.Items.Add(newItem);
                     }
-                    else
-                    {
-                        newItem = new MangaMenuItem("new-" + i, newMenuList[i].Title, newMenuList[i].ImagePath, group, newMenuList[i].Url, sizeArray[i], colorArray[i]);
-                    }
-                    group.Items.Add(newItem);
                 }
 
                 return group;
@@ -209,15 +213,19 @@ namespace MangaViewer.Service
                     MenuGroups.Add(GetMyMangaGroup().Result);
                     return MenuGroups;
                 }
-                //My Favourtie
-                MenuGroups.Add(GetMyMangaGroup().Result);
-                //最新
-                MenuGroups.Add(GetNewMangeGroup().Result);
-                //热门
-                MenuGroups.Add(GetTopMangaGroup().Result);
-                
-                //MenuGroups.Add();
-                return MenuGroups;
+                else
+                {
+
+                    //My Favourtie
+                    MenuGroups.Add(GetMyMangaGroup().Result);
+                    //最新
+                    MenuGroups.Add(GetNewMangeGroup().Result);
+                    //热门
+                    MenuGroups.Add(GetTopMangaGroup().Result);
+
+                    //MenuGroups.Add();
+                    return MenuGroups;
+                }
             });
         }
         #endregion

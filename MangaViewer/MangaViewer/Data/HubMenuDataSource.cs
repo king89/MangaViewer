@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using MangaViewer.Model;
 using MangaViewer.Common;
-using MangaViewer.Foundation.Controls;
 
 namespace MangaViewer.Data
 {

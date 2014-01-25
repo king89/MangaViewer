@@ -128,10 +128,6 @@
     <Compile Include="Converter\PageNumConverter.cs" />
     <Compile Include="Converter\StringFormatConverter.cs" />
     <Compile Include="Converter\VisibilityConverter.cs" />
-    <Compile Include="Extention\SecurityExtention.cs" />
-    <Compile Include="Extention\StreamExtention.cs" />
-    <Compile Include="Extention\StringExtention.cs" />
-    <Compile Include="Extention\VisualTreeExtensions.cs" />
     <Compile Include="Helper\AnimationHelp.cs" />
     <Compile Include="Helper\AppSettingHelper.cs" />
     <Compile Include="Helper\ColorHelper.cs" />
@@ -155,6 +151,16 @@
     <Compile Include="UserControls\LoadingControl.xaml.cs">
       <DependentUpon>LoadingControl.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MangaViewer.Common\MangaViewer.Common.csproj">
+      <Project>{68c2cff0-59a9-4b39-a730-4e548ca0554e}</Project>
+      <Name>MangaViewer.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MangaViewer.Model\MangaViewer.Model.csproj">
+      <Project>{ce732bbf-1091-4040-b984-773f14441b33}</Project>
+      <Name>MangaViewer.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

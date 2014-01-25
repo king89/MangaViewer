@@ -14,10 +14,10 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using MangaViewer.Foundation.Common;
 using MangaViewer.Service;
 using System.Threading.Tasks;
 using MangaViewer.View;
+using MangaViewer.Common;
 
 namespace MangaViewer
 {

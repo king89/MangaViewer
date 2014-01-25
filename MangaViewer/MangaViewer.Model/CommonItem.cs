@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+#if Win8
 using Windows.UI.Xaml.Media;
-using GalaSoft.MvvmLight;
 using Windows.UI.Xaml.Media.Imaging;
+#elif WP
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+#endif
 
 namespace MangaViewer.Model
 {
     public class CommonItem : ObservableObject
     {
-        private static Uri _baseUri = new Uri("ms-appx:///");
+        protected static Uri _baseUri = new Uri("ms-appx:///");
 
         public CommonItem(string uniqueId, string title, string subtitle, string imagePath, string description)
         {
@@ -105,7 +110,7 @@ namespace MangaViewer.Model
             }
         }
 
-        public void SetImage(String path)
+        public virtual void SetImage(String path)
         {
             this._image = null;
             this._imagePath = path;
