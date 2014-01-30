@@ -11,13 +11,14 @@ using System.Linq;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight;
 using MangaViewer.Service;
-using MangaViewer.Data;
+
 using MangaViewer.Model;
 using MangaViewer.Common;
 using MangaViewer.View;
 
 
 #if Win8
+using MangaViewer.Data;
 using MangaViewer.Foundation.Helper;
 using MangaViewer.Foundation.Interactive;
 using Windows.UI.Xaml.Media;
@@ -26,6 +27,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Xaml;
 using Windows.UI.Core;
+
 #elif WP
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -165,6 +167,10 @@ namespace MangaViewer.ViewModel
             }
         }
 
+        #region Win8 Command
+        
+#if Win8
+
         private RelayCommand<ExCommandParameter> _menuSelectedCommand;
         public RelayCommand<ExCommandParameter> MenuSelectedCommand
         {
@@ -223,6 +229,10 @@ namespace MangaViewer.ViewModel
                 }));
             }
         }
+#elif WP
+
+#endif
+        #endregion
 
         //some private var
         MangaMenuItem _selectedMenu = null;
@@ -244,6 +254,7 @@ namespace MangaViewer.ViewModel
 #if Win8
             App.NavigationService.Navigate(typeof(SearchingPage), queryText);
 #elif WP
+
 #endif
             //throw new NotImplementedException();
         }

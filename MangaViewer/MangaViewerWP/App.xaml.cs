@@ -4,23 +4,21 @@ using System.Resources;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Navigation;
+using GalaSoft.MvvmLight.Threading;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using MangaViewer.Resources;
+using MangaViewer.ViewModel;
 
-namespace MangaViewer
+namespace MangaViewerWP
 {
     public partial class App : Application
     {
-
-
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
         /// <returns>The root frame of the Phone Application.</returns>
         public static PhoneApplicationFrame RootFrame { get; private set; }
-
-        public static NavigationService NavigationService;
 
         /// <summary>
         /// Constructor for the Application object.
@@ -83,6 +81,7 @@ namespace MangaViewer
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
+            ViewModelLocator.Cleanup();
         }
 
         // Code to execute if a navigation fails
@@ -121,6 +120,8 @@ namespace MangaViewer
             RootFrame = new PhoneApplicationFrame();
             RootFrame.Navigated += CompleteInitializePhoneApplication;
 
+            DispatcherHelper.Initialize();
+
             // Handle navigation failures
             RootFrame.NavigationFailed += RootFrame_NavigationFailed;
 
@@ -129,8 +130,6 @@ namespace MangaViewer
 
             // Ensure we don't initialize again
             phoneApplicationInitialized = true;
-
-            App.NavigationService = new NavigationService(rootFrame);
         }
 
         // Do not add any additional code to this method

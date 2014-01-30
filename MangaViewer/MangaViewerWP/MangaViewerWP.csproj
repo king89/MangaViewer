@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1D4FEE71-E1DD-475A-BC6B-12D862B3FDC4}</ProjectGuid>
+    <ProjectGuid>{C2AAD500-112A-4990-BC48-62750B0F7AE1}</ProjectGuid>
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -164,6 +164,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MangaViewerWP.Common\MangaViewerWP.Common.csproj">
+      <Project>{B898BFDB-1196-49F2-8EF1-A5B8908DF09A}</Project>
+      <Name>MangaViewerWP.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MangaViewerWP.Service\MangaViewerWP.Service.csproj">
       <Project>{8A6EFDA1-69AB-4B69-B793-A1ECA7CD0A0A}</Project>
       <Name>MangaViewerWP.Service</Name>

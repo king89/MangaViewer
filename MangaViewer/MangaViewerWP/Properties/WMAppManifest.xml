@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
-  <App xmlns="" ProductID="{1d4fee71-e1dd-475a-bc6b-12d862b3fdc4}" Title="MangaViewerWP" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="MangaViewerWP author" Description="Sample description" Publisher="MangaViewerWP" PublisherID="{7ba89bfd-cfb8-4144-8d62-64a4ecc02961}">
+  <App xmlns="" ProductID="{c2aad500-112a-4990-bc48-62750b0f7ae1}" Title="MangaViewerWP" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="MangaViewerWP author" Description="Sample description" Publisher="MangaViewerWP" PublisherID="{18ab1cf0-a67c-40ad-ba22-037ada5584be}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
@@ -11,7 +11,7 @@
       <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
     </Capabilities>
     <Tasks>
-      <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />
+      <DefaultTask Name="_default" NavigationPage="View/MainPage.xaml" />
     </Tasks>
     <Tokens>
       <PrimaryToken TokenID="MangaViewerWPToken" TaskName="_default">
@@ -19,13 +19,19 @@
           <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
           <Count>0</Count>
           <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
-          <Title>MangaViewerWP</Title>
+          <Title>ProjectForTemplates.WP8</Title>
           <BackContent>
           </BackContent>
           <BackBackgroundImageURI>
           </BackBackgroundImageURI>
           <BackTitle>
           </BackTitle>
+          <LargeBackgroundImageURI>
+          </LargeBackgroundImageURI>
+          <LargeBackContent>
+          </LargeBackContent>
+          <LargeBackBackgroundImageURI>
+          </LargeBackBackgroundImageURI>
           <DeviceLockImageURI>
           </DeviceLockImageURI>
           <HasLarge>
