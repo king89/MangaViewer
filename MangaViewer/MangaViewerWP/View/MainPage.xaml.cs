@@ -8,6 +8,10 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using MangaViewer.Resources;
+using MangaViewer.ViewModel;
+using System.Collections.ObjectModel;
+using MangaViewer.Model;
+using MangaViewer.Service;
 
 namespace MangaViewer.View
 {
@@ -20,6 +24,7 @@ namespace MangaViewer.View
 
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
+            GetMenu();
         }
 
         // Sample code for building a localized ApplicationBar
@@ -37,5 +42,29 @@ namespace MangaViewer.View
         //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
         //    ApplicationBar.MenuItems.Add(appBarMenuItem);
         //}
+
+        async void GetMenu()
+        {
+            //有网络
+            ViewModelLocator.AppViewModel.Main.MenuGroups = null;
+            try
+            {
+                ObservableCollection<HubMenuGroup> menu = await MangaService.GetMainMenu();
+                //LoadingStack.Visibility = Visibility.Collapsed;
+                ViewModelLocator.AppViewModel.Main.MenuGroups = menu;
+            }
+            catch (System.Exception ex)
+            {
+
+            }
+
+            ////没网络
+            //ViewModelLocator.AppViewModel.Main.PageList = new MangaViewer.Data.PageListData().PageList;
+        }
+
+        private void ApplicationBarIconButton_Click(object sender, EventArgs e)
+        {
+            MangaViewerWP.App.NavigationService.Navigate(new Uri("/View/SettingPage.xaml", UriKind.Relative));
+        }
     }
 }

@@ -60,7 +60,7 @@ namespace MangaViewer.Service
                     else
                     {
                         _appSetting = new Setting();
-                        _appSetting.WebSite = WebSiteEnum.Comic131;
+                        _appSetting.WebSite = WebSiteEnum.Local;
                     }
                     return true;
                 }
@@ -73,8 +73,12 @@ namespace MangaViewer.Service
 
         }
 
-        public static WebSiteEnum GetWebSite()
+        public async static Task<WebSiteEnum> GetWebSite()
         {
+            if (APPSetting == null)
+            {
+                await LoadSetting();
+            }
             return APPSetting.WebSite;
         }
 
@@ -83,7 +87,11 @@ namespace MangaViewer.Service
             APPSetting.WebSite = webSite;
             SaveSetting();
         }
-
+        public static void SetWebSite(string webSite)
+        {
+            APPSetting.WebSite = (WebSiteEnum)Enum.Parse(typeof(WebSiteEnum), webSite);
+            SaveSetting();
+        }
 
         public static bool AddFavouriteMenu(MangaMenuItem menu)
         {

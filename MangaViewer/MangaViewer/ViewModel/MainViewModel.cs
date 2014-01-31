@@ -167,7 +167,7 @@ namespace MangaViewer.ViewModel
             }
         }
 
-        #region Win8 Command
+        #region Command
         
 #if Win8
 
@@ -230,7 +230,29 @@ namespace MangaViewer.ViewModel
             }
         }
 #elif WP
+        private RelayCommand<MangaMenuItem> _menuSelectedCommand;
+        public RelayCommand<MangaMenuItem> MenuSelectedCommand
+        {
+            get
+            {
+                return _mSettingCommand ?? (_mSettingCommand = new RelayCommand<MangaMenuItem>((ep) =>
+                {
+                    MangaViewerWP.App.NavigationService.Navigate(new Uri("/View/ChapterPage.xaml", UriKind.Relative));
+                }));
+            }
+        }
 
+        private RelayCommand<MangaMenuItem> _mSettingCommand;
+        public RelayCommand<MangaMenuItem> SettingCommand
+        {
+            get
+            {
+                return _mSettingCommand ?? (_mSettingCommand = new RelayCommand<MangaMenuItem>((ep) =>
+                {
+                    MangaViewerWP.App.NavigationService.Navigate(new Uri("/View/SettingPage.xaml", UriKind.Relative));
+                }));
+            }
+        }
 #endif
         #endregion
 

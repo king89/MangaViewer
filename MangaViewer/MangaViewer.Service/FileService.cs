@@ -15,16 +15,30 @@ namespace MangaViewer.Service
     public static class FileService
     {
         static object syncWrite = new object();
-        static StorageFolder tempFolder = Windows.Storage.ApplicationData.Current.TemporaryFolder;
-        static StorageFolder localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+        static StorageFolder TempFolder
+        {
+            get { return Windows.Storage.ApplicationData.Current.TemporaryFolder; }
+        }
 
-        static CreationCollisionOption CreateOptionReplace = Windows.Storage.CreationCollisionOption.ReplaceExisting;
-        static CreationCollisionOption CreateOptionOpen = Windows.Storage.CreationCollisionOption.OpenIfExists;
+        static StorageFolder LocalFolder
+        {
+            get { return Windows.Storage.ApplicationData.Current.LocalFolder;}
+        }
+        
+        static CreationCollisionOption CreateOptionReplace
+        {
+            get { return Windows.Storage.CreationCollisionOption.ReplaceExisting; }
+        }
+       
+        static CreationCollisionOption CreateOptionOpen 
+        {
+            get { return Windows.Storage.CreationCollisionOption.OpenIfExists; }
+        }
 
         public static async Task<string> SaveFileInTemp(string folderPath, string fileName, Stream stream)
         {
 
-            StorageFolder saveFolder = await tempFolder.CreateFolderAsync(folderPath, CreateOptionOpen);
+            StorageFolder saveFolder = await TempFolder.CreateFolderAsync(folderPath, CreateOptionOpen);
 
             var file = await saveFolder.CreateFileAsync(fileName, CreateOptionReplace);
 
@@ -45,7 +59,7 @@ namespace MangaViewer.Service
         public static async Task<string> SaveFileInLocal(string folderPath, string fileName, Stream stream)
         {
 
-            StorageFolder saveFolder = await localFolder.CreateFolderAsync(folderPath, CreateOptionOpen);
+            StorageFolder saveFolder = await LocalFolder.CreateFolderAsync(folderPath, CreateOptionOpen);
 
             var file = await saveFolder.CreateFileAsync(fileName, CreateOptionReplace);
 
@@ -67,7 +81,7 @@ namespace MangaViewer.Service
 
         public static async void SaveFileInLocalByText(string folderPath, string fileName, string content)
         {
-            StorageFolder saveFolder = await localFolder.CreateFolderAsync(folderPath, CreateOptionOpen);
+            StorageFolder saveFolder = await LocalFolder.CreateFolderAsync(folderPath, CreateOptionOpen);
             var file = await saveFolder.CreateFileAsync(fileName, CreateOptionReplace);
 #if Win8
             await FileIO.WriteTextAsync(file, content);
@@ -87,7 +101,7 @@ namespace MangaViewer.Service
         public static async Task<string> LoadFileInLocalByText(string folderPath, string fileName)
         {
 
-            StorageFolder saveFolder = await localFolder.CreateFolderAsync(folderPath, CreateOptionOpen);
+            StorageFolder saveFolder = await LocalFolder.CreateFolderAsync(folderPath, CreateOptionOpen);
             StorageFile file = await saveFolder.CreateFileAsync(fileName, CreateOptionOpen);
 #if Win8
 

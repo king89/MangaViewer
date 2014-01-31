@@ -22,7 +22,7 @@ namespace MangaViewer.Service
         {
             get
             {
-                return SettingService.GetWebSite();
+                return SettingService.GetWebSite().Result;
             }
         }
 
@@ -147,21 +147,23 @@ namespace MangaViewer.Service
                 List<TitleAndUrl> topMenuList = mPattern.GetTopMangaList(MenuHtml);
                 List<Size> sizeArray = new List<Size>() { HubItemSizes.FocusItem, HubItemSizes.SecondarySmallItem, HubItemSizes.SecondarySmallItem, HubItemSizes.SecondarySmallItem };
                 List<string> colorArray = new List<string>() { "#FF00B1EC", "#FFA80032", "#FFA80032", "#FFA80032" };
-                for (int i = 0; i < topMenuList.Count; i++)
+                if (topMenuList != null)
                 {
-                    MangaMenuItem newItem = null;
-                    if (i >= sizeArray.Count)
+                    for (int i = 0; i < topMenuList.Count; i++)
                     {
-                        //大于则用HubItemSizes.OtherSmallItem
-                        newItem = new MangaMenuItem("top-" + i, topMenuList[i].Title, topMenuList[i].ImagePath, group, topMenuList[i].Url, HubItemSizes.OtherSmallItem, string.Empty);
+                        MangaMenuItem newItem = null;
+                        if (i >= sizeArray.Count)
+                        {
+                            //大于则用HubItemSizes.OtherSmallItem
+                            newItem = new MangaMenuItem("top-" + i, topMenuList[i].Title, topMenuList[i].ImagePath, group, topMenuList[i].Url, HubItemSizes.OtherSmallItem, string.Empty);
+                        }
+                        else
+                        {
+                            newItem = new MangaMenuItem("top-" + i, topMenuList[i].Title, topMenuList[i].ImagePath, group, topMenuList[i].Url, sizeArray[i], colorArray[i]);
+                        }
+                        group.Items.Add(newItem);
                     }
-                    else
-                    {
-                        newItem = new MangaMenuItem("top-" + i, topMenuList[i].Title, topMenuList[i].ImagePath, group, topMenuList[i].Url, sizeArray[i], colorArray[i]);
-                    }
-                    group.Items.Add(newItem);
                 }
-
                 return group;
             });
         }

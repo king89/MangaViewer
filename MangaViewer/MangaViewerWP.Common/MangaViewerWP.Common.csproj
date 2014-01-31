@@ -83,6 +83,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\MangaViewer.Common\DBCSEncoding.cs">
+      <Link>DBCSEncoding.cs</Link>
+    </Compile>
     <Compile Include="..\MangaViewer.Common\Extention\StreamExtention.cs">
       <Link>Extention\StreamExtention.cs</Link>
     </Compile>
@@ -105,6 +108,12 @@
       <Link>NavigationService.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="gb2312.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="big5.bin" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

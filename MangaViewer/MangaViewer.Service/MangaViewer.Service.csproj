@@ -100,6 +100,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <ProjectReference Include="..\MangaViewer.Common\MangaViewer.Common.csproj">
+      <Project>{68c2cff0-59a9-4b39-a730-4e548ca0554e}</Project>
+      <Name>MangaViewer.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MangaViewer.Foundation\MangaViewer.Foundation.csproj">
       <Project>{44a290b4-7c31-4923-ab74-beb4dddac315}</Project>
       <Name>MangaViewer.Foundation</Name>
@@ -115,6 +119,7 @@
     <Compile Include="Base.cs" />
     <Compile Include="MangaService.cs" />
     <Compile Include="SettingService.cs" />
+    <Compile Include="WebSitePatterns\WebHHComic.cs" />
     <Compile Include="WebSitePatterns\WebLocal.cs" />
     <Compile Include="WebSitePatterns\WebComic131.cs" />
     <Compile Include="WebSitePatterns\WebIManhua.cs" />
@@ -128,6 +133,12 @@
     <Reference Include="GalaSoft.MvvmLight.Win8">
       <HintPath>..\MangaViewer\_dll\GalaSoft.MvvmLight.Win8.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\netcore45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

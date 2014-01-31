@@ -12,7 +12,7 @@ namespace MangaViewer.Service
     {
         static Dictionary<WebSiteEnum, string> WebSiteList = new Dictionary<WebSiteEnum, string>(){
         { WebSiteEnum.IManhua, "WebIManhua" },
-        {WebSiteEnum.Comic131,"WebComic131"},
+        {WebSiteEnum.HHComic,"WebHHComic"},
         {WebSiteEnum.Local,"WebLocal"}
         };
         static WebSiteEnum WebSiteType;

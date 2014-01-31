@@ -9,6 +9,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using MangaViewer.Resources;
 using MangaViewer.ViewModel;
+using MangaViewer.Service;
 
 namespace MangaViewerWP
 {
@@ -19,6 +20,8 @@ namespace MangaViewerWP
         /// </summary>
         /// <returns>The root frame of the Phone Application.</returns>
         public static PhoneApplicationFrame RootFrame { get; private set; }
+
+        public static MangaViewer.Common.NavigationService NavigationService;
 
         /// <summary>
         /// Constructor for the Application object.
@@ -57,18 +60,22 @@ namespace MangaViewerWP
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
+            
+
         }
 
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated
-        private void Application_Launching(object sender, LaunchingEventArgs e)
+        private async void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            await SettingService.LoadSetting();
         }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
-        private void Application_Activated(object sender, ActivatedEventArgs e)
+        private async void Application_Activated(object sender, ActivatedEventArgs e)
         {
+            await SettingService.LoadSetting();
         }
 
         // Code to execute when the application is deactivated (sent to background)
@@ -110,8 +117,9 @@ namespace MangaViewerWP
         private bool phoneApplicationInitialized = false;
 
         // Do not add any additional code to this method
-        private void InitializePhoneApplication()
+        private async void InitializePhoneApplication()
         {
+            
             if (phoneApplicationInitialized)
                 return;
 
@@ -130,6 +138,8 @@ namespace MangaViewerWP
 
             // Ensure we don't initialize again
             phoneApplicationInitialized = true;
+
+            App.NavigationService = new MangaViewer.Common.NavigationService(RootFrame);
         }
 
         // Do not add any additional code to this method

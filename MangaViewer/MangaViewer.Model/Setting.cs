@@ -98,9 +98,12 @@ namespace MangaViewer.Model
         public void OnSerializing(StreamingContext context)
         {
             _favouriteMenuCopy = new List<TitleAndUrl>();
-            foreach(FavouriteMangaItem fmi in _favouriteMenu)
+            if (_favouriteMenu != null)
             {
-             _favouriteMenuCopy.Add(new TitleAndUrl(fmi.MenuItem.Title,fmi.MenuItem.Url,fmi.MenuItem.GetImagePath()));
+                foreach (FavouriteMangaItem fmi in _favouriteMenu)
+                {
+                    _favouriteMenuCopy.Add(new TitleAndUrl(fmi.MenuItem.Title, fmi.MenuItem.Url, fmi.MenuItem.GetImagePath()));
+                }
             }
         }
 

@@ -18,6 +18,7 @@ namespace MangaViewer.Service
         protected string firstPageHtml = null;
         public string WEBSITEURL = "";
         public string WEBSEARCHURL = "";
+        public string CHARSET = "utf8";
 /*
 //  
 //  Page
@@ -40,7 +41,17 @@ namespace MangaViewer.Service
                 response.EnsureSuccessStatusCode();
                 
                 var responseBody = response.Content.ReadAsStreamAsync().Result;
-                using (StreamReader reader = new StreamReader(responseBody))
+                Encoding encode = null;
+                if (CHARSET == "gb2312")
+                {
+                     encode = DBCSCodePage.DBCSEncoding.GetDBCSEncoding("gb2312");
+                } 
+                else
+                {
+                    encode = Encoding.UTF8;
+                }
+                
+                using (StreamReader reader = new StreamReader(responseBody, encode))
                 {
                     string html = reader.ReadToEnd();
                     return html;

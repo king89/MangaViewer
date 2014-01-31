@@ -113,12 +113,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MangaViewerWP.Common\MangaViewerWP.Common.csproj">
+      <Project>{B898BFDB-1196-49F2-8EF1-A5B8908DF09A}</Project>
+      <Name>MangaViewerWP.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MangaViewWP.Model\MangaViewerWP.Model.csproj">
       <Project>{E281CF07-F993-4E1E-8E17-D4679860718B}</Project>
       <Name>MangaViewerWP.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\portable-net45+wp80+win8\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http">
       <HintPath>..\_DLL\WP\System.Net.Http.dll</HintPath>
     </Reference>
@@ -128,6 +135,9 @@
     <Reference Include="System.Net.Http.Primitives">
       <HintPath>..\_DLL\WP\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
