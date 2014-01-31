@@ -44,7 +44,12 @@ namespace MangaViewer.Service
                 Encoding encode = null;
                 if (CHARSET == "gb2312")
                 {
+#if WP
+
                      encode = DBCSCodePage.DBCSEncoding.GetDBCSEncoding("gb2312");
+#elif Win8
+                    encode = Encoding.UTF8;
+#endif
                 } 
                 else
                 {

@@ -86,13 +86,13 @@ namespace MangaViewer.Service
             //http://comic.131.com/content/shaonian/2104.html
             string html = GetHtml(chapterUrl);
             //Rex1  = <ul class="mh_fj" .+<li>.+</li></ul>
-            Regex rGetUl = new Regex("<ul class=\"newUpdate\".+</ul>");
+            Regex rGetUl = new Regex("id=[\"']subBookList[\"']>.+?</ul>");
             //Rex2 = <li>.*?</li>
             html = rGetUl.Match(html).Value;
             Regex rGetLi = new Regex("<li>.+?</li>");
             MatchCollection liList = rGetLi.Matches(html);
             List<TitleAndUrl> chapterList = new List<TitleAndUrl>();
-            Regex rUrlAndTitle = new Regex("<a href=\"(.+?)\".+?>(.+?)</a>");
+            Regex rUrlAndTitle = new Regex("<a href=\"(.+?)\".+?>(.+?)<");
 
             foreach (Match m in liList)
             {
@@ -120,7 +120,7 @@ namespace MangaViewer.Service
             foreach (Match m in liList)
             {
                 string liStr = m.Value;
-                string url = rUrlAndTitle.Match(liStr).Groups[1].Value;
+                string url = WEBSITEURL.Trim('/') + rUrlAndTitle.Match(liStr).Groups[1].Value;
                 string title = rUrlAndTitle.Match(liStr).Groups[2].Value;
                 topMangaList.Add(new TitleAndUrl(title, url));
 

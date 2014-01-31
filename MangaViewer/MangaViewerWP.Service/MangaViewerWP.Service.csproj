@@ -83,44 +83,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\MangaViewer.Service\Base.cs">
-      <Link>Base.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Service\CommonService.cs">
-      <Link>CommonService.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Service\FileService.cs">
-      <Link>FileService.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Service\MangaService.cs">
-      <Link>MangaService.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Service\SettingService.cs">
-      <Link>SettingService.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Service\WebSiteAccess.cs">
-      <Link>WebSiteAccess.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Service\WebSitePatterns\WebComic131.cs">
-      <Link>WebSitePatterns\WebComic131.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Service\WebSitePatterns\WebIManhua.cs">
-      <Link>WebSitePatterns\WebIManhua.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Service\WebSitePatterns\WebLocal.cs">
-      <Link>WebSitePatterns\WebLocal.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MangaViewerWP.Common\MangaViewerWP.Common.csproj">
-      <Project>{B898BFDB-1196-49F2-8EF1-A5B8908DF09A}</Project>
-      <Name>MangaViewerWP.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MangaViewWP.Model\MangaViewerWP.Model.csproj">
-      <Project>{E281CF07-F993-4E1E-8E17-D4679860718B}</Project>
-      <Name>MangaViewerWP.Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -135,9 +98,6 @@
     <Reference Include="System.Net.Http.Primitives">
       <HintPath>..\_DLL\WP\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

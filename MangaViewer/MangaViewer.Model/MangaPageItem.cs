@@ -90,7 +90,7 @@ namespace MangaViewer.Model
 
         private ImageSource _image = null;
         private string _imagePath = null;
-        public new ImageSource Image
+        public override ImageSource Image
         {
             get
             {

@@ -61,7 +61,7 @@ namespace MangaViewer.View
         async void GetPageList()
         {
             //有网络
-            ObservableCollection<MangaPageItem> pageItem = await MangaService.GetPageList(ViewModelLocator.AppViewModel.Main.SelectedChapter);
+            ObservableCollection<MangaPageItem> pageItem = await App.MangaService.GetPageList(ViewModelLocator.AppViewModel.Main.SelectedChapter);
             LoadingStack.Visibility = Visibility.Collapsed;
             this.TopAppBar.IsOpen = false;
             this.BottomAppBar.IsOpen = false;
@@ -79,7 +79,7 @@ namespace MangaViewer.View
             {
                 if (!selectPage.IsLoadedImage)
                 {
-                    var path = await MangaService.GetIamgeByImageUrl(selectPage);
+                    var path = await App.MangaService.GetIamgeByImageUrl(selectPage);
                     if (path == string.Empty)
                     {
                         CanNotLoad.IsOpen = true;
@@ -92,13 +92,13 @@ namespace MangaViewer.View
                     if (nowPage+1 < totalPage)
                     {
                         MangaPageItem nextOnePage = ViewModelLocator.AppViewModel.Main.PageList[nowPage + 1];
-                        var pathNext = await MangaService.GetIamgeByImageUrl(nextOnePage);
+                        var pathNext = await App.MangaService.GetIamgeByImageUrl(nextOnePage);
                         nextOnePage.SetImage(pathNext);
                     }
                     if (nowPage+2 < totalPage)
                     {
                         MangaPageItem nextTwoPage = ViewModelLocator.AppViewModel.Main.PageList[nowPage + 2];
-                        var pathNext = await MangaService.GetIamgeByImageUrl(nextTwoPage);
+                        var pathNext = await App.MangaService.GetIamgeByImageUrl(nextTwoPage);
                         nextTwoPage.SetImage(pathNext);
                     }
                    

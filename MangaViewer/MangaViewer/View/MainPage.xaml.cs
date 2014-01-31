@@ -53,7 +53,7 @@ namespace MangaViewer.View
             ViewModelLocator.AppViewModel.Main.MenuGroups = null;
             try
             {
-                ObservableCollection<HubMenuGroup> menu = await MangaService.GetMainMenu();
+                ObservableCollection<HubMenuGroup> menu = await App.MangaService.GetMainMenu();
                 LoadingStack.Visibility = Visibility.Collapsed;
                 ViewModelLocator.AppViewModel.Main.MenuGroups = menu;
             }

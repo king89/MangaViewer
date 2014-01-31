@@ -11,11 +11,15 @@ using System.Xml;
 
 namespace MangaViewer.Service
 {
-    public static class SettingService
+    public  class SettingService
     {
 
-        static Setting _appSetting = null;
-        public static Setting APPSetting
+        public SettingService()
+        {
+        }
+        public bool IsLoaded = false;
+        Setting _appSetting = null;
+        public  Setting APPSetting
         {
             get
             {
@@ -26,7 +30,7 @@ namespace MangaViewer.Service
                 return _appSetting;
             }
         }
-        public async static Task<bool> SaveSetting()
+        public async  Task<bool> SaveSetting()
         {
             return await Task.Run<bool>(() =>
             {
@@ -44,7 +48,7 @@ namespace MangaViewer.Service
             });
         }
 
-        public async static Task<bool> LoadSetting()
+        public async  Task<bool> LoadSetting()
         {
             return await Task.Run<bool>(async () =>
             {
@@ -62,6 +66,7 @@ namespace MangaViewer.Service
                         _appSetting = new Setting();
                         _appSetting.WebSite = WebSiteEnum.Local;
                     }
+                    IsLoaded = true;
                     return true;
                 }
                 catch (System.Exception ex)
@@ -73,38 +78,38 @@ namespace MangaViewer.Service
 
         }
 
-        public async static Task<WebSiteEnum> GetWebSite()
+        public  WebSiteEnum GetWebSite()
         {
-            if (APPSetting == null)
+            while (!IsLoaded)
             {
-                await LoadSetting();
+
             }
             return APPSetting.WebSite;
         }
 
-        public static void SetWebSite(WebSiteEnum webSite)
+        public  void SetWebSite(WebSiteEnum webSite)
         {
             APPSetting.WebSite = webSite;
             SaveSetting();
         }
-        public static void SetWebSite(string webSite)
+        public  void SetWebSite(string webSite)
         {
             APPSetting.WebSite = (WebSiteEnum)Enum.Parse(typeof(WebSiteEnum), webSite);
             SaveSetting();
         }
 
-        public static bool AddFavouriteMenu(MangaMenuItem menu)
+        public  bool AddFavouriteMenu(MangaMenuItem menu)
         {
             return APPSetting.AddFavouriteMenu(menu);
 
 
         }
-        public static void RemoveFavouriteMenu(MangaMenuItem menu)
+        public  void RemoveFavouriteMenu(MangaMenuItem menu)
         {
             APPSetting.RemoveFavouriteMenu(menu);
         }
 
-        public static List<MangaMenuItem> GetMyMangaMenuList()
+        public  List<MangaMenuItem> GetMyMangaMenuList()
         {
             List<MangaMenuItem> menuList = null;
             if (APPSetting.FavouriteMenu != null)
@@ -116,7 +121,7 @@ namespace MangaViewer.Service
             return menuList;
         }
 
-        public static bool CheckFavourtie(MangaMenuItem selectedMenu)
+        public  bool CheckFavourtie(MangaMenuItem selectedMenu)
         {
             if (APPSetting.GetFavouriteItem(selectedMenu) != null)
             {

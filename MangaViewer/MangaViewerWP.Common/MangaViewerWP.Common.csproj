@@ -83,37 +83,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\MangaViewer.Common\DBCSEncoding.cs">
-      <Link>DBCSEncoding.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Common\Extention\StreamExtention.cs">
-      <Link>Extention\StreamExtention.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Common\Extention\StringExtention.cs">
-      <Link>Extention\StringExtention.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Common\Helper\ColorHelper.cs">
-      <Link>Helper\ColorHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Common\Helper\JsonHelper.cs">
-      <Link>Helper\JsonHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Common\Helper\SerializerHelper.cs">
-      <Link>Helper\SerializerHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Common\Helper\StringHelper.cs">
-      <Link>Helper\StringHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Common\NavigationService.cs">
-      <Link>NavigationService.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="gb2312.bin" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="big5.bin" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

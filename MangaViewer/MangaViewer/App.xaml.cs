@@ -37,6 +37,8 @@ namespace MangaViewer
         }
         public static NavigationService NavigationService;
 
+        public static MangaService MangaService { get; set; }
+        public static SettingService SettingService { get; set; }
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -46,6 +48,8 @@ namespace MangaViewer
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
+            SettingService = new SettingService();
+            MangaService = new MangaService(SettingService); 
 
         }
 

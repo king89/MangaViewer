@@ -22,6 +22,8 @@ namespace MangaViewerWP
         public static PhoneApplicationFrame RootFrame { get; private set; }
 
         public static MangaViewer.Common.NavigationService NavigationService;
+        public static MangaService MangaService { get; set; }
+        public static SettingService SettingService { get; set; }
 
         /// <summary>
         /// Constructor for the Application object.
@@ -60,7 +62,7 @@ namespace MangaViewerWP
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
-            
+
 
         }
 
@@ -68,6 +70,8 @@ namespace MangaViewerWP
         // This code will not execute when the application is reactivated
         private async void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            SettingService = new SettingService();
+            MangaService = new MangaService(SettingService);
             await SettingService.LoadSetting();
         }
 
@@ -80,14 +84,16 @@ namespace MangaViewerWP
 
         // Code to execute when the application is deactivated (sent to background)
         // This code will not execute when the application is closing
-        private void Application_Deactivated(object sender, DeactivatedEventArgs e)
+        private async void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
+            await SettingService.SaveSetting();
         }
 
         // Code to execute when the application is closing (eg, user hit Back)
         // This code will not execute when the application is deactivated
-        private void Application_Closing(object sender, ClosingEventArgs e)
+        private async void Application_Closing(object sender, ClosingEventArgs e)
         {
+            await SettingService.SaveSetting();
             ViewModelLocator.Cleanup();
         }
 

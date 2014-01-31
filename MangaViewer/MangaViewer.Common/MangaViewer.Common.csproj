@@ -110,7 +110,6 @@
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
-    <Compile Include="DBCSEncoding.cs" />
     <Compile Include="Extention\SecurityExtention.cs" />
     <Compile Include="Extention\StreamExtention.cs" />
     <Compile Include="Extention\StringExtention.cs" />
@@ -132,6 +131,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="big5.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="gb2312.bin" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

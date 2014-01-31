@@ -104,7 +104,7 @@ namespace MangaViewer.View
         async void GetChatperList()
         {
             //有网络
-            ObservableCollection<MangaChapterItem> chapterItem = await MangaService.GetChapterList(ViewModelLocator.AppViewModel.Main.SelectedMenu);
+            ObservableCollection<MangaChapterItem> chapterItem = await App.MangaService.GetChapterList(ViewModelLocator.AppViewModel.Main.SelectedMenu);
             LoadingStack.Visibility = Visibility.Collapsed;
             ViewModelLocator.AppViewModel.Main.ChapterList = chapterItem;
 
@@ -122,7 +122,7 @@ namespace MangaViewer.View
                 {
 
                     ViewModelLocator.AppViewModel.Main.MenuGroups.Last().Items.Remove(menu);
-                    SettingService.RemoveFavouriteMenu(menu);
+                    App.SettingService.RemoveFavouriteMenu(menu);
                     ViewModelLocator.AppViewModel.Main.IsFavourited = false;
                 }));
                 MyPopup.IsOpen = true;
@@ -135,8 +135,8 @@ namespace MangaViewer.View
                     MangaMenuItem newMangaItem = menu.Clone();
                     newMangaItem.SetDefaultSize();
                     ViewModelLocator.AppViewModel.Main.AddMyFavouriteMangaMenu(newMangaItem);
-                    
-                    SettingService.AddFavouriteMenu(newMangaItem);
+
+                    App.SettingService.AddFavouriteMenu(newMangaItem);
                     ViewModelLocator.AppViewModel.Main.IsFavourited = true;
                 }));
                 MyPopup.IsOpen = true;

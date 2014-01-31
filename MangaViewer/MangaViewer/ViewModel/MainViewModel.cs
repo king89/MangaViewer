@@ -31,6 +31,7 @@ using Windows.UI.Core;
 #elif WP
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using MangaViewerWP;
 #endif
 
 
@@ -159,7 +160,7 @@ namespace MangaViewer.ViewModel
         {
             get
             {
-                return SettingService.CheckFavourtie(SelectedMenu);
+                return App.SettingService.CheckFavourtie(SelectedMenu);
             }
             set 
             {
@@ -210,7 +211,7 @@ namespace MangaViewer.ViewModel
                 {
                     ItemClickEventArgs e = ep.EventArgs as ItemClickEventArgs;
                     _selectedPage = e.ClickedItem as MangaPageItem;
-                     string path = await MangaService.GetIamgeByImageUrl(_selectedPage);
+                    string path = await App.MangaService.GetIamgeByImageUrl(_selectedPage);
                     _selectedPage.SetImage(path);
                 }));
             }
@@ -238,6 +239,18 @@ namespace MangaViewer.ViewModel
                 return _mSettingCommand ?? (_mSettingCommand = new RelayCommand<MangaMenuItem>((ep) =>
                 {
                     MangaViewerWP.App.NavigationService.Navigate(new Uri("/View/ChapterPage.xaml", UriKind.Relative));
+                }));
+            }
+        }
+
+        private RelayCommand<string> _chapterSelectedCommand;
+        public RelayCommand<string> ChapterSelectedCommand
+        {
+            get
+            {
+                return _chapterSelectedCommand ?? (_chapterSelectedCommand = new RelayCommand<string>((ep) =>
+                {
+                    MangaViewerWP.App.NavigationService.Navigate(new Uri("/View/MangaImgPage.xaml", UriKind.Relative));
                 }));
             }
         }

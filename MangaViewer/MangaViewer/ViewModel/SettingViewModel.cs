@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using MangaViewer.Foundation.Interactive;
 using System.Collections.ObjectModel;
 #elif WP
+using MangaViewerWP;
 #endif
 
 
@@ -30,7 +31,7 @@ namespace MangaViewer.ViewModel
             {
                 _mWebSiteList.Add(i);
             }
-            _mSelectedWebSite = SettingService.GetWebSite().Result.ToString();
+            _mSelectedWebSite = App.SettingService.GetWebSite().ToString();
         }
 
 
@@ -79,7 +80,7 @@ namespace MangaViewer.ViewModel
         	set 
         	{ 
         		_mSelectedWebSite = value;
-                SettingService.SetWebSite(_mSelectedWebSite);
+                App.SettingService.SetWebSite(_mSelectedWebSite);
         		RaisePropertyChanged(() => SelectedWebSite);
         	}
         }

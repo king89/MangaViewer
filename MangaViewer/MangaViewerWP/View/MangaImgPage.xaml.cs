@@ -8,34 +8,18 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using MangaViewer.Resources;
-using MangaViewer.ViewModel;
-using System.Collections.ObjectModel;
-using MangaViewer.Model;
 
 namespace MangaViewer.View
 {
-    public partial class ChapterPage : PhoneApplicationPage
+    public partial class MangaImgPage : PhoneApplicationPage
     {
         // Constructor
-        public ChapterPage()
+        public MangaImgPage()
         {
             InitializeComponent();
 
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
-            GetChatperList();
-        }
-
-        async void GetChatperList()
-        {
-            ViewModelLocator.AppViewModel.Main.ChapterList = null;
-            //有网络
-            ObservableCollection<MangaChapterItem> chapterItem = await MangaViewerWP.App.MangaService.GetChapterList(ViewModelLocator.AppViewModel.Main.SelectedMenu);
-            //LoadingStack.Visibility = Visibility.Collapsed;
-            ViewModelLocator.AppViewModel.Main.ChapterList = chapterItem;
-
-            ////没网络
-            //ViewModelLocator.AppViewModel.Main.PageList = new MangaViewer.Data.PageListData().PageList;
         }
 
         // Sample code for building a localized ApplicationBar

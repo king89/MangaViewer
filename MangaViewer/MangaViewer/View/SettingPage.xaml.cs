@@ -29,7 +29,7 @@ namespace MangaViewer.View
         }
         void Init()
         {
-            String s = SettingService.GetWebSite().ToString();
+            String s = App.SettingService.GetWebSite().ToString();
             List<string> list =  Enum.GetNames(typeof(WebSiteEnum)).ToList<string>();
             WebSiteTypeCB.ItemsSource = list;
             WebSiteTypeCB.SelectedValue = s;
@@ -61,7 +61,7 @@ namespace MangaViewer.View
         private void CommitBT_Click(object sender, RoutedEventArgs e)
         {
             WebSiteEnum wse = (WebSiteEnum)Enum.Parse(typeof(WebSiteEnum), WebSiteTypeCB.SelectedValue.ToString());
-            SettingService.SetWebSite(wse);
+            App.SettingService.SetWebSite(wse);
             App.NavigationService.Navigate(typeof(MainPage));
         }
     }

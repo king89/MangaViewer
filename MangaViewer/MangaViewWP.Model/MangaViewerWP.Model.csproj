@@ -83,45 +83,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\MangaViewer.Model\CommonClass.cs">
-      <Link>CommonClass.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Model\CommonItem.cs">
-      <Link>CommonItem.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Model\EnumClass.cs">
-      <Link>EnumClass.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Model\FavouriteMangaItem.cs">
-      <Link>FavouriteMangaItem.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Model\HubMenuGroup.cs">
-      <Link>HubMenuGroup.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Model\HubMenuItem.cs">
-      <Link>HubMenuItem.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Model\IncrementalItemCollection.cs">
-      <Link>IncrementalItemCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Model\MangaChapterItem.cs">
-      <Link>MangaChapterItem.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Model\MangaMenuItem.cs">
-      <Link>MangaMenuItem.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Model\MangaPageItem.cs">
-      <Link>MangaPageItem.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Model\ModelBase.cs">
-      <Link>ModelBase.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Model\ObservableObject.cs">
-      <Link>ObservableObject.cs</Link>
-    </Compile>
-    <Compile Include="..\MangaViewer.Model\Setting.cs">
-      <Link>Setting.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

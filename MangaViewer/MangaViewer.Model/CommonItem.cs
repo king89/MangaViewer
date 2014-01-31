@@ -89,7 +89,7 @@ namespace MangaViewer.Model
 
         private ImageSource _image = null;
         private string _imagePath = null;
-        public ImageSource Image
+        public virtual ImageSource Image
         {
             get
             {
@@ -100,7 +100,7 @@ namespace MangaViewer.Model
                 return this._image;
             }
 
-            set
+             set
             {
                 if (_image != value)
                 {

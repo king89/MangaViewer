@@ -12,22 +12,24 @@ using Windows.Foundation;
 
 namespace MangaViewer.Service
 {
-    public static class MangaService
+    public  class MangaService
     {
-        #region  Property
-
-        private static int groupItemMaxNum = 15;
-
-        static WebSiteEnum WebType
+        public MangaService(SettingService setting)
         {
-            get
-            {
-                return SettingService.GetWebSite().Result;
-            }
+            SettingService = setting;
+            //WebType = setting;
+        }
+        #region  Property
+        public SettingService SettingService { get; set; }
+        private  int groupItemMaxNum = 15;
+
+        WebSiteEnum WebType
+        {
+            get { return SettingService.GetWebSite(); }
         }
 
-        private static string _menuHtml = "";
-        public static string MenuHtml
+        private  string _menuHtml = "";
+        public  string MenuHtml
         {
             get
             {
@@ -48,7 +50,7 @@ namespace MangaViewer.Service
         /// <summary>
         ///   get web image and save into temp folder, return local path uri
         /// </summary>
-        public static Task<string> GetIamgeByImageUrl(MangaPageItem page)
+        public  Task<string> GetIamgeByImageUrl(MangaPageItem page)
         {
             return Task.Run<string>(() =>
             {
@@ -58,7 +60,7 @@ namespace MangaViewer.Service
             });
         }
 
-        public static Task<ObservableCollection<MangaPageItem>> GetPageList(MangaChapterItem chapter)
+        public  Task<ObservableCollection<MangaPageItem>> GetPageList(MangaChapterItem chapter)
         {
 
             return Task.Run<ObservableCollection<MangaPageItem>>(() =>
@@ -80,7 +82,7 @@ namespace MangaViewer.Service
         #endregion
 
         #region Chapter
-        public static Task<ObservableCollection<MangaChapterItem>> GetChapterList(MangaMenuItem menu)
+        public  Task<ObservableCollection<MangaChapterItem>> GetChapterList(MangaMenuItem menu)
         {
             return Task.Run<ObservableCollection<MangaChapterItem>>(() =>
             {
@@ -101,7 +103,7 @@ namespace MangaViewer.Service
 
         #region Menu
         //Menu
-        public static Task<HubMenuGroup> GetNewMangeGroup()
+        public  Task<HubMenuGroup> GetNewMangeGroup()
         {
             return Task.Run<HubMenuGroup>(() =>
             {
@@ -136,7 +138,7 @@ namespace MangaViewer.Service
                 return group;
             });
         }
-        public static Task<HubMenuGroup> GetTopMangaGroup()
+        public  Task<HubMenuGroup> GetTopMangaGroup()
         {
             return Task.Run<HubMenuGroup>(() =>
             {
@@ -167,7 +169,7 @@ namespace MangaViewer.Service
                 return group;
             });
         }
-        public static Task<HubMenuGroup> GetMyMangaGroup()
+        public  Task<HubMenuGroup> GetMyMangaGroup()
         {
             return Task.Run<HubMenuGroup>(() =>
             {
@@ -184,7 +186,7 @@ namespace MangaViewer.Service
             });
         }
 
-        public static Task<ObservableCollection<HubMenuGroup>> GetMainMenu()
+        public  Task<ObservableCollection<HubMenuGroup>> GetMainMenu()
         {
             return Task.Run<ObservableCollection<HubMenuGroup>>(() =>
             {
@@ -236,7 +238,7 @@ namespace MangaViewer.Service
 
 
 
-        public static Task<ObservableCollection<MangaMenuItem>> GetSearchingList(string queryText, int pageNum = 1)
+        public  Task<ObservableCollection<MangaMenuItem>> GetSearchingList(string queryText, int pageNum = 1)
         {
             return Task.Run<ObservableCollection<MangaMenuItem>>(() =>
             {

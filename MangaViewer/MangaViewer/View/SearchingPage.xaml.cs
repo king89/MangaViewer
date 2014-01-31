@@ -61,7 +61,7 @@ namespace MangaViewer.View
         }
         async Task GetSearchingList(string queryText)
         {
-            var menu = await MangaService.GetSearchingList(queryText);
+            var menu = await App.MangaService.GetSearchingList(queryText);
             MangaViewer.ViewModel.ViewModelLocator.AppViewModel.Main.SearchingList = menu;
         }
         void searchPane_QuerySubmitted(SearchPane sender, SearchPaneQuerySubmittedEventArgs agrs)
