@@ -32,10 +32,11 @@ namespace MangaViewer.Service
             return pageList;
         }
 
-        public override string GetImageByImageUrl(MangaPageItem page, SaveType saveType = SaveType.Temp)
+        public override void GetImageByImageUrl(MangaPageItem page, SaveType saveType = SaveType.Temp)
         {
             string imgUrl = GetImageUrl(page.PageUrl);
-            return imgUrl;
+            page.SetImage(imgUrl);
+            return;
 
             ////Get Image
             //string extention = imgUrl.Substring(imgUrl.LastIndexOf("."));

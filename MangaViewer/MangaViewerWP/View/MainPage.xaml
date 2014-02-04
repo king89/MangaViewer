@@ -9,6 +9,7 @@
                             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
                             xmlns:command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP8"                            
                             xmlns:control="clr-namespace:MangaViewer.Controls"
+                            xmlns:conver="clr-namespace:MangaViewer.Common"
                             mc:Ignorable="d ignore"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
                             FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -18,6 +19,9 @@
                             shell:SystemTray.IsVisible="True"
                             DataContext="{Binding AppViewModel, Source={StaticResource Locator}}">
     <phone:PhoneApplicationPage.Resources>
+        <conver:BooleanToVisibilityConverter x:Key="TrueConverter" />
+        <conver:BoolFalseToVisibilityConverter x:Key="FalseConverter" />
+
         <Style x:Key="TextBlockCenterStyle" TargetType="TextBlock">
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -102,6 +106,7 @@
               Margin="12,0,12,0">
             <phone:Pivot
                 Name="MainMenuPivot"
+                Visibility="{Binding Main.IsMenuLoaded,Converter={StaticResource TrueConverter},Mode=TwoWay}"
                 HorizontalAlignment="Stretch"  Title="MangaViewer"
                          VerticalAlignment="Stretch"
                          ItemsSource="{Binding Main.MenuGroups}" 
@@ -111,6 +116,10 @@
 
             </phone:Pivot>
 
+            <TextBlock Text="Loading..." 
+                       Visibility="{Binding Main.IsMenuLoaded,Converter={StaticResource FalseConverter},Mode=TwoWay}"
+                       FontSize="50"  
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
 
         </Grid>

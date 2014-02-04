@@ -56,7 +56,8 @@ namespace MangaViewer.Service
             {
                 //Get Image
                 MangaPattern mPattern = WebSiteAccess.GetMangaPatternInstance(WebType);
-                return mPattern.GetImageByImageUrl(page);
+                mPattern.GetImageByImageUrl(page);
+                return "";
             });
         }
 
@@ -73,7 +74,9 @@ namespace MangaViewer.Service
                 for (int i = 1; i <= pageUrlList.Count; i++)
                 {
                     //string imagePath = mPattern.GetImageUrl(pageUrlList[i-1]);
-                    mangaPageList.Add(new MangaPageItem("page-" + i, string.Empty, pageUrlList[i - 1], chapter, i, pageUrlList.Count));
+                    MangaPageItem item = new MangaPageItem("page-" + i, string.Empty, pageUrlList[i - 1], chapter, i, pageUrlList.Count);
+                    item.WebImageUrl = mPattern.GetImageUrl(item.PageUrl, item.PageNum);
+                    mangaPageList.Add(item);
 
                 }
                 return mangaPageList;
@@ -262,6 +265,12 @@ namespace MangaViewer.Service
         }
 
 
+
+        public void GetPageImage(MangaPageItem pageItem)
+        {
+            MangaPattern mPattern = WebSiteAccess.GetMangaPatternInstance(WebType);
+            mPattern.GetImageByImageUrl(pageItem, SaveType.Temp);
+        }
     }
 
 

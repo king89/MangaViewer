@@ -94,9 +94,13 @@ namespace MangaViewer.Model
         {
             get
             {
-                if (this._image == null && this._imagePath != null)
+                if (this._image == null && this._imagePath != null && this._imagePath != "")
                 {
                     this._image = new BitmapImage(new Uri(_baseUri, this._imagePath));
+                }
+                if (_image != null)
+                {
+                    this.IsLoadedImage = true;
                 }
                 return this._image;
             }
@@ -111,6 +115,42 @@ namespace MangaViewer.Model
             }
         }
 
+        #region ImageHeight
+        ///<summary>
+        /// ImageHeight
+        ///</summary>
+        private double _mImageHeight = 0;
+        public double ImageHeight
+        {
+        	get 
+        	{ 
+        		return _mImageHeight;
+        	}
+        	set 
+        	{ 
+        		_mImageHeight = value;
+        		RaisePropertyChanged(() => ImageHeight);
+        	}
+        }
+        #endregion
+        #region ImageWidth
+        ///<summary>
+        /// ImageWidth
+        ///</summary>
+        private double _mImageWidth = 0;
+        public double ImageWidth
+        {
+        	get 
+        	{ 
+        		return _mImageWidth;
+        	}
+        	set 
+        	{ 
+        		_mImageWidth = value;
+        		RaisePropertyChanged(() => ImageWidth);
+        	}
+        }
+        #endregion
         private bool _isLoadedImage = false;
         public bool IsLoadedImage
         {
@@ -124,6 +164,23 @@ namespace MangaViewer.Model
                 this.RaisePropertyChanged(() => IsLoadedImage);
             }
         }
+
+        ///<summary>
+        /// WebImageUrl
+        ///</summary>
+        private string _mWebImageUrl = null;
+        public string WebImageUrl
+        {
+        	get 
+        	{ 
+        		return _mWebImageUrl;
+        	}
+        	set 
+        	{ 
+        		_mWebImageUrl = value;
+        		RaisePropertyChanged(() => WebImageUrl);
+        	}
+        }
         #endregion
 
         public override void SetImage(String path)
@@ -133,7 +190,10 @@ namespace MangaViewer.Model
             this.RaisePropertyChanged(() => Image);
 
         }
-
+        public string GetImagePath()
+        {
+            return _imagePath;
+        }
         public void RefreshImage()
         {
             this._image = null;

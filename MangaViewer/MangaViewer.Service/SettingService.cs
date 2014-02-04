@@ -37,7 +37,7 @@ namespace MangaViewer.Service
                 try
                 {
                     string serialResult = MySerialize.JsonSerialize((object)_appSetting);
-                    FileService.SaveFileInLocalByText(Constant.settingFolder, Constant.settingFile, serialResult);
+                    FileService.SaveFileInLocalByText(Constant.SETTINGFOLDER, Constant.SETTINGFILE, serialResult);
                     return true;
                 }
                 catch (System.Exception ex)
@@ -54,7 +54,7 @@ namespace MangaViewer.Service
             {
                 try
                 {
-                    string result = await FileService.LoadFileInLocalByText(Constant.settingFolder, Constant.settingFile);
+                    string result = await FileService.LoadFileInLocalByText(Constant.SETTINGFOLDER, Constant.SETTINGFILE);
 
                     //throw new NotImplementedException();
                     if (result != string.Empty)

@@ -80,6 +80,16 @@ namespace MangaViewer.ViewModel
             set 
             {
                 _menuGroups = value;
+                //Is Loaded
+                if (_menuGroups != null)
+                {
+                    IsMenuLoaded = true;
+
+                }
+                if (_menuGroups == null)
+                {
+                    IsMenuLoaded = false;
+                }
                 RaisePropertyChanged(() => MenuGroups);
             }
         }
@@ -96,6 +106,16 @@ namespace MangaViewer.ViewModel
             set
             {
                 _chapterList = value;
+                //Is Loaded
+                if (_chapterList != null)
+                {
+                    IsChapterLoaded = true;
+
+                }
+                if (_chapterList == null)
+                {
+                    IsChapterLoaded = false;
+                }
                 RaisePropertyChanged(() => ChapterList);
             }
         }
@@ -117,6 +137,17 @@ namespace MangaViewer.ViewModel
             set 
             {
                 _pageListData = value;
+                //默认选中第一个
+                if (_pageListData != null && _pageListData.Count > 0)
+                {
+                    _selectedPage = PageList[0];
+                    
+                }
+                if (_pageListData == null)
+                {
+                    _selectedPage = null;
+                    
+                }
                 RaisePropertyChanged(() => PageList);
             }
         }
@@ -135,6 +166,47 @@ namespace MangaViewer.ViewModel
         }
         
         #endregion
+
+        #region IsMenuLoaded
+        ///<summary>
+        /// Is Menu Loaded
+        ///</summary>
+        private bool _mIsMenuLoaded = false;
+        public bool IsMenuLoaded
+        {
+            get
+            {
+                return _mIsMenuLoaded;
+            }
+            set
+            {
+                _mIsMenuLoaded = value;
+                RaisePropertyChanged(() => IsMenuLoaded);
+            }
+        } 
+        #endregion
+
+        #region IsChapterLoaded
+        ///<summary>
+        /// Is Chapter List Loaded
+        ///</summary>
+        private bool _mIsChapterLoaded = false;
+        public bool IsChapterLoaded
+        {
+        	get 
+        	{ 
+        		return _mIsChapterLoaded;
+        	}
+        	set 
+        	{ 
+        		_mIsChapterLoaded = value;
+        		RaisePropertyChanged(() => IsChapterLoaded);
+        	}
+        }
+        #endregion
+
+        
+
         #region SeachingDataMenu
         ObservableCollection<MangaMenuItem> _searchListData;
         public ObservableCollection<MangaMenuItem> SearchingList

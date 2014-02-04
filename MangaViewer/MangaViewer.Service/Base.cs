@@ -26,7 +26,8 @@ namespace MangaViewer.Service
 */
         public virtual List<string> GetPageList(string firstPageUrl) { return null; }
         public virtual string GetImageUrl(string pageUrl) { return null; }
-        public virtual string GetImageByImageUrl(MangaPageItem page,SaveType saveType=SaveType.Temp) { return null; }
+        public virtual string GetImageUrl(string pageUrl, int nowPage) { return null; }
+        public virtual void GetImageByImageUrl(MangaPageItem page,SaveType saveType=SaveType.Temp) { return ; }
         public virtual int InitSomeArgs(string firstPageUrl) { return 0; }
       //public virtual void DownloadOnePage(string pageUrl,string folder,int nowPageNum) { return; }
         public virtual string GetHtml(string Url)
@@ -74,6 +75,33 @@ namespace MangaViewer.Service
             r = new Regex("[0-9]+");
             m = r.Matches(m[m.Count-1].Value);
             return Int32.Parse(m[0].Value);
+        }
+
+        public async virtual Task<string> DownloadImgPage(string imgUrl, MangaPageItem pageItem, SaveType saveType)
+        {
+            HttpClient client = new HttpClient();
+            string UserAgent = "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.56 Safari/536.5";
+
+            client.DefaultRequestHeaders.UserAgent.TryParseAdd(UserAgent);
+            client.DefaultRequestHeaders.Referrer = new Uri(pageItem.PageUrl);
+            // Call asynchronous network methods in a try/catch block to handle exceptions 
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(imgUrl);
+                response.EnsureSuccessStatusCode();
+                var responseBody = await response.Content.ReadAsStreamAsync();
+                // Above three lines can be replaced with new helper method below 
+                // string responseBody = await client.GetStringAsync(uri);
+                string folderName = Constant.MANGAFOLDER + this.GetType().Name + "_" + pageItem.Chapter.Menu.Title + "_" + pageItem.Chapter.Title;
+                string fileName = System.IO.Path.GetFileName(imgUrl);
+                string fileRealPath = await FileService.SaveFileInTemp(folderName, fileName, responseBody);
+                return fileRealPath;
+            }
+            catch (Exception e)
+            {
+                return "";
+            }
+            
         }
 
 /*

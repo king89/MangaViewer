@@ -17,7 +17,12 @@ namespace MangaViewer.Service
         static object syncWrite = new object();
         static StorageFolder TempFolder
         {
+#if Win8
+
             get { return Windows.Storage.ApplicationData.Current.TemporaryFolder; }
+#elif WP
+            get { return Windows.Storage.ApplicationData.Current.LocalFolder; }
+#endif
         }
 
         static StorageFolder LocalFolder
@@ -37,23 +42,30 @@ namespace MangaViewer.Service
 
         public static async Task<string> SaveFileInTemp(string folderPath, string fileName, Stream stream)
         {
-
-            StorageFolder saveFolder = await TempFolder.CreateFolderAsync(folderPath, CreateOptionOpen);
-
-            var file = await saveFolder.CreateFileAsync(fileName, CreateOptionReplace);
-
-            using (IRandomAccessStream output = await file.OpenAsync(FileAccessMode.ReadWrite))
+            try
             {
-                Stream outputstream = WindowsRuntimeStreamExtensions.AsStreamForWrite(output.GetOutputStreamAt(0));
-                await stream.CopyToAsync(outputstream);
-                outputstream.Dispose();
-                stream.Dispose();
+
+                StorageFolder saveFolder = await TempFolder.CreateFolderAsync(folderPath, CreateOptionOpen);
+
+                var file = await saveFolder.CreateFileAsync(fileName, CreateOptionReplace);
+
+                using (IRandomAccessStream output = await file.OpenAsync(FileAccessMode.ReadWrite))
+                {
+                    Stream outputstream = WindowsRuntimeStreamExtensions.AsStreamForWrite(output.GetOutputStreamAt(0));
+                    await stream.CopyToAsync(outputstream);
+                    outputstream.Dispose();
+                    stream.Dispose();
+                }
+
+
+                string resultPath = file.Path;
+
+                return resultPath;
             }
-
-
-            string resultPath = file.Path;
-
-            return resultPath;
+            catch (System.Exception ex)
+            {
+                return "";
+            }
         }
 
         public static async Task<string> SaveFileInLocal(string folderPath, string fileName, Stream stream)
@@ -142,6 +154,21 @@ namespace MangaViewer.Service
                 default: return null;
             }
 
+        }
+
+
+        public async static void DeleteFolder(string folderPath)
+        {
+            StorageFolder Folder = await TempFolder.CreateFolderAsync(folderPath,CreationCollisionOption.OpenIfExists);
+            await Folder.DeleteAsync(StorageDeleteOption.PermanentDelete);
+            Folder = await TempFolder.CreateFolderAsync(folderPath, CreationCollisionOption.OpenIfExists);
+            
+        }
+
+        public static Stream GetFileByStream(string path)
+        {
+            Stream file = File.OpenRead(path);
+            return file;
         }
     }
 

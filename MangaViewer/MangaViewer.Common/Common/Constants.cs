@@ -10,5 +10,6 @@ namespace MangaViewer.Common
     {
         public const string EMPTY_NEWSDETAIL = ".";
         public const string BASEURI = "ms-appx:///";
+        public const string MANGAFOLDER = "Manga";
     }
 }

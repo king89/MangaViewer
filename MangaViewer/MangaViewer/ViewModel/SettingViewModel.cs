@@ -100,6 +100,20 @@ namespace MangaViewer.ViewModel
         //            }));
         //    }
         //}
+        private RelayCommand<string> _mDeleteMangaCacheCommand;
+        public RelayCommand<string> DeleteMangaCacheCommand
+        {
+            get
+            {
+                return _mDeleteMangaCacheCommand ?? (_mDeleteMangaCacheCommand = new RelayCommand<string>((ep) =>
+                    {
+                        //Command logic here
+
+                        FileService.DeleteFolder(Constant.MANGAFOLDER);
+                    }));
+            }
+        }
+        
         #endregion
 
     }

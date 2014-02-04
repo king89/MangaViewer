@@ -29,8 +29,9 @@ namespace MangaViewer.Model
 
     public static class Constant
     {
-        public static string settingFolder = "Setting\\";
-        public static string settingFile = "AppSetting.set";
+        public  const string SETTINGFOLDER = "Setting\\";
+        public  const string SETTINGFILE = "AppSetting.set";
+        public  const string MANGAFOLDER = "Manga\\";
     }
 
 
