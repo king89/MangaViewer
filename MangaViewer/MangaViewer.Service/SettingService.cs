@@ -50,31 +50,27 @@ namespace MangaViewer.Service
 
         public async  Task<bool> LoadSetting()
         {
-            return await Task.Run<bool>(async () =>
+            try
             {
-                try
-                {
-                    string result = await FileService.LoadFileInLocalByText(Constant.SETTINGFOLDER, Constant.SETTINGFILE);
+                string result = await FileService.LoadFileInLocalByText(Constant.SETTINGFOLDER, Constant.SETTINGFILE);
 
-                    //throw new NotImplementedException();
-                    if (result != string.Empty)
-                    {
-                        _appSetting = MySerialize.JsonDeserialize<Setting>(result);
-                    }
-                    else
-                    {
-                        _appSetting = new Setting();
-                        _appSetting.WebSite = WebSiteEnum.Local;
-                    }
-                    IsLoaded = true;
-                    return true;
-                }
-                catch (System.Exception ex)
+                //throw new NotImplementedException();
+                if (result != string.Empty)
                 {
-                    return false;
+                    _appSetting = MySerialize.JsonDeserialize<Setting>(result);
                 }
-
-            });
+                else
+                {
+                    _appSetting = new Setting();
+                    _appSetting.WebSite = WebSiteEnum.Local;
+                }
+                IsLoaded = true;
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                return false;
+            }
 
         }
 

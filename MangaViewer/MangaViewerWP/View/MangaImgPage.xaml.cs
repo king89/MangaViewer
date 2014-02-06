@@ -15,6 +15,7 @@ using System.Threading;
 using System.Windows.Media.Imaging;
 using MangaViewer.Service;
 using System.IO;
+using Windows.UI.Xaml;
 
 namespace MangaViewer.View
 {
@@ -57,6 +58,13 @@ namespace MangaViewer.View
         }
         private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //ViewModelLocator.AppViewModel.Main.SelectedPage.Image = null;
+            //ScrollViewer sv = VisualTreeExtensions.FindVisualChild<ScrollViewer>(this.ImgPivot);
+            //Image img = (Image)sv.FindName("Img");
+            //BitmapImage bitmapImage = img.Source as BitmapImage;
+            //bitmapImage.UriSource = null;
+            //img.Source = null;
+
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
@@ -68,7 +76,25 @@ namespace MangaViewer.View
             }
         }
 
+        private void Image_DoubleTap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            ScrollViewer sv = (ScrollViewer)sender;
+            Image img = (Image)sv.FindName("Img");
+            if (!double.IsNaN(img.Width))
+            {
+                img.Width = double.NaN;
+                img.Height = double.NaN;
+                sv.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
+            }
+            else
+            {
+                img.Width = ViewModelLocator.AppViewModel.Main.SelectedPage.ImageWidth;
+                img.Height = ViewModelLocator.AppViewModel.Main.SelectedPage.ImageHeight;
+                sv.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
+            }
+        }
 
+ 
         // Sample code for building a localized ApplicationBar
         //private void BuildLocalizedApplicationBar()
         //{

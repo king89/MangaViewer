@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using MangaViewer.Resources;
 using MangaViewer.ViewModel;
 using MangaViewer.Service;
+using MangaViewer.Model;
 
 namespace MangaViewerWP
 {

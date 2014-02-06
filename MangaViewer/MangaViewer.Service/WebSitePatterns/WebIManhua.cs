@@ -14,6 +14,42 @@ namespace MangaViewer.Service
 {
     public class WebIManhua : MangaPattern
     {
+        class MatchCInfo
+        {
+            public static string[] names = null;
+            public static int isdecimal = 10;
+            public static string Change(Match m)
+            {
+                // Get the matched string.
+                string x = m.ToString();
+                return names[GetInt(x, isdecimal)] == "" ? "0" : names[GetInt(x, isdecimal)];
+            }
+            private static int GetInt(string s, int isDecimal)
+            {
+                char[] aList = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+                Dictionary<string, int> aDict = new Dictionary<string, int>();
+                for (int i = 0; i < aList.Length; i++)
+                {
+                    aDict[aList[i].ToString()] = i;
+                }
+                if (isDecimal == 10)
+                {
+                    return Int32.Parse(s);
+                }
+                else
+                {
+                    char[] sArrary = s.ToCharArray();
+                    double total = 0;
+                    int index = 0;
+                    for (int i = s.Length - 1; i >= 0; i--)
+                    {
+                        total = total + (Math.Pow(isDecimal, index) * aDict[sArrary[i].ToString()]);
+                        index += 1;
+                    }
+                    return (int)total;
+                }
+            }
+        }
         public class ImanhuaInfo
         {
             public string bname { get; set; }
@@ -88,44 +124,6 @@ namespace MangaViewer.Service
             return pageList;
         }
 
-        class MatchCInfo
-        {
-            public static string[] names = null;
-            public static int isdecimal = 10;
-            public static string Change(Match m)
-            {
-                // Get the matched string.
-                string x = m.ToString();
-                return names[GetInt(x, isdecimal)] == "" ? "0" : names[GetInt(x, isdecimal)];
-            }
-            private static int GetInt(string s, int isDecimal)
-            {
-                char[] aList = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
-                Dictionary<string, int> aDict = new Dictionary<string, int>();
-                for (int i = 0; i < aList.Length; i++)
-                {
-                    aDict[aList[i].ToString()] = i;
-                }
-                if (isDecimal == 10)
-                {
-                    return Int32.Parse(s);
-                }
-                else
-                {
-                    char[] sArrary = s.ToCharArray();
-                    double total = 0;
-                    int index = 0;
-                    for (int i = s.Length - 1; i >= 0; i--)
-                    {
-                        total = total + (Math.Pow(isDecimal, index) * aDict[sArrary[i].ToString()]);
-                        index += 1;
-                    }
-                    return (int)total;
-                }
-            }
-        }
-        
-
         public async override void GetImageByImageUrl(MangaPageItem pageItem, SaveType saveType = SaveType.Temp)
         {
             string imgUrl = pageItem.WebImageUrl;
@@ -142,7 +140,6 @@ namespace MangaViewer.Service
             return imageUrl.TrimEnd('/') + '/' + deserializedProduct.bid + '/' + deserializedProduct.cid + '/' + deserializedProduct.files[nowNum-1];
         }
 
-        
         public override List<TitleAndUrl> GetChapterList(string chapterUrl)
         {
             //http://comic.131.com/content/shaonian/2104.html
@@ -172,7 +169,7 @@ namespace MangaViewer.Service
         public override List<TitleAndUrl> GetNewMangaList(string html)
         {
             List<TitleAndUrl> newMangaList = new List<TitleAndUrl>();
-            Regex rGetUl = new Regex("<ul class=\"newUpdate\".+</ul>");
+            Regex rGetUl = new Regex("<ul class=\"newUpdate\"[\\s\\S.]+?</ul>");
             html = rGetUl.Match(html).Value;
             Regex rGetLi = new Regex("<li>.+?</li>");
             MatchCollection liList = rGetLi.Matches(html);

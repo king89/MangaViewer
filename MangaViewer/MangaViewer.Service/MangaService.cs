@@ -123,7 +123,7 @@ namespace MangaViewer.Service
                 {
                     for (int i = 0; i < newMenuList.Count; i++)
                     {
-                        if (i > groupItemMaxNum) break;
+                        //if (i > groupItemMaxNum) break;
                         MangaMenuItem newItem = null;
                         if (i >= sizeArray.Count)
                         {

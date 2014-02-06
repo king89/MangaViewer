@@ -5,12 +5,20 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+
+#if Win8
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
-
+#elif WP
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+#endif
 namespace Windows.UI.Xaml
 {
     /// <summary>
@@ -768,7 +776,12 @@ namespace Windows.UI.Xaml
 
             // Create an event handler that unhooks itself before calling the
             // action and then attach it to the LayoutUpdated event.
+#if Win8
+
             EventHandler<object> handler = null;
+#elif WP
+            EventHandler handler = null;
+#endif
             handler = (s, e) =>
             {
                 //TODO: is this the right thing to do?

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
-  <DefaultLanguage xmlns="" code="en-US" />
-  <App xmlns="" ProductID="{c2aad500-112a-4990-bc48-62750b0f7ae1}" Title="MangaViewerWP" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="MangaViewerWP author" Description="Sample description" Publisher="MangaViewerWP" PublisherID="{18ab1cf0-a67c-40ad-ba22-037ada5584be}">
+  <DefaultLanguage xmlns="" code="zh-CN" />
+  <App xmlns="" ProductID="{c2aad500-112a-4990-bc48-62750b0f7ae1}" Title="MangaViewer" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="MangaViewerWP author" Description="Sample description" Publisher="MangaViewerWP" PublisherID="{18ab1cf0-a67c-40ad-ba22-037ada5584be}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
@@ -26,16 +26,9 @@
           </BackBackgroundImageURI>
           <BackTitle>
           </BackTitle>
-          <LargeBackgroundImageURI>
-          </LargeBackgroundImageURI>
-          <LargeBackContent>
-          </LargeBackContent>
-          <LargeBackBackgroundImageURI>
-          </LargeBackBackgroundImageURI>
           <DeviceLockImageURI>
           </DeviceLockImageURI>
-          <HasLarge>
-          </HasLarge>
+          <HasLarge>False</HasLarge>
         </TemplateFlip>
       </PrimaryToken>
     </Tokens>

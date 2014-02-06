@@ -73,17 +73,32 @@ namespace MangaViewer.Service
             Regex r = new Regex("value=\"[0-9]+\"");
             MatchCollection m = r.Matches(html);
             r = new Regex("[0-9]+");
-            m = r.Matches(m[m.Count-1].Value);
-            return Int32.Parse(m[0].Value);
+            if (m.Count > 0)
+            {
+                m = r.Matches(m[m.Count - 1].Value);
+                return Int32.Parse(m[0].Value);
+            }
+            else
+            {
+                return 0;
+            }
+            
         }
 
-        public async virtual Task<string> DownloadImgPage(string imgUrl, MangaPageItem pageItem, SaveType saveType)
+        public async virtual Task<string> DownloadImgPage(string imgUrl, MangaPageItem pageItem, SaveType saveType,string refer = "")
         {
             HttpClient client = new HttpClient();
             string UserAgent = "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.56 Safari/536.5";
 
             client.DefaultRequestHeaders.UserAgent.TryParseAdd(UserAgent);
-            client.DefaultRequestHeaders.Referrer = new Uri(pageItem.PageUrl);
+            if (refer != "")
+            {
+                client.DefaultRequestHeaders.Referrer = new Uri(refer);
+            }
+            else
+            {
+                client.DefaultRequestHeaders.Referrer = new Uri(pageItem.PageUrl);
+            }
             // Call asynchronous network methods in a try/catch block to handle exceptions 
             try
             {
@@ -95,6 +110,7 @@ namespace MangaViewer.Service
                 string folderName = Constant.MANGAFOLDER + this.GetType().Name + "_" + pageItem.Chapter.Menu.Title + "_" + pageItem.Chapter.Title;
                 string fileName = System.IO.Path.GetFileName(imgUrl);
                 string fileRealPath = await FileService.SaveFileInTemp(folderName, fileName, responseBody);
+                responseBody.Close();
                 return fileRealPath;
             }
             catch (Exception e)

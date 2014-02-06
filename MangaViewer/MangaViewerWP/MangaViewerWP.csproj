@@ -99,6 +99,9 @@
     <Compile Include="..\mangaviewer.common\extention\StringExtention.cs">
       <Link>Common\Extention\StringExtention.cs</Link>
     </Compile>
+    <Compile Include="..\MangaViewer.Common\Extention\VisualTreeExtensions.cs">
+      <Link>Common\Extention\VisualTreeExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\mangaviewer.common\helper\ColorHelper.cs">
       <Link>Common\Helper\ColorHelper.cs</Link>
     </Compile>
@@ -210,6 +213,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Service\WebSitePatterns\WebHHComic.cs" />
     <Compile Include="View\ChapterPage.xaml.cs">
       <DependentUpon>ChapterPage.xaml</DependentUpon>
     </Compile>

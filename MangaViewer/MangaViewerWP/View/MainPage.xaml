@@ -43,7 +43,9 @@
                                         <Image Source="{Binding Image}" Stretch="None"/>
                                     </Border>
                                     <Border Grid.Column="1" Background="Transparent">
-                                        <TextBlock  Text="{Binding Title}" Style="{StaticResource PhoneTextTitle2Style}"  />
+                                        <TextBlock  Text="{Binding Title}" 
+                                                    TextWrapping="Wrap"
+                                                    Style="{StaticResource PhoneTextTitle2Style}"  />
                                     </Border>
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="Tap">

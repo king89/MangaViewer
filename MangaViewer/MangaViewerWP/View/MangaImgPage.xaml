@@ -24,11 +24,16 @@
 
         <DataTemplate x:Key="PivotItemTemplate">
             <Grid >
-                <ScrollViewer  VerticalScrollBarVisibility="Auto">
-                <Image Source="{Binding Image,Mode=TwoWay}" 
+                <ScrollViewer  
+                    DoubleTap="Image_DoubleTap"
+                    VerticalScrollBarVisibility="Auto">
+                    <Image Name="Img"
+                    Source="{Binding Image,Mode=TwoWay}" 
                        Visibility="{Binding IsLoadedImage,Converter={StaticResource TrueConverter},Mode=TwoWay}"
                        VerticalAlignment="Top"
-                       Stretch="Uniform" />
+                       Stretch="Uniform" 
+                         >  
+                  </Image>
                 </ScrollViewer>
                 <TextBlock Text="Loading..." 
                        Visibility="{Binding IsLoadedImage,Converter={StaticResource FalseConverter},Mode=TwoWay}"
