@@ -75,13 +75,11 @@
         <!--TitlePanel contains the name of the application and page title-->
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" >
-            <phone:Pivot 
+            <control:ImageViewer 
     			x:Name="ImgPivot"
-    			ItemsSource="{Binding Main.PageList}"
-    			SelectionChanged="Pivot_SelectionChanged"
+    			ItemsSource="{Binding Main.PageList, Mode=TwoWay}"
     			SelectedItem="{Binding Main.SelectedPage, Mode=TwoWay}"  
-    			ItemTemplate="{StaticResource PivotItemTemplate}"
-                HeaderTemplate="{StaticResource PivotHeaderTemplate}"/>
+/>
         </Grid>
         <Grid x:Name="TitlePanel"  >
             <StackPanel Orientation="Horizontal"  >

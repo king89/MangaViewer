@@ -89,6 +89,18 @@ namespace MangaViewer.Service
             return resultPath;
         }
 
+        public static async Task<string> IsExsitReturnPath(string folderName, string fileName)
+        {
+            StorageFolder saveFolder = await Windows.Storage.ApplicationData.Current.LocalFolder.CreateFolderAsync(folderName, CreationCollisionOption.OpenIfExists);
+            if (System.IO.File.Exists(string.Format(@"{0}\{1}", ApplicationData.Current.LocalFolder.Path, fileName)))
+            {
+                return string.Format(@"{0}\{1}", ApplicationData.Current.LocalFolder.Path, fileName);
+            }
+            else
+            {
+                return "";
+            }
+        }
 
         public static async void SaveFileInLocalByText(string folderPath, string fileName, string content)
         {
@@ -160,7 +172,6 @@ namespace MangaViewer.Service
             }
 
         }
-
 
         public async static void DeleteFolder(string folderPath)
         {

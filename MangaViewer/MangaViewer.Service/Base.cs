@@ -87,6 +87,9 @@ namespace MangaViewer.Service
 
         public async virtual Task<string> DownloadImgPage(string imgUrl, MangaPageItem pageItem, SaveType saveType,string refer = "")
         {
+            string folderName = Constant.MANGAFOLDER + "\\" + this.GetType().Name + "_" + pageItem.Chapter.Menu.Title + "_" + pageItem.Chapter.Title;
+            string fileName = System.IO.Path.GetFileName(imgUrl);
+
             HttpClient client = new HttpClient();
             string UserAgent = "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.56 Safari/536.5";
 
@@ -107,8 +110,6 @@ namespace MangaViewer.Service
                 var responseBody = await response.Content.ReadAsStreamAsync();
                 // Above three lines can be replaced with new helper method below 
                 // string responseBody = await client.GetStringAsync(uri);
-                string folderName = Constant.MANGAFOLDER + this.GetType().Name + "_" + pageItem.Chapter.Menu.Title + "_" + pageItem.Chapter.Title;
-                string fileName = System.IO.Path.GetFileName(imgUrl);
                 string fileRealPath = await FileService.SaveFileInTemp(folderName, fileName, responseBody);
                 responseBody.Close();
                 return fileRealPath;

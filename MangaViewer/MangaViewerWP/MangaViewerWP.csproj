@@ -204,6 +204,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ImageViewer.xaml.cs">
+      <DependentUpon>ImageViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ItemContainer.cs" />
     <Compile Include="Controls\LongListSelector.cs" />
     <Compile Include="LocalizedStrings.cs" />
@@ -310,6 +313,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\ImageViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ChapterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

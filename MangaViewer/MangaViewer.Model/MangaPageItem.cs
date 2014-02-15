@@ -96,8 +96,7 @@ namespace MangaViewer.Model
             {
                 if (this._image == null && this._imagePath != null && this._imagePath != "")
                 {
-                    
-                    //using(System.IO.FileStream s = System.IO.File.OpenRead(_imagePath))
+                    //using (System.IO.FileStream s = System.IO.File.OpenRead(_imagePath))
                     //{
                     //    BitmapImage bmp = new BitmapImage();
                     //    bmp.SetSource(s);
