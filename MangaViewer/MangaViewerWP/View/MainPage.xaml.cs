@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 using MangaViewer.Model;
 using MangaViewer.Service;
 using MangaViewerWP;
+using System.Windows.Input;
 
 namespace MangaViewer.View
 {
@@ -63,9 +64,25 @@ namespace MangaViewer.View
             //ViewModelLocator.AppViewModel.Main.PageList = new MangaViewer.Data.PageListData().PageList;
         }
 
+        //protected override void OnNavigatedTo(NavigationEventArgs e)
+        //{
+        //    if (e.NavigationMode == NavigationMode.Back)
+        //    {
+        //        this.SearchGrid.Visibility = Visibility.Collapsed;
+        //    }
+        //    base.OnNavigatedTo(e);
+        //}
+
         private void ApplicationBarIconButton_Click(object sender, EventArgs e)
         {
             MangaViewerWP.App.NavigationService.Navigate(new Uri("/View/SettingPage.xaml", UriKind.Relative));
         }
+
+        private void SearchBarIconButton_Click(object sender, EventArgs e)
+        {
+            MangaViewerWP.App.NavigationService.Navigate(new Uri("/View/SearchPage.xaml", UriKind.Relative));
+
+        }
+
     }
 }

@@ -66,6 +66,7 @@ namespace MangaViewer.Service
         public WebIManhua()
         {
             WEBSITEURL = "http://www.imanhua.com/";
+            WEBSEARCHURL = "http://www.imanhua.com/v2/user/search.aspx?key=";
             CHARSET = "gb2312";
         }
         string param = "p";
@@ -208,5 +209,30 @@ namespace MangaViewer.Service
             }
             return topMangaList;
         }
+
+        public override List<TitleAndUrl> GetSearchingList(string queryText, int pageNum = 1)
+        {
+            queryText = HttpUtility.UrlEncode(queryText);
+            string pageUrl = this.WEBSEARCHURL + queryText + "&p=" + pageNum.ToString();
+            string html = GetHtml(pageUrl);
+            Regex rLi = new Regex("<div class=\"cover\">[\\s\\S]+?</div>");
+            MatchCollection mCollection = rLi.Matches(html);
+
+            List<TitleAndUrl> newMangeList = new List<TitleAndUrl>();
+
+            Regex rUrlAndTitle = new Regex("<a href=\"(.+?)\".??><img src=\"(.+?)\" alt=\"([\\s\\S]+?)\"");
+
+            foreach (Match m in mCollection)
+            {
+                string liStr = m.Value;
+                string url = WEBSITEURL.Trim('/') + rUrlAndTitle.Match(liStr).Groups[1].Value;
+                string title = rUrlAndTitle.Match(liStr).Groups[3].Value;
+                string imageUrl = rUrlAndTitle.Match(liStr).Groups[2].Value;
+                newMangeList.Add(new TitleAndUrl(title, url, imageUrl));
+
+            }
+            return newMangeList;
+        }
+
     }
 }

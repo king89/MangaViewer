@@ -35,28 +35,26 @@ namespace MangaViewer.Service
             }
 
         }
-        public override void GetImageByImageUrl(MangaPageItem page, SaveType saveType = SaveType.Temp)
+        public async override void GetImageByImageUrl(MangaPageItem pageItem, SaveType saveType = SaveType.Temp)
         {
-            string imgUrl = GetImageUrl(page.PageUrl);
-            page.SetImage(imgUrl);
+            string imgUrl = pageItem.WebImageUrl;
+            //Get Image 
+            //To Do
+            string fileRealPath = "/Assets/ApplicationIcon.png";
+            pageItem.SetImage(fileRealPath);
             return;
+        }
 
-            ////Get Image
-            //string extention = imgUrl.Substring(imgUrl.LastIndexOf("."));
-            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(imgUrl);
-            //CookieContainer cc = new CookieContainer();
-            //var res = request.GetResponseAsync();
-            //HttpWebResponse myResponse = (HttpWebResponse)res.Result;
-            //string folder = page.Chapter.Menu.Title + "\\" + page.Chapter.Title + "\\" ;
-            //var res2 = FileService.SaveFile(myResponse.GetResponseStream(), (int)myResponse.ContentLength, folder, page.PageNum + extention,saveType);
-            //string path = res2;
-            //return path;
+        public override string GetImageUrl(string pageUrl, int nowNum)
+        {
+            string strResult = "http://localhost:8800/image/test.jpg";
+            return strResult;
         }
 
         public override string GetImageUrl(string pageUrl)
         {
 
-            string strResult = "http://localhost:8800/image/hub/Hub-Product.jpg";
+            string strResult = "http://localhost:8800/image/test.jpg";
             Sleep();
             return strResult;
 

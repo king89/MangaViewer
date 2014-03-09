@@ -84,17 +84,18 @@ namespace MangaViewer.Controls
             Pivot pivot = sender as Pivot;
             IList list = ItemsSource as IList;
             ScrollViewer sv = VisualTreeExtensions.FindVisualChild(pivot, "sv") as ScrollViewer;
-            sv.VerticalOffset = 0;
-            sv.HorizontalOffset = 0;
+            sv.ScrollToHorizontalOffset(0);
+            sv.ScrollToVerticalOffset(0);
             if (pivot.SelectedIndex == 2)
             {
-                if (list[_nowPage] != null)
-                {
-                    Type Ts = list[_nowPage].GetType();
-                    Ts.GetMethod("RefreshImage").Invoke(list[_nowPage], null);
-                }
+
                 if (_nowPage + 1 < list.Count)
                 {
+                    if (list[_nowPage] != null)
+                    {
+                        Type Ts = list[_nowPage].GetType();
+                        Ts.GetMethod("RefreshImage").Invoke(list[_nowPage], null);
+                    }
                     _nowPage += 1;
                 }
                 SelectedItem = list[_nowPage];
@@ -106,13 +107,14 @@ namespace MangaViewer.Controls
             }
             if (pivot.SelectedIndex == 0)
             {
-                if (list[_nowPage] != null)
-                {
-                    Type Ts = list[_nowPage].GetType();
-                    Ts.GetMethod("RefreshImage").Invoke(list[_nowPage], null);
-                }
+
                 if (_nowPage - 1 >= 0)
                 {
+                    if (list[_nowPage] != null)
+                    {
+                        Type Ts = list[_nowPage].GetType();
+                        Ts.GetMethod("RefreshImage").Invoke(list[_nowPage], null);
+                    }
                     _nowPage -= 1;
                 }
                 SelectedItem = list[_nowPage];

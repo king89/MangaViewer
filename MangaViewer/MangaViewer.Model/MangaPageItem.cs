@@ -103,7 +103,12 @@ namespace MangaViewer.Model
                     //    ImageHeight = bmp.PixelHeight;
                     //    ImageWidth = bmp.PixelWidth;
                     //}
+#if Win8
                     this._image = new BitmapImage(new Uri(_baseUri,_imagePath));
+#elif WP
+
+                    this._image = new BitmapImage(new Uri(_imagePath,UriKind.RelativeOrAbsolute));
+#endif
                 }
                 if (_image != null)
                 {

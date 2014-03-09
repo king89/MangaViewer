@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaViewer.Common", "Manga
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaViewerWP", "MangaViewerWP\MangaViewerWP.csproj", "{C2AAD500-112A-4990-BC48-62750B0F7AE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaViewer.Web", "MangaViewer.Web\MangaViewer.Web.csproj", "{E97EC1D2-50D8-476A-9013-DFA637521448}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,6 +135,16 @@ Global
 		{C2AAD500-112A-4990-BC48-62750B0F7AE1}.Release|x86.ActiveCfg = Release|x86
 		{C2AAD500-112A-4990-BC48-62750B0F7AE1}.Release|x86.Build.0 = Release|x86
 		{C2AAD500-112A-4990-BC48-62750B0F7AE1}.Release|x86.Deploy.0 = Release|x86
+		{E97EC1D2-50D8-476A-9013-DFA637521448}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E97EC1D2-50D8-476A-9013-DFA637521448}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E97EC1D2-50D8-476A-9013-DFA637521448}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{E97EC1D2-50D8-476A-9013-DFA637521448}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E97EC1D2-50D8-476A-9013-DFA637521448}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E97EC1D2-50D8-476A-9013-DFA637521448}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E97EC1D2-50D8-476A-9013-DFA637521448}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E97EC1D2-50D8-476A-9013-DFA637521448}.Release|ARM.ActiveCfg = Release|Any CPU
+		{E97EC1D2-50D8-476A-9013-DFA637521448}.Release|x64.ActiveCfg = Release|Any CPU
+		{E97EC1D2-50D8-476A-9013-DFA637521448}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

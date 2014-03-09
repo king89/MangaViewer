@@ -22,7 +22,7 @@ namespace MangaViewer.Service
         {
             WEBSITEURL = "http://hhcomic.com/";
             CHARSET = "gb2312";
-
+            WEBSEARCHURL = "http://so.hhcomic.com/?key=";
             for (int i = 0; i < 16; i++ )
             {
                 ServerList.Add("");
@@ -182,5 +182,28 @@ namespace MangaViewer.Service
             }
             return topMangaList;
         }
+
+        public override List<TitleAndUrl> GetSearchingList(string queryText, int pageNum = 1)
+        {
+            queryText = HttpUtility.UrlEncode(queryText);
+            string pageUrl = this.WEBSEARCHURL + queryText + "&PageIndex=" + pageNum.ToString();
+            string html = GetHtml(pageUrl);
+            Regex rLi = new Regex("<a target=[\"']_blank[\"'] href=[\"'](.+?)[\"']><img src=[\"'](.+?)[\"']><br>([\\s\\S]+?)</a>");
+            MatchCollection mCollection = rLi.Matches(html);
+
+            List<TitleAndUrl> newMangeList = new List<TitleAndUrl>();
+
+            foreach (Match m in mCollection)
+            {
+                string liStr = m.Value;
+                string url = WEBSITEURL.Trim('/') + m.Groups[1].Value;
+                string title = m.Groups[3].Value;
+                string imageUrl = m.Groups[2].Value;
+                newMangeList.Add(new TitleAndUrl(title, url, imageUrl));
+
+            }
+            return newMangeList;
+        }
+
     }
 }

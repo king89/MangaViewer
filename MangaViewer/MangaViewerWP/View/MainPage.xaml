@@ -71,6 +71,7 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar Mode="Default" IsVisible="True" IsMenuEnabled="True" Opacity="1">
             <shell:ApplicationBarIconButton  Text="设置" IconUri="/Assets/AppBar/feature.settings.png" Click="ApplicationBarIconButton_Click"  />
+            <shell:ApplicationBarIconButton  Text="搜索" IconUri="/Assets/AppBar/feature.search.png" Click="SearchBarIconButton_Click"  />
             <shell:ApplicationBarIconButton  Text="关于" IconUri="/Assets/AppBar/questionmark.png"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="设置" Click="ApplicationBarIconButton_Click" />
@@ -81,7 +82,10 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot"
           Background="Transparent">
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <!-- LOCALIZATION NOTE:
             To localize the displayed strings copy their values to appropriately named
             keys in the app's neutral language resource file (AppResources.resx) then
@@ -100,6 +104,13 @@
             attributes to be drawn from the .resx file that matches the
             CurrentUICulture of the app at run time.
          -->
+        <StackPanel x:Name="TitlePanel"
+                    Grid.Row="0">
+                    
+            <TextBlock Text="MangaViewer"
+                       Style="{StaticResource PhoneTextNormalStyle}"
+                       Margin="12,0" />
+        </StackPanel>
 
         <!--TitlePanel contains the name of the application and page title-->
         <!--ContentPanel - place additional content here-->
@@ -125,7 +136,6 @@
 
 
         </Grid>
-
         <!--Uncomment to see an alignment grid to help ensure your controls are
             aligned on common boundaries.  The image has a top margin of -32px to
             account for the System Tray. Set this to 0 (or remove the margin altogether)
