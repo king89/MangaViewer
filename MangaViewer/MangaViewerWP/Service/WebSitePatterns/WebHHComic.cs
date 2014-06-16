@@ -77,32 +77,38 @@ namespace MangaViewer.Service
         }
         public List<string> decode(string code, string key, int server)
         {
-
-            string result = "";
-            char spliter = key.ToCharArray()[key.Length - 1];
-            key = key.Substring(0, key.Length - 1);
-            int i = 0;
-            foreach (var k in key.ToCharArray())
-            {
-                code = code.Replace(k.ToString(), i.ToString());
-                i = i + 1;
-            }
-            string[] codeList = code.Split(spliter);
-
-            foreach (var c in codeList)
-            {
-                result = result + (char)Int32.Parse(c);
-            }
-            string[] resultArr = result.Split('|');
-
             List<string> resultList = new List<string>();
-            string baseUrl = this.ServerList[server - 1];
-            foreach (var p in resultArr)
-            {
-                string tmp = baseUrl.Trim('/') + p;
-                resultList.Add(tmp);
-            }
 
+            try
+            {
+                string result = "";
+                char spliter = key.ToCharArray()[key.Length - 1];
+                key = key.Substring(0, key.Length - 1);
+                int i = 0;
+                foreach (var k in key.ToCharArray())
+                {
+                    code = code.Replace(k.ToString(), i.ToString());
+                    i = i + 1;
+                }
+                string[] codeList = code.Split(spliter);
+
+                foreach (var c in codeList)
+                {
+                    result = result + (char)Int32.Parse(c);
+                }
+                string[] resultArr = result.Split('|');
+
+                string baseUrl = this.ServerList[server - 1];
+                foreach (var p in resultArr)
+                {
+                    string tmp = baseUrl.Trim('/') + p;
+                    resultList.Add(tmp);
+                }
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
             return resultList;
         }
         public async override void GetImageByImageUrl(MangaPageItem pageItem, SaveType saveType = SaveType.Temp)
@@ -134,7 +140,16 @@ namespace MangaViewer.Service
             foreach (Match m in liList)
             {
                 string liStr = m.Value;
-                string url = WEBSITEURL + rUrlAndTitle.Match(liStr).Groups[1].Value;
+                string url = "";
+                string result = rUrlAndTitle.Match(liStr).Groups[1].Value;
+                if (IsFullUrl(result))
+                {
+                    url = result;
+                }
+                else
+                {
+                    url = WEBSITEURL + result;
+                }
                 string title = rUrlAndTitle.Match(liStr).Groups[2].Value;
                 chapterList.Add(new TitleAndUrl(title, url));
 

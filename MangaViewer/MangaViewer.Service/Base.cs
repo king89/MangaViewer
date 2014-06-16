@@ -84,7 +84,19 @@ namespace MangaViewer.Service
             }
             
         }
-
+        public bool IsFullUrl(string url)
+        {
+            if (url.StartsWith("http://",StringComparison.InvariantCultureIgnoreCase)
+              || url.StartsWith("https://", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+           
+        }
         public async virtual Task<string> DownloadImgPage(string imgUrl, MangaPageItem pageItem, SaveType saveType,string refer = "")
         {
             string folderName = Constant.MANGAFOLDER + "\\" + this.GetType().Name + "_" + pageItem.Chapter.Menu.Title + "_" + pageItem.Chapter.Title;
