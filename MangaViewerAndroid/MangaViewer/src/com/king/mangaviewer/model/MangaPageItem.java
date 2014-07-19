@@ -1,5 +1,9 @@
 package com.king.mangaviewer.model;
 
+import java.io.File;
+
+import com.king.mangaviewer.common.Constants;
+
 import android.R.bool;
 
 public class MangaPageItem extends BaseItem {
@@ -20,6 +24,10 @@ public class MangaPageItem extends BaseItem {
 			String imagePath, MangaChapterItem chapter) {
 		super(id, title, description, imagePath);
 		this.chapter = chapter;
+	}
+	
+	public String getFolderPath() {
+		return  this.getChapter().getMenu().getTitle() + File.separator + this.getChapter().getTitle();
 	}
 
 	public MangaChapterItem getChapter() {

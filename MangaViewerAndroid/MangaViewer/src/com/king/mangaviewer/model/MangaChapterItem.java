@@ -15,4 +15,12 @@ public class MangaChapterItem extends BaseItem {
 		super(id, title, description, imagePath);
 		this.menu = menu;
 	}
+
+	public MangaMenuItem getMenu() {
+		return menu;
+	}
+
+	public void setMenu(MangaMenuItem menu) {
+		this.menu = menu;
+	}
 }

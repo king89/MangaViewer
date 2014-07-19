@@ -21,4 +21,7 @@ public class Constants {
         Temp,
         Local
     }
+
+	public static String MANGAFOLDER = "Manga";
+	public static String LOGTAG = "MangaViewer";
 }

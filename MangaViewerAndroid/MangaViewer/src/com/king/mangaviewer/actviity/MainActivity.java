@@ -54,9 +54,7 @@ public class MainActivity extends BaseActivity {
 					public void run() {
 						// TODO Auto-generated method stub
 
-						WebSiteBasePattern pattern = new WebSiteBasePattern();
-						String url = "http://www.baidu.com";
-						 html = pattern.GetHtml(url);
+						
 						 handler.sendEmptyMessage(0);
 						//tv.setText(html);
 					}

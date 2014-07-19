@@ -1,6 +1,8 @@
 package com.king.mangaviewer.model;
 
-public class BaseItem {
+import java.io.Serializable;
+
+public class BaseItem implements Serializable {
 	String id = "";
 	String title = "";
 	String description = "";
