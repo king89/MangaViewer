@@ -1,13 +1,13 @@
 package com.king.mangaviewer.actviity;
 
 import com.king.mangaviewer.common.Constants.MSGType;
+import com.king.mangaviewer.viewmodel.AppViewModel;
 
 import android.app.Activity;
 import android.os.Handler;
 
 
 public class BaseActivity extends Activity {
-
 	public Handler handler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			update();
@@ -23,5 +23,9 @@ public class BaseActivity extends Activity {
 	}
 	protected void update() {
 		
+	}
+	
+	public AppViewModel getAppViewModel() {
+		return ((MyApplication)this.getApplication()).getAppViewModel();
 	}
 }

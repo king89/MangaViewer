@@ -3,6 +3,8 @@ package com.king.mangaviewer.actviity;
 import com.king.mangaviewer.R;
 import com.king.mangaviewer.R.layout;
 import com.king.mangaviewer.common.Constants.MSGType;
+import com.king.mangaviewer.common.Constants.WebSiteEnum;
+import com.king.mangaviewer.common.MangaPattern.PatternFactory;
 import com.king.mangaviewer.common.MangaPattern.WebSiteBasePattern;
 
 import android.app.Activity;
@@ -22,7 +24,7 @@ public class MainActivity extends BaseActivity {
 	Button bt;
 	TextView tv;
 	private ProgressDialog progressDialog;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,7 +37,9 @@ public class MainActivity extends BaseActivity {
 		progressDialog.dismiss();
 		tv.setText(html);
 	}
+
 	String html;
+
 	@Override
 	protected void initControl() {
 		// TODO Auto-generated method stub
@@ -46,17 +50,20 @@ public class MainActivity extends BaseActivity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				progressDialog = ProgressDialog.show(MainActivity.this,"Loading", "Loading");
-				
+				progressDialog = ProgressDialog.show(MainActivity.this,
+						"Loading", "Loading");
+
 				new Thread() {
 
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
 
-						
-						 handler.sendEmptyMessage(0);
-						//tv.setText(html);
+						WebSiteBasePattern pattern = PatternFactory.getPattern(
+								MainActivity.this, WebSiteEnum.IManhua);
+						html = pattern.GetHtml("http://www.baidu.com");
+						handler.sendEmptyMessage(0);
+						// tv.setText(html);
 					}
 				}.start();
 			}

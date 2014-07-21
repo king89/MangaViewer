@@ -16,6 +16,7 @@ import com.king.mangaviewer.common.Constants.SaveType;
 import com.king.mangaviewer.common.util.FileHelper;
 import com.king.mangaviewer.common.util.StringUtils;
 import com.king.mangaviewer.model.MangaPageItem;
+import com.king.mangaviewer.model.TitleAndUrl;
 
 public class WebSiteBasePattern {
 	private Context context;
@@ -104,6 +105,28 @@ public class WebSiteBasePattern {
 			e.printStackTrace();
 		}
 
+		return null;
+	}
+
+	/*
+	 * // // Chapter //
+	 */
+	public List<TitleAndUrl> GetChapterList(String chapterUrl) {
+		return null;
+	}
+
+	/*
+	 * // // Menu //
+	 */
+	public List<TitleAndUrl> GetTopMangaList(String html) {
+		return null;
+	}
+
+	public List<TitleAndUrl> GetNewMangaList(String html) {
+		return null;
+	}
+
+	public List<TitleAndUrl> GetSearchingList(String queryText, int pageNum) {
 		return null;
 	}
 }

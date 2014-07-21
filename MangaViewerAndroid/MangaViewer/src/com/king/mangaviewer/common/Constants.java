@@ -1,5 +1,7 @@
 package com.king.mangaviewer.common;
 
+import com.king.mangaviewer.common.MangaPattern.WebIManhua;
+
 public class Constants {
 	public static enum MSGType
 	{
@@ -11,9 +13,26 @@ public class Constants {
 	public enum WebSiteEnum
     {
 
-        IManhua,
-        HHComic,
-        Local,
+        IManhua(WebIManhua.class.getName(),0);
+//        HHComic(),
+//        Local();
+        
+        private String clsName;
+        private int index;
+        private WebSiteEnum(String cls, int index)
+        {
+        	this.clsName = cls;
+        	this.index = index;
+        }
+        
+        public String getClsName() {
+			return this.clsName;
+		}
+
+		public int getIndex() {
+			return index;
+		}
+
     }
 	
 	public enum SaveType
