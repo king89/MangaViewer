@@ -1,13 +1,12 @@
 package com.king.mangaviewer.viewmodel;
 
 public class AppViewModel extends ViewModelBase {
-	MangaViewModel mangaViewModel = new MangaViewModel();
-	SettingViewModel settingViewModel = new SettingViewModel();
+	public MangaViewModel Manga;
+	public SettingViewModel Setting;
+	public AppViewModel() {
+		this.Manga = new MangaViewModel();;
+		this.Setting = new SettingViewModel();;
+	}
 	
-	public MangaViewModel getMangaViewModel() {
-		return mangaViewModel;
-	}
-	public SettingViewModel getSettingViewModel() {
-		return settingViewModel;
-	}
+	
 }

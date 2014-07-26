@@ -7,6 +7,7 @@ public class BaseItem implements Serializable {
 	String title = "";
 	String description = "";
 	String imagePath = "";
+	String url = "";
 	
 	/**
 	 * @param id
@@ -14,13 +15,14 @@ public class BaseItem implements Serializable {
 	 * @param description
 	 * @param imagePath
 	 */
+
 	public BaseItem(String id, String title, String description,
-			String imagePath) {
-		super();
+			String imagePath, String url) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
 		this.imagePath = imagePath;
+		this.url = url;
 	}
 
 	public String getId() {
@@ -53,6 +55,14 @@ public class BaseItem implements Serializable {
 
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 

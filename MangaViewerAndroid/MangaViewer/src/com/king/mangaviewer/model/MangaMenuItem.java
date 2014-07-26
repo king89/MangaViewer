@@ -9,8 +9,8 @@ public class MangaMenuItem extends BaseItem {
 	 * @param imagePath
 	 */
 	public MangaMenuItem(String id, String title, String description,
-			String imagePath) {
-		super(id, title, description, imagePath);
+			String imagePath, String url) {
+		super(id, title, description, imagePath, url);
 		// TODO Auto-generated constructor stub
 	}
 	

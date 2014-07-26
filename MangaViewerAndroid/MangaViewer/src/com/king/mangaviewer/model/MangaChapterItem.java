@@ -10,14 +10,16 @@ public class MangaChapterItem extends BaseItem {
 	 * @param imagePath
 	 * @param menu
 	 */
-	public MangaChapterItem(String id, String title, String description,
-			String imagePath, MangaMenuItem menu) {
-		super(id, title, description, imagePath);
-		this.menu = menu;
-	}
+
 
 	public MangaMenuItem getMenu() {
 		return menu;
+	}
+
+	public MangaChapterItem(String id, String title, String description,
+			String imagePath, String url) {
+		super(id, title, description, imagePath, url);
+		// TODO Auto-generated constructor stub
 	}
 
 	public void setMenu(MangaMenuItem menu) {

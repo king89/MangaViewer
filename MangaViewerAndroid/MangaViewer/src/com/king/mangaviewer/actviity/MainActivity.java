@@ -1,11 +1,16 @@
 package com.king.mangaviewer.actviity;
 
+import java.util.List;
+
 import com.king.mangaviewer.R;
 import com.king.mangaviewer.R.layout;
+import com.king.mangaviewer.adapter.MangaMenuItemAdapter;
 import com.king.mangaviewer.common.Constants.MSGType;
 import com.king.mangaviewer.common.Constants.WebSiteEnum;
 import com.king.mangaviewer.common.MangaPattern.PatternFactory;
 import com.king.mangaviewer.common.MangaPattern.WebSiteBasePattern;
+import com.king.mangaviewer.common.util.MangaHelper;
+import com.king.mangaviewer.model.MangaMenuItem;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -17,12 +22,14 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
 
 public class MainActivity extends BaseActivity {
 
 	Button bt;
 	TextView tv;
+	GridView gv;
 	private ProgressDialog progressDialog;
 
 	@Override
@@ -35,7 +42,10 @@ public class MainActivity extends BaseActivity {
 	public void update() {
 		// TODO Auto-generated method stub
 		progressDialog.dismiss();
-		tv.setText(html);
+		MangaMenuItemAdapter adapter = new MangaMenuItemAdapter(this,
+				this.getAppViewModel().Manga,
+				this.getAppViewModel().Manga.getNewMangaMenuList());
+		gv.setAdapter(adapter);
 	}
 
 	String html;
@@ -59,9 +69,11 @@ public class MainActivity extends BaseActivity {
 					public void run() {
 						// TODO Auto-generated method stub
 
-						WebSiteBasePattern pattern = PatternFactory.getPattern(
-								MainActivity.this, WebSiteEnum.IManhua);
-						html = pattern.GetHtml("http://www.baidu.com");
+						List<MangaMenuItem> mList = MainActivity.this
+								.getMangaHelper().GetNewMangeList();
+						MainActivity.this.getAppViewModel().Manga
+								.setNewMangaMenuList(mList);
+
 						handler.sendEmptyMessage(0);
 						// tv.setText(html);
 					}
@@ -70,5 +82,8 @@ public class MainActivity extends BaseActivity {
 		});
 
 		tv = (TextView) this.findViewById(R.id.textView1);
+
+		gv = (GridView) this.findViewById(R.id.gridView);
+		
 	}
 }
