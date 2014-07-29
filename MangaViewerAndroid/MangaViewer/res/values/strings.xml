@@ -4,5 +4,6 @@
     <string name="app_name">MangaViewer</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_manga_chapter">MangaChapterActivity</string>
+    <string name="title_activity_manga_page">MangaPageActivity</string>
 
 </resources>

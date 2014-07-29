@@ -1,0 +1,182 @@
+package com.king.mangaviewer.actviity;
+
+import java.util.List;
+
+import com.king.mangaviewer.R;
+import com.king.mangaviewer.R.layout;
+import com.king.mangaviewer.model.MangaPageItem;
+import com.king.mangaviewer.viewmodel.MangaViewModel;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.os.Message;
+import android.util.Log;
+import android.view.GestureDetector;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.View.OnTouchListener;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.ViewFlipper;
+
+public class MangaPageActivity extends BaseActivity implements OnTouchListener{
+
+	ViewFlipper vFlipper = null;
+	int mCurrPos = 0;
+	LayoutInflater mInflater = null;
+	List<MangaPageItem> pageList = null;
+	GestureDetector gestureDetector = null;
+		
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+	}
+
+	@Override
+	protected String getActionBarTitle() {
+		// TODO Auto-generated method stub
+		return this.getAppViewModel().Manga.selectedMangaMenuItem.getTitle();
+	}
+
+	@Override
+	protected void initControl() {
+		// TODO Auto-generated method stub
+		mInflater = LayoutInflater.from(this);
+		gestureDetector = new GestureDetector(this, new GestureListener());
+		setContentView(R.layout.activity_manga_page);
+		vFlipper = (ViewFlipper) this.findViewById(R.id.viewFlipper);
+		vFlipper.setOnTouchListener(this);
+		new Thread() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				getPageList();
+			}
+		}.start();
+	}
+
+	@Override
+	protected void update(Message msg) {
+		// TODO Auto-generated method stub
+		setView(mCurrPos, 0);
+		
+	}
+
+	@Override
+	protected boolean IsCanBack() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	private void setView(int curr, int next) {
+		View v = (View) mInflater.inflate(R.layout.list_manga_page_item, null);
+		ImageView iv = (ImageView) v.findViewById(R.id.imageView);
+		TextView tv = (TextView)v.findViewById(R.id.textView);
+		// iv.setScaleType(ImageView.ScaleType.FIT_XY);
+		if (curr < next && next > pageList.size() - 1)
+			next = 0;
+		else if (curr > next && next < 0)
+			next = pageList.size() - 1;
+
+		// iv.setImageResource(mImages[next]);
+		String pageNum = next + "/" + pageList.size();
+		tv.setText(pageNum);
+		
+		if (vFlipper.getChildCount() > 1) {
+			vFlipper.removeViewAt(0);
+		}
+		vFlipper.addView(v, vFlipper.getChildCount());
+		mCurrPos = next;
+
+	}
+
+	private void movePrevious() {
+		setView(mCurrPos, mCurrPos - 1);
+		vFlipper.setInAnimation(this, R.anim.in_leftright);
+		vFlipper.setOutAnimation(this, R.anim.out_leftright);
+		vFlipper.showPrevious();
+	}
+
+	private void moveNext() {
+		setView(mCurrPos, mCurrPos + 1);
+		vFlipper.setInAnimation(this, R.anim.in_rightleft);
+		vFlipper.setOutAnimation(this, R.anim.out_rightleft);
+		vFlipper.showNext();
+	}
+
+	private void getPageList() {
+		MangaViewModel mangaViewModel = this.getAppViewModel().Manga;
+		pageList = this.getMangaHelper().GetPageList(mangaViewModel.selectedMangaChapterItem);
+		mangaViewModel.setMangaPageList(pageList);
+		handler.sendEmptyMessage(0);
+	}
+
+	@Override
+	public boolean onTouch(View arg0, MotionEvent event) {
+		// TODO Auto-generated method stub
+		return gestureDetector.onTouchEvent(event);
+	}
+	
+	class GestureListener extends SimpleOnGestureListener {
+
+		@Override
+		public boolean onDoubleTap(MotionEvent e) {
+			// TODO Auto-generated method stub
+			Log.i("TEST", "onDoubleTap");
+			return super.onDoubleTap(e);
+		}
+
+		@Override
+		public boolean onDown(MotionEvent e) {
+			// TODO Auto-generated method stub
+			Log.i("TEST", "onDown");
+			return true;
+		}
+
+		@Override
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+				float velocityY) {
+			// TODO Auto-generated method stub
+			Log.i("TEST", "onFling:velocityX = " + velocityX + " velocityY"
+					+ velocityY);
+			int x = (int) (e2.getX() - e1.getX());
+	        if (x > 0) {
+	            movePrevious();
+	        } else {
+	            moveNext();
+	        }
+	        return false;
+		}
+
+		@Override
+		public void onLongPress(MotionEvent e) {
+			// TODO Auto-generated method stub
+			Log.i("TEST", "onLongPress");
+			super.onLongPress(e);
+		}
+
+		@Override
+		public boolean onScroll(MotionEvent e1, MotionEvent e2,
+				float distanceX, float distanceY) {
+			// TODO Auto-generated method stub
+			Log.i("TEST", "onScroll:distanceX = " + distanceX + " distanceY = "
+					+ distanceY);
+			return super.onScroll(e1, e2, distanceX, distanceY);
+		}
+
+		@Override
+		public boolean onSingleTapUp(MotionEvent e) {
+			// TODO Auto-generated method stub
+			Log.i("TEST", "onSingleTapUp");
+			return super.onSingleTapUp(e);
+		}
+
+	}
+
+}

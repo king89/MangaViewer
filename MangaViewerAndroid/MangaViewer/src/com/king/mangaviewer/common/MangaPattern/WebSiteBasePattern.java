@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -32,7 +33,12 @@ public class WebSiteBasePattern {
 	}
 
 	public List<String> GetPageList(String firstPageUrl) {
-		return null;
+		List<String> list = new ArrayList<String>();
+		String prefix = "http://www.imanhua.com/comic/1067/list_104097.html?p=";
+		for (int i = 0; i < 10; i++) {
+			list.add(prefix+i);
+		}
+		return list;
 	}
 
 	public String GetImageUrl(String pageUrl) {
@@ -40,7 +46,8 @@ public class WebSiteBasePattern {
 	}
 
 	public String GetImageUrl(String pageUrl, int nowPage) {
-		return null;
+		String test = "http://i1.imanhua.com/Cover/2011-10/sishen.jpg";
+		return test;
 	}
 
 	// public void GetImageByImageUrl(MangaPageItem page,SaveType saveType) {

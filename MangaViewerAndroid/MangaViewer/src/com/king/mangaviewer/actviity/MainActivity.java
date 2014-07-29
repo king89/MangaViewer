@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.TextureView;
@@ -30,7 +31,6 @@ public class MainActivity extends BaseActivity {
 	Button bt;
 	TextView tv;
 	GridView gv;
-	private ProgressDialog progressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class MainActivity extends BaseActivity {
 	}
 
 	@Override
-	public void update() {
+	public void update(Message msg) {
 		// TODO Auto-generated method stub
 		progressDialog.dismiss();
 		MangaMenuItemAdapter adapter = new MangaMenuItemAdapter(this,

@@ -27,4 +27,45 @@ public class MangaViewModel extends ViewModelBase {
 	public List<MangaPageItem> mangaPageList = null;
 
 	public MangaPageItem selectedMangaPageItem = null;
+
+	public MangaMenuItem getSelectedMangaMenuItem() {
+		return selectedMangaMenuItem;
+	}
+
+	public void setSelectedMangaMenuItem(MangaMenuItem selectedMangaMenuItem) {
+		this.selectedMangaMenuItem = selectedMangaMenuItem;
+	}
+
+	public List<MangaChapterItem> getMangaChapterList() {
+		return mangaChapterList;
+	}
+
+	public void setMangaChapterList(List<MangaChapterItem> mangaChapterList) {
+		this.mangaChapterList = mangaChapterList;
+	}
+
+	public MangaChapterItem getSelectedMangaChapterItem() {
+		return selectedMangaChapterItem;
+	}
+
+	public void setSelectedMangaChapterItem(
+			MangaChapterItem selectedMangaChapterItem) {
+		this.selectedMangaChapterItem = selectedMangaChapterItem;
+	}
+
+	public List<MangaPageItem> getMangaPageList() {
+		return mangaPageList;
+	}
+
+	public void setMangaPageList(List<MangaPageItem> mangaPageList) {
+		this.mangaPageList = mangaPageList;
+	}
+
+	public MangaPageItem getSelectedMangaPageItem() {
+		return selectedMangaPageItem;
+	}
+
+	public void setSelectedMangaPageItem(MangaPageItem selectedMangaPageItem) {
+		this.selectedMangaPageItem = selectedMangaPageItem;
+	}
 }

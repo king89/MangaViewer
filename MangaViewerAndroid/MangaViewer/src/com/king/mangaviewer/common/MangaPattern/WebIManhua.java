@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 
 
+
 import com.king.mangaviewer.model.TitleAndUrl;
 
 import android.content.Context;
@@ -55,5 +56,33 @@ public class WebIManhua extends WebSiteBasePattern {
 		}
 		return topMangaList;
 
+	}
+
+	@Override
+	public List<TitleAndUrl> GetChapterList(String chapterUrl) {
+		// TODO Auto-generated method stub
+		//http://comic.131.com/content/shaonian/2104.html
+        String html = GetHtml(chapterUrl);
+        //Rex1  = <ul class="mh_fj" .+<li>.+</li></ul>
+        Pattern rGetUl = Pattern.compile("id=[\"']subBookList[\"']>.+?</ul>");
+        //Rex2 = <li>.*?</li>
+        Matcher m = rGetUl.matcher(html);
+        m.find();
+        Pattern rGetLi = Pattern.compile("<li>.+?</li>");
+        html = m.group(0);
+        m = rGetLi.matcher(html);
+        List<TitleAndUrl> chapterList = new ArrayList<TitleAndUrl>();
+        Pattern rUrlAndTitle = Pattern.compile("<a href=\"(.+?)\".+?>(.+?)<");
+        m = rUrlAndTitle.matcher(html);
+        while (m.find()) {
+        	
+        	String url = WEBSITEURL + m.group(1);
+        	String title = m.group(2);
+            chapterList.add(new TitleAndUrl(title,url));
+
+        }
+
+
+        return chapterList;
 	}
 }

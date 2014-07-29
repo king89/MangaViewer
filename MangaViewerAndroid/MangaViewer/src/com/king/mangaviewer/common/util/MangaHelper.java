@@ -47,10 +47,10 @@ public class MangaHelper {
 		List<String> pageUrlList = mPattern.GetPageList(chapter.getUrl());
 		List<MangaPageItem> mangaPageList = new ArrayList<MangaPageItem>();
 
-		for (int i = 1; i <= pageUrlList.size(); i++) {
-			// string imagePath = mPattern.GetImageUrl(pageUrlList[i-1]);
+		for (int i = 0; i < pageUrlList.size(); i++) {
+		
 			MangaPageItem item = new MangaPageItem("page-" + i, null, null,
-					null, pageUrlList.get(i - 1), chapter, i,
+					null, pageUrlList.get(i), chapter, i,
 					pageUrlList.size());
 			item.setWebImageUrl(mPattern.GetImageUrl(item.getUrl(),
 					item.getNowNum()));
@@ -62,8 +62,20 @@ public class MangaHelper {
 	}
 
 	/* Chapter */
-	public List<MangaChapterItem> getChapterList() {
-		return null;
+	public List<MangaChapterItem> getChapterList(MangaMenuItem menu) {
+		WebSiteBasePattern mPattern = PatternFactory.getPattern(context,
+				settingHelper.getWebType());
+
+		List<TitleAndUrl> tauList = mPattern.GetChapterList(menu.getUrl());
+
+		List<MangaChapterItem> list = new ArrayList<MangaChapterItem>();
+		for (int i = 0; i < tauList.size(); i++) {
+			list.add(new MangaChapterItem("Chapter-" + i, tauList.get(i)
+					.getTitle(), null, tauList.get(i).getImagePath(),
+					tauList.get(i).getUrl()));
+		}
+
+		return list;
 	}
 
 	/* Menu */

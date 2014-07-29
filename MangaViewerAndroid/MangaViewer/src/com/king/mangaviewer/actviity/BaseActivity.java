@@ -9,17 +9,23 @@ import com.king.mangaviewer.viewmodel.MangaViewModel;
 
 
 
+
+
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Handler;
+import android.os.Message;
 import android.view.MenuItem;
 
 
 public class BaseActivity extends Activity {
-	protected boolean IsCanBack = false;
+	
+	protected ProgressDialog progressDialog;
+	
 	public Handler handler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
-			update();
+			update(msg);
 		};
 	};
 	protected void onCreate(android.os.Bundle savedInstanceState) {
@@ -30,7 +36,7 @@ public class BaseActivity extends Activity {
 	protected void initActionBar() {
 		// TODO Auto-generated method stub
 		ActionBar actionBar = this.getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(IsCanBack);
+		actionBar.setDisplayHomeAsUpEnabled(IsCanBack());
 		actionBar.setTitle(getActionBarTitle());
 	}
 	protected void initControl() {
@@ -41,7 +47,10 @@ public class BaseActivity extends Activity {
 		return (String) this.getTitle();
 		
 	}
-	protected void update() {
+	protected boolean IsCanBack() {
+		return false;
+	}
+	protected void update(Message msg) {
 		
 	}
 	

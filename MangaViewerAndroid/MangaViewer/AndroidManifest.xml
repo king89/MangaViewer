@@ -27,8 +27,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.king.mangaviewer.actviity.MangaChapterActivity"
+            android:name=".actviity.MangaChapterActivity"
             android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.king.mangaviewer.actviity.MangaPageActivity"
+            android:label="@string/title_activity_manga_page" >
         </activity>
     </application>
 
