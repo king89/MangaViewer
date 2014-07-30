@@ -8,8 +8,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
 
 import com.king.mangaviewer.common.Constants;
@@ -36,9 +43,36 @@ public class WebSiteBasePattern {
 		List<String> list = new ArrayList<String>();
 		String prefix = "http://www.imanhua.com/comic/1067/list_104097.html?p=";
 		for (int i = 0; i < 10; i++) {
-			list.add(prefix+i);
+			list.add(prefix + i);
 		}
 		return list;
+	}
+
+	public int GetTotalNum(String html) {
+		Pattern r = Pattern.compile("value=\"[0-9]+\"");
+		Matcher m = r.matcher(html);
+
+		Pattern r2 = Pattern.compile("[0-9]+");
+
+		Matcher m2 = null;
+		int max = -9;
+		while (m.find()) {
+			String tmp = m.group();
+			m2 = r2.matcher(tmp);
+			m2.find();
+			int now = Integer.parseInt(m2.group());
+			if (max < now) {
+				max = now;
+			}
+
+		}
+
+		if (max > 0) {
+			return max;
+		} else {
+			return 0;
+		}
+
 	}
 
 	public String GetImageUrl(String pageUrl) {
@@ -66,7 +100,8 @@ public class WebSiteBasePattern {
 			conn.setDoInput(true);
 			conn.connect();
 			InputStream inputStream = conn.getInputStream();
-			String html = StringUtils.inputStreamToString(inputStream,this.CHARSET);
+			String html = StringUtils.inputStreamToString(inputStream,
+					this.CHARSET);
 			return html;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -92,18 +127,24 @@ public class WebSiteBasePattern {
 
 	public String DownloadImgPage(String imgUrl, MangaPageItem pageItem,
 			SaveType saveType, String refer) {
+		if (refer == null || refer == "") {
+			refer = this.WEBSITEURL;
+		}
 		String folderName = getMangaFolder() + File.separator
 				+ pageItem.getFolderPath();
 		String fileName = FileHelper.getFileName(imgUrl);
 		try {
-			URL url = new URL(imgUrl);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setDoInput(true);
-			conn.connect();
-			InputStream inputStream = conn.getInputStream();
-			// TODO Save File
 
-			FileHelper.saveFile(folderName, fileName, inputStream);
+			String UserAgent = "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.56 Safari/536.5";
+			DefaultHttpClient client = new DefaultHttpClient();
+			HttpGet httpMethod = new HttpGet(imgUrl);
+			httpMethod.addHeader("Referer",	refer);
+			httpMethod.addHeader("User-Agent", UserAgent);
+			HttpEntity entity = client.execute(httpMethod).getEntity();
+
+			InputStream inputStream = entity.getContent();
+
+			return FileHelper.saveFile(folderName, fileName, inputStream);
 
 		} catch (MalformedURLException e1) {
 			e1.printStackTrace();

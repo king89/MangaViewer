@@ -4,10 +4,13 @@ import java.util.List;
 
 import com.king.mangaviewer.R;
 import com.king.mangaviewer.R.layout;
+import com.king.mangaviewer.common.AsyncImageLoader;
+import com.king.mangaviewer.common.util.MangaHelper.GetImageCallback;
 import com.king.mangaviewer.model.MangaPageItem;
 import com.king.mangaviewer.viewmodel.MangaViewModel;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
@@ -23,14 +26,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-public class MangaPageActivity extends BaseActivity implements OnTouchListener{
+public class MangaPageActivity extends BaseActivity implements OnTouchListener {
 
 	ViewFlipper vFlipper = null;
 	int mCurrPos = 0;
 	LayoutInflater mInflater = null;
 	List<MangaPageItem> pageList = null;
 	GestureDetector gestureDetector = null;
-		
+	private AsyncImageLoader asyncImageLoader = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,6 +52,8 @@ public class MangaPageActivity extends BaseActivity implements OnTouchListener{
 		// TODO Auto-generated method stub
 		mInflater = LayoutInflater.from(this);
 		gestureDetector = new GestureDetector(this, new GestureListener());
+		asyncImageLoader = new AsyncImageLoader();
+
 		setContentView(R.layout.activity_manga_page);
 		vFlipper = (ViewFlipper) this.findViewById(R.id.viewFlipper);
 		vFlipper.setOnTouchListener(this);
@@ -65,7 +71,7 @@ public class MangaPageActivity extends BaseActivity implements OnTouchListener{
 	protected void update(Message msg) {
 		// TODO Auto-generated method stub
 		setView(mCurrPos, 0);
-		
+
 	}
 
 	@Override
@@ -77,7 +83,7 @@ public class MangaPageActivity extends BaseActivity implements OnTouchListener{
 	private void setView(int curr, int next) {
 		View v = (View) mInflater.inflate(R.layout.list_manga_page_item, null);
 		ImageView iv = (ImageView) v.findViewById(R.id.imageView);
-		TextView tv = (TextView)v.findViewById(R.id.textView);
+		TextView tv = (TextView) v.findViewById(R.id.textView);
 		// iv.setScaleType(ImageView.ScaleType.FIT_XY);
 		if (curr < next && next > pageList.size() - 1)
 			next = 0;
@@ -85,9 +91,30 @@ public class MangaPageActivity extends BaseActivity implements OnTouchListener{
 			next = pageList.size() - 1;
 
 		// iv.setImageResource(mImages[next]);
-		String pageNum = next + "/" + pageList.size();
+		String pageNum = (next+1) + "/" + pageList.size();
 		tv.setText(pageNum);
-		
+
+		String imagePath = this.pageList.get(next).getWebImageUrl();
+		Drawable cachedImage = this.getMangaHelper().getPageImage(
+				pageList.get(next), iv, new GetImageCallback() {
+
+					public void imageLoaded(Drawable imageDrawable,
+							ImageView imageView, String imageUrl) {
+						// TODO Auto-generated method stub
+						if (imageDrawable != null && imageView != null) {
+							imageView.setImageDrawable(imageDrawable);
+						}
+
+					}
+				});
+		if (cachedImage != null) {
+			iv.setImageDrawable(cachedImage);
+		} else {
+			Drawable tImage = getResources()
+					.getDrawable(R.drawable.ic_launcher);
+			iv.setImageDrawable(tImage);
+		}
+
 		if (vFlipper.getChildCount() > 1) {
 			vFlipper.removeViewAt(0);
 		}
@@ -112,17 +139,26 @@ public class MangaPageActivity extends BaseActivity implements OnTouchListener{
 
 	private void getPageList() {
 		MangaViewModel mangaViewModel = this.getAppViewModel().Manga;
-		pageList = this.getMangaHelper().GetPageList(mangaViewModel.selectedMangaChapterItem);
+		pageList = this.getMangaHelper().GetPageList(
+				mangaViewModel.selectedMangaChapterItem);
 		mangaViewModel.setMangaPageList(pageList);
 		handler.sendEmptyMessage(0);
 	}
 
+	private void ToggleActionBar() {
+		if (this.getActionBar().isShowing()) {
+			this.getActionBar().hide();
+		}
+		else {
+			this.getActionBar().show();
+		}
+	}
 	@Override
 	public boolean onTouch(View arg0, MotionEvent event) {
 		// TODO Auto-generated method stub
 		return gestureDetector.onTouchEvent(event);
 	}
-	
+
 	class GestureListener extends SimpleOnGestureListener {
 
 		@Override
@@ -146,12 +182,12 @@ public class MangaPageActivity extends BaseActivity implements OnTouchListener{
 			Log.i("TEST", "onFling:velocityX = " + velocityX + " velocityY"
 					+ velocityY);
 			int x = (int) (e2.getX() - e1.getX());
-	        if (x > 0) {
-	            movePrevious();
-	        } else {
-	            moveNext();
-	        }
-	        return false;
+			if (x > 0) {
+				movePrevious();
+			} else {
+				moveNext();
+			}
+			return false;
 		}
 
 		@Override
@@ -173,6 +209,7 @@ public class MangaPageActivity extends BaseActivity implements OnTouchListener{
 		@Override
 		public boolean onSingleTapUp(MotionEvent e) {
 			// TODO Auto-generated method stub
+			ToggleActionBar();
 			Log.i("TEST", "onSingleTapUp");
 			return super.onSingleTapUp(e);
 		}

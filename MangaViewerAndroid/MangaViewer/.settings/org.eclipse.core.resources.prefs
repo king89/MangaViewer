@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
 encoding//src/com/king/mangaviewer/adapter/MangaMenuItemAdapter.java=UTF-8
 encoding//src/com/king/mangaviewer/common/AsyncImageLoader.java=UTF-8
+encoding//src/com/king/mangaviewer/common/MangaPattern/WebIManhua.java=UTF-8
+encoding//src/com/king/mangaviewer/common/util/MangaHelper.java=UTF-8

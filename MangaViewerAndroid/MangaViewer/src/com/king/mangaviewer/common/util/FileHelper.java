@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
 
 import com.king.mangaviewer.common.Constants;
 
@@ -18,13 +20,43 @@ public class FileHelper {
 			InputStream data) {
 
 		try {
-			byte[] tmp = new byte[data.read()];
-			data.read(tmp);
-			return saveFile(fileName, fileName, tmp);
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			File dir = new File(folderPath);
+			if (!dir.exists()) {
+				dir.mkdirs();
+			}
+			File file = new File(dir.getAbsolutePath() + File.separator
+					+ fileName);
+			file.createNewFile();
+			if (file.exists() && file.canWrite()) {
+				FileOutputStream fos = null;
+				try {
+					fos = new FileOutputStream(file);
+					byte[] buffer = new byte[1024];
+					int len = 0;
+					while ((len = data.read(buffer)) != -1) {
+						fos.write(buffer, 0, len);
+					}
+					
+				} catch (Exception e) {
+					Log.e(Constants.LOGTAG, "ERROR", e);
+				} finally {
+					if (fos != null) {
+						try {
+							fos.flush();
+							fos.close();
+						} catch (IOException e) {
+							// swallow
+						}
+					}
+				}
+			}
+			return file.getAbsolutePath();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			Log.e(Constants.LOGTAG, "error saveFile", e);
+
 		}
 		return null;
 	}
@@ -58,6 +90,7 @@ public class FileHelper {
 					}
 				}
 			}
+			return file.getAbsolutePath();
 
 		} catch (Exception e) {
 			// TODO: handle exception

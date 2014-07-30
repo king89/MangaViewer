@@ -16,11 +16,15 @@ public class MangaChapterItem extends BaseItem {
 		return menu;
 	}
 
+	
+
 	public MangaChapterItem(String id, String title, String description,
-			String imagePath, String url) {
+			String imagePath, String url, MangaMenuItem menu) {
 		super(id, title, description, imagePath, url);
-		// TODO Auto-generated constructor stub
+		this.menu = menu;
 	}
+
+
 
 	public void setMenu(MangaMenuItem menu) {
 		this.menu = menu;

@@ -1,10 +1,18 @@
 package com.king.mangaviewer.common.util;
 
+import java.lang.ref.SoftReference;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Message;
+import android.widget.ImageView;
 
+import com.king.mangaviewer.common.AsyncImageLoader.ImageCallback;
+import com.king.mangaviewer.common.Constants.SaveType;
 import com.king.mangaviewer.common.MangaPattern.PatternFactory;
 import com.king.mangaviewer.common.MangaPattern.WebSiteBasePattern;
 import com.king.mangaviewer.model.MangaChapterItem;
@@ -72,7 +80,7 @@ public class MangaHelper {
 		for (int i = 0; i < tauList.size(); i++) {
 			list.add(new MangaChapterItem("Chapter-" + i, tauList.get(i)
 					.getTitle(), null, tauList.get(i).getImagePath(),
-					tauList.get(i).getUrl()));
+					tauList.get(i).getUrl(), menu));
 		}
 
 		return list;
@@ -93,5 +101,38 @@ public class MangaHelper {
 		}
 
 		return menuList;
+	}
+
+	public Drawable getPageImage(final MangaPageItem page,final ImageView imageView,final GetImageCallback imageCallback) {
+		final String imageUrl = page.getImagePath();
+		if (imageUrl != null && imageUrl != "") {
+            //从磁盘中获取
+			Drawable drawable = Drawable.createFromPath(imageUrl);
+			return drawable;
+
+        }
+        final Handler handler = new Handler() {
+            public void handleMessage(Message message) {
+                imageCallback.imageLoaded((Drawable) message.obj, imageView,imageUrl);
+            }
+        };
+        //建立新一个新的线程下载图片
+        new Thread() {
+            @Override
+            public void run() {
+            	WebSiteBasePattern mPattern = PatternFactory.getPattern(context,
+        				settingHelper.getWebType());
+            	String tmpPath = mPattern.DownloadImgPage(page.getWebImageUrl(), page, SaveType.Temp, page.getUrl());
+            	page.setImagePath(tmpPath);
+            	Drawable drawable = Drawable.createFromPath(tmpPath);
+            	Message message = handler.obtainMessage(0, drawable);
+                handler.sendMessage(message);
+            }
+        }.start();
+        return null;
+	}
+	
+	public interface GetImageCallback{
+		public void imageLoaded(Drawable imageDrawable,ImageView imageView, String imageUrl);
 	}
 }

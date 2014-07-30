@@ -54,36 +54,25 @@ public class MainActivity extends BaseActivity {
 	protected void initControl() {
 		// TODO Auto-generated method stub
 		setContentView(R.layout.activity_main);
-		bt = (Button) this.findViewById(R.id.button1);
-		bt.setOnClickListener(new OnClickListener() {
 
+		progressDialog = ProgressDialog.show(MainActivity.this, "Loading",
+				"Loading");
+
+		new Thread() {
 			@Override
-			public void onClick(View arg0) {
+			public void run() {
 				// TODO Auto-generated method stub
-				progressDialog = ProgressDialog.show(MainActivity.this,
-						"Loading", "Loading");
 
-				new Thread() {
+				List<MangaMenuItem> mList = MainActivity.this.getMangaHelper()
+						.GetNewMangeList();
+				MainActivity.this.getAppViewModel().Manga
+						.setNewMangaMenuList(mList);
 
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-
-						List<MangaMenuItem> mList = MainActivity.this
-								.getMangaHelper().GetNewMangeList();
-						MainActivity.this.getAppViewModel().Manga
-								.setNewMangaMenuList(mList);
-
-						handler.sendEmptyMessage(0);
-						// tv.setText(html);
-					}
-				}.start();
+				handler.sendEmptyMessage(0);
 			}
-		});
-
-		tv = (TextView) this.findViewById(R.id.textView1);
+		}.start();
 
 		gv = (GridView) this.findViewById(R.id.gridView);
-		
+
 	}
 }
