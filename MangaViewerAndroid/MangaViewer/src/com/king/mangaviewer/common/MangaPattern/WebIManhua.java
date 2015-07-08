@@ -186,6 +186,7 @@ public class WebIManhua extends WebSiteBasePattern {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return pageList;
 	}

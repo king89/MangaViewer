@@ -35,7 +35,7 @@ public class MangaPageItem extends BaseItem {
 	}
 
 	public String getFolderPath() {
-		return  this.getChapter().getMenu().getTitle() + File.separator + this.getChapter().getTitle();
+		return  this.getChapter().getMenu().getTitle().getBytes().toString() + File.separator + this.getChapter().getTitle().getBytes().toString();
 	}
 
 

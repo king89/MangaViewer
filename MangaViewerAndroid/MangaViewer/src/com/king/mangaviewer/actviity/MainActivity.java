@@ -41,7 +41,10 @@ public class MainActivity extends BaseActivity {
 	@Override
 	public void update(Message msg) {
 		// TODO Auto-generated method stub
-		progressDialog.dismiss();
+		if(progressDialog.isShowing())
+		{
+			progressDialog.dismiss();
+		}
 		MangaMenuItemAdapter adapter = new MangaMenuItemAdapter(this,
 				this.getAppViewModel().Manga,
 				this.getAppViewModel().Manga.getNewMangaMenuList());

@@ -8,8 +8,8 @@ import java.nio.charset.Charset;
 
 public class StringUtils {
 
-    public static String inputStreamToString(final InputStream stream) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+    public static String inputStreamToString2(final InputStream stream,String charset) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(stream,charset));
         StringBuilder sb = new StringBuilder();
         String line = null;
         while ((line = br.readLine()) != null) {

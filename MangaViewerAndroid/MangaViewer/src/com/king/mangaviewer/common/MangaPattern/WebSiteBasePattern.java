@@ -100,7 +100,7 @@ public class WebSiteBasePattern {
 			conn.setDoInput(true);
 			conn.connect();
 			InputStream inputStream = conn.getInputStream();
-			String html = StringUtils.inputStreamToString(inputStream,
+			String html = StringUtils.inputStreamToString2(inputStream,
 					this.CHARSET);
 			return html;
 		} catch (Exception e) {

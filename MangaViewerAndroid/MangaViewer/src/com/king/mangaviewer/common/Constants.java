@@ -1,5 +1,6 @@
 package com.king.mangaviewer.common;
 
+import com.king.mangaviewer.common.MangaPattern.WebHHComic;
 import com.king.mangaviewer.common.MangaPattern.WebIManhua;
 
 public class Constants {
@@ -13,8 +14,8 @@ public class Constants {
 	public enum WebSiteEnum
     {
 
-        IManhua(WebIManhua.class.getName(),0);
-//        HHComic(),
+        IManhua(WebIManhua.class.getName(),0),
+        HHComic(WebHHComic.class.getName(),1);
 //        Local();
         
         private String clsName;

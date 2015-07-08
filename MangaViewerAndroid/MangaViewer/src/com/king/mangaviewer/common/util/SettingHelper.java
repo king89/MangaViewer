@@ -6,7 +6,7 @@ public class SettingHelper {
 
 	WebSiteEnum webType;
 	public WebSiteEnum getWebType() {
-		return WebSiteEnum.IManhua;
+		return WebSiteEnum.HHComic;
 	}
 	public void setWebType(WebSiteEnum webType) {
 		this.webType = webType;
