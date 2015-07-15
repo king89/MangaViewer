@@ -2,6 +2,7 @@ package com.king.mangaviewer.common;
 
 import com.king.mangaviewer.common.MangaPattern.WebHHComic;
 import com.king.mangaviewer.common.MangaPattern.WebIManhua;
+import com.king.mangaviewer.common.MangaPattern.WebTestManga;
 
 public class Constants {
 	public static enum MSGType
@@ -15,9 +16,10 @@ public class Constants {
     {
 
         IManhua(WebIManhua.class.getName(),0),
-        HHComic(WebHHComic.class.getName(),1);
-//        Local();
-        
+        HHComic(WebHHComic.class.getName(),1),
+        TestManga(WebTestManga.class.getName(),2);
+		//        Local();
+
         private String clsName;
         private int index;
         private WebSiteEnum(String cls, int index)

@@ -22,6 +22,8 @@ import com.king.mangaviewer.viewmodel.MangaViewModel;
 
 public class MangaChapterActivity extends BaseActivity {
 
+	protected ProgressDialog progressDialog;
+
 	ListView listView = null;
 	ImageView imageView = null;
 	TextView textView = null;

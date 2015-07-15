@@ -21,7 +21,7 @@ import android.view.MenuItem;
 
 public class BaseActivity extends Activity {
 	
-	protected ProgressDialog progressDialog;
+
 	
 	public Handler handler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
@@ -60,7 +60,7 @@ public class BaseActivity extends Activity {
 		int itemId = item.getItemId();
 		if (itemId == android.R.id.home) {
 			finish();
-			overridePendingTransition(R.anim.in_from_right, R.anim.out_from_left);
+			overridePendingTransition(R.anim.in_leftright, R.anim.out_leftright);
 		}
 		return super.onOptionsItemSelected(item);
 	}
