@@ -6,12 +6,14 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.king.mangaviewer.R;
+import com.king.mangaviewer.common.util.MangaImageSwitcher;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -24,20 +26,21 @@ import java.util.zip.ZipFile;
 public class LocalReadActivity extends BaseActivity {
 
     private String filePath;
-    ImageView im;
-    ListView lv;
+    private MangaImageSwitcher mis;
     ArrayList<String> fl = new ArrayList<String>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actitvity_local_read);
-        im = (ImageView)this.findViewById(R.id.imageView);
-        lv = (ListView)this.findViewById(R.id.listView);
 
+        mis = (MangaImageSwitcher)this.findViewById(R.id.mangaImageSwitcher);
         filePath = getAppViewModel().LoacalManga.getSelectedFilePath();
-
-        LoadManga();
+        mis.Initial(filePath);
+        mis.setInAnimation(AnimationUtils.loadAnimation(this,
+                android.R.anim.fade_in));
+        mis.setOutAnimation(AnimationUtils.loadAnimation(this,
+                android.R.anim.fade_out));
     }
 
     @Override
@@ -45,41 +48,4 @@ public class LocalReadActivity extends BaseActivity {
         return true;
     }
 
-    private void LoadManga() {
-        try {
-            ZipEntry ze = null;
-            ZipFile zp = new ZipFile(filePath);
-            Enumeration<? extends ZipEntry> it = zp.entries();
-            while (it.hasMoreElements()) {
-                ze = it.nextElement();
-                fl.add(ze.getName());
-                Log.v("loadManga", "" + ze.getSize());
-            }
-
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        lv.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,fl));
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                try {
-
-                    ZipFile zf = new ZipFile(filePath);
-                    ZipEntry ze = zf.getEntry(fl.get(position));
-
-                    Bitmap mBackground = BitmapFactory.decodeStream(zf.getInputStream(ze));
-                    im.setImageBitmap(mBackground);
-
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 }
