@@ -102,7 +102,22 @@ public class MangaHelper {
 
 		return menuList;
 	}
+	/* Search */
+	public List<MangaMenuItem> GetSearchMangeList(String query, int pageNum) {
+		WebSiteBasePattern mPattern = PatternFactory.getPattern(context,
+				settingHelper.getWebType());
+		String html = getMenuHtml();
+		List<TitleAndUrl> pageUrlList = mPattern.GetSearchingList(query, pageNum);
 
+		List<MangaMenuItem> menuList = new ArrayList<MangaMenuItem>();
+		for (int i = 0; i < pageUrlList.size(); i++) {
+			menuList.add(new MangaMenuItem("Menu-" + i, pageUrlList.get(i)
+					.getTitle(), null, pageUrlList.get(i).getImagePath(),
+					pageUrlList.get(i).getUrl()));
+		}
+
+		return menuList;
+	}
 	public Drawable getPageImage(final MangaPageItem page,final ImageView imageView,final GetImageCallback imageCallback) {
 		final String imageUrl = page.getImagePath();
 		if (imageUrl != null && imageUrl != "") {

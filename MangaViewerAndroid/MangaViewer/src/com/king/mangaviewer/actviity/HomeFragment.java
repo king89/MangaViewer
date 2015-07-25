@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment {
 				List<MangaMenuItem> mList = copy.getMangaHelper()
 						.GetNewMangeList();
                 copy.getAppViewModel().Manga
-						.setNewMangaMenuList(mList);
+						.setMangaMenuList(mList);
 
 				handler.sendEmptyMessage(0);
 			}
@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
             MainActivity copy = (MainActivity)getActivity();
             MangaMenuItemAdapter adapter = new MangaMenuItemAdapter(copy,
                     copy.getAppViewModel().Manga,
-                    copy.getAppViewModel().Manga.getNewMangaMenuList());
+                    copy.getAppViewModel().Manga.getMangaMenuList());
             gv.setAdapter(adapter);
         };
 

@@ -8,14 +8,14 @@ import com.king.mangaviewer.model.MangaPageItem;
 
 public class MangaViewModel extends ViewModelBase {
 
-	List<MangaMenuItem> newMangaMenuList = null;
+	List<MangaMenuItem> mangaMenuList = null;
 
-	public List<MangaMenuItem> getNewMangaMenuList() {
-		return newMangaMenuList;
+	public List<MangaMenuItem> getMangaMenuList() {
+		return mangaMenuList;
 	}
 
-	public void setNewMangaMenuList(List<MangaMenuItem> newMangaMenuList) {
-		this.newMangaMenuList = newMangaMenuList;
+	public void setMangaMenuList(List<MangaMenuItem> mangaMenuList) {
+		this.mangaMenuList = mangaMenuList;
 	}
 
 	public MangaMenuItem selectedMangaMenuItem = null;

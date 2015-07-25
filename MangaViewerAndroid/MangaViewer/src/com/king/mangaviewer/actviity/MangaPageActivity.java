@@ -34,6 +34,7 @@ public class MangaPageActivity extends BaseActivity implements OnTouchListener {
 	List<MangaPageItem> pageList = null;
 	GestureDetector gestureDetector = null;
 	private AsyncImageLoader asyncImageLoader = null;
+	private boolean isFullScreen;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,8 @@ public class MangaPageActivity extends BaseActivity implements OnTouchListener {
 		setContentView(R.layout.activity_manga_page);
 		vFlipper = (ViewFlipper) this.findViewById(R.id.viewFlipper);
 		vFlipper.setOnTouchListener(this);
+		fullScreen();
+
 		new Thread() {
 
 			@Override
@@ -207,13 +210,30 @@ public class MangaPageActivity extends BaseActivity implements OnTouchListener {
 		}
 
 		@Override
-		public boolean onSingleTapUp(MotionEvent e) {
-			// TODO Auto-generated method stub
-			ToggleActionBar();
-			Log.i("TEST", "onSingleTapUp");
-			return super.onSingleTapUp(e);
+		public boolean onSingleTapConfirmed(MotionEvent e) {
+			fullScreen();
+			return super.onSingleTapConfirmed(e);
+		}
+	}
+	private void fullScreen() {
+		View mDecorView = getWindow().getDecorView();
+		isFullScreen = !isFullScreen;
+		if (isFullScreen) {
+			mDecorView.setSystemUiVisibility(
+					View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+							| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+							| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+							| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+							| View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+							| View.SYSTEM_UI_FLAG_IMMERSIVE);
+		}
+		else
+		{
+			mDecorView.setSystemUiVisibility(
+					View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+							| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+							| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 		}
 
 	}
-
 }

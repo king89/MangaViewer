@@ -16,10 +16,11 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
 
-public class BaseActivity extends Activity {
+public class BaseActivity extends ActionBarActivity {
 	
 
 	

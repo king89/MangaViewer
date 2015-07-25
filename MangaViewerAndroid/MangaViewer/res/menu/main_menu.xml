@@ -1,7 +1,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".actviity.MainActivity">
-    <item android:id="@+id/menu_setting"
-        android:title="@string/refresh"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".actviity.MainActivity">
+
+    <item
+        android:id="@+id/menu_setting"
         android:icon="@drawable/ic_launcher"
-        android:orderInCategory="100" android:showAsAction="always" />
+        android:showAsAction="ifRoom"
+        android:title="@string/setting"/>
+
+    <item
+        android:id="@+id/menu_refresh"
+        android:icon="@drawable/ic_launcher"
+        android:showAsAction="always"
+        android:title="@string/refresh"/>
+    <item
+        android:id="@+id/menu_search"
+        android:title="Search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always"/>
+
 </menu>
