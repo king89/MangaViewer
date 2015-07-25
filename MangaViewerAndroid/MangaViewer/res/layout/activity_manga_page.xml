@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
 
         android:orientation="vertical"
-        android:background="@drawable/abc_ab_bottom_solid_dark_holo">
+        android:background="">
 
         <ViewFlipper
             android:id="@+id/viewFlipper"
